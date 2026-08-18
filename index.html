@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAGEE CAMPUS - Master Principles of Marketing & Case Study Chagee</title>
+    <style>
+        :root {
+            --primary-color: #8C1D24; /* Đỏ sơn mài Đông Phương Chagee */
+            --primary-dark: #631217;
+            --primary-light: #F9F1F0;
+            --accent-gold: #C5A059; /* Vàng kim hoàng gia */
+            --accent-gold-light: #FAF5EB;
+            --sidebar-bg: #1A1A2E;
+            --sidebar-hover: #8C1D24;
+            --dark-text: #2C2C2C;
+            --light-text: #666666;
+            --bg-page: #FBFBFA;
+            --card-bg: #FFFFFF;
+            --border-color: #E8E2D9;
+            --c-blue: #1D3557;
+            --c-teal: #2D6A4F;
+            --c-orange: #E76F51;
+            --c-green: #2A9D8F;
+            --c-red: #E63946;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--dark-text);
+            background-color: var(--bg-page);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* SIDEBAR NAVIGATION */
+        #sidebar {
+            width: 320px;
+            background-color: var(--sidebar-bg);
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+            border-right: 2px solid var(--accent-gold);
+            z-index: 100;
+        }
+
+        #sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        #sidebar::-webkit-scrollbar-thumb {
+            background: #33334d;
+            border-radius: 3px;
+        }
+
+        .sidebar-header {
+            padding: 24px 18px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            border-bottom: 2px solid var(--accent-gold);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.35em;
+            color: #FFFFFF;
+            font-family: Georgia, serif;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8em;
+            color: var(--accent-gold-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .module-group {
+            padding: 14px 16px 4px 16px;
+            font-size: 0.75em;
+            color: #9E9EB8;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            padding: 12px 18px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9em;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #D1D1E0;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(140, 29, 36, 0.6);
+            color: #FFFFFF;
+            padding-left: 22px;
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: #FFFFFF;
+            font-weight: 700;
+            border-left: 5px solid var(--accent-gold);
+            padding-left: 20px;
+        }
+
+        /* MAIN CONTENT AREA */
+        #main-container {
+            flex: 1;
+            overflow-y: auto;
+            background-color: var(--bg-page);
+            scroll-behavior: smooth;
+        }
+
+        .page-view {
+            display: none;
+            padding: 0 0 60px 0;
+            animation: fadeIn 0.35s ease-in-out;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        .content-container {
+            max-width: 1120px;
+            margin: 30px auto;
+            padding: 0 30px;
+        }
+
+        /* BANNER */
+        .chapter-banner {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 65%, #A6323A 100%);
+            color: white;
+            padding: 45px 35px 35px 35px;
+            border-bottom: 4px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .chapter-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: #2A1B05;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .chapter-title {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.35;
+            margin-bottom: 10px;
+            font-family: Georgia, serif;
+        }
+
+        .chapter-subtitle {
+            font-size: 15.5px;
+            opacity: 0.92;
+            max-width: 900px;
+            font-weight: 300;
+        }
+
+        /* CARDS & BLOCKS */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.02);
+        }
+
+        .section-tag {
+            color: var(--accent-gold);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 6px;
+        }
+
+        h2 {
+            font-size: 23px;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
+            font-family: Georgia, serif;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 18.5px;
+            color: var(--primary-color);
+            margin: 24px 0 12px 0;
+            font-weight: 700;
+        }
+
+        h4 {
+            font-size: 15.5px;
+            color: #2C2C2C;
+            margin: 14px 0 6px 0;
+            font-weight: 700;
+        }
+
+        p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-gold {
+            background-color: var(--accent-gold-light);
+            border-left: 4px solid var(--accent-gold);
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .chagee-box {
+            background-color: var(--primary-light);
+            border-left: 6px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 25px 0;
+        }
+        .chagee-box h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .interactive-box {
+            background-color: #EEF2F3;
+            border-left: 6px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 25px 0;
+        }
+        .interactive-box h3 {
+            color: #8C5B00;
+            margin-top: 0;
+        }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-dark);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #FAF8F5;
+        }
+
+        /* DIAGRAMS & CHARTS */
+        .diagram-container {
+            background: #FCFAF7;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 22px;
+            margin: 22px 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 12px;
+            text-align: left;
+        }
+
+        .matrix-cell {
+            background: white;
+            border-radius: 8px;
+            padding: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .matrix-cell.star { border-top: 4px solid var(--c-red); }
+        .matrix-cell.question { border-top: 4px solid var(--c-orange); }
+        .matrix-cell.cashcow { border-top: 4px solid var(--c-green); }
+        .matrix-cell.dog { border-top: 4px solid #6C757D; }
+
+        .matrix-cell.c-butterflies { border-top: 4px solid var(--c-blue); }
+        .matrix-cell.c-truefriends { border-top: 4px solid var(--c-green); }
+        .matrix-cell.c-strangers { border-top: 4px solid #6C757D; }
+        .matrix-cell.c-barnacles { border-top: 4px solid var(--c-orange); }
+
+        .cell-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .cell-title {
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--primary-dark);
+        }
+
+        .cell-badge {
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+            background: #EAEAEA;
+        }
+
+        .flow-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .step-box {
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.88em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            text-align: center;
+            min-width: 140px;
+            color: white;
+        }
+
+        .step-box.bg-blue { background-color: var(--c-blue); }
+        .step-box.bg-red { background-color: var(--c-red); }
+        .step-box.bg-green { background-color: var(--c-green); }
+        .step-box.bg-orange { background-color: var(--c-orange); }
+        .step-box.bg-light { background-color: #FFFFFF; color: #333; border: 1px solid var(--border-color); }
+
+        .arrow {
+            font-size: 1.4em;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .workflow-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 18px;
+            gap: 16px;
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 800;
+            font-size: 14px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-content h5 {
+            font-size: 15px;
+            color: var(--primary-dark);
+            margin-bottom: 3px;
+        }
+
+        .step-content p {
+            font-size: 13.5px;
+            margin-bottom: 0;
+            color: #555;
+        }
+
+        .takeaway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 18px 0;
+        }
+
+        .takeaway-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .takeaway-card h4 {
+            color: var(--primary-dark);
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+
+        .takeaway-card p {
+            font-size: 13px;
+            margin-bottom: 0;
+            color: #555;
+        }
+
+        .formula-box {
+            background: #1E293B;
+            color: #F8FAFC;
+            padding: 14px 18px;
+            border-radius: 6px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        /* Concentric Circles Environment */
+        .env-container {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            aspect-ratio: 1/1;
+            margin: 0 auto;
+            font-family: sans-serif;
+        }
+
+        .env-macro {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #F6F392;
+            border-radius: 50%;
+            border: 2px solid #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .env-micro {
+            position: absolute;
+            width: 64%;
+            height: 64%;
+            background-color: #DF4CA2;
+            border-radius: 50%;
+            border: 2px solid #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .env-core {
+            position: absolute;
+            width: 28%;
+            height: 28%;
+            background-color: #1F64ED;
+            color: white;
+            border-radius: 50%;
+            border: 2px dashed #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
+        }
+
+        .env-label {
+            position: absolute;
+            font-weight: bold;
+            color: #111;
+            font-size: 0.85em;
+            text-align: center;
+        }
+
+        .l-demo { top: 6%; left: 50%; transform: translateX(-50%); }
+        .l-econ { top: 38%; right: 4%; }
+        .l-nat { bottom: 25%; right: 8%; }
+        .l-tech { bottom: 6%; left: 50%; transform: translateX(-50%); }
+        .l-pol { bottom: 25%; left: 7%; }
+        .l-cult { top: 38%; left: 3%; }
+
+        .m-comp { top: 10%; left: 50%; transform: translateX(-50%); }
+        .m-supp { top: 40%; right: 3%; }
+        .m-cust { bottom: 24%; right: 7%; }
+        .m-inter { bottom: 10%; left: 50%; transform: translateX(-50%); }
+        .m-comp2 { bottom: 24%; left: 3%; }
+        .m-pub { top: 40%; left: 5%; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>🍵 CHAGEE CAMPUS</h2>
+            <p>MBA Marketing Curriculum</p>
+        </div>
+
+        <div class="nav-item active" onclick="switchTab('dashboard')">🏠 Tổng Quan Khóa Học</div>
+
+        <div class="module-group">MODULE 1: KIẾN TẠO GIÁ TRỊ</div>
+        <div class="nav-item" onclick="switchTab('ch1')">Chương 1: Marketing & Giá Trị (Deep Dive)</div>
+        <div class="nav-item" onclick="switchTab('ch2')">Chương 2: Chiến Lược Công Ty (Deep Dive)</div>
+
+        <div class="module-group">MODULE 2: THẤU HIỂU THỊ TRƯỜNG</div>
+        <div class="nav-item" onclick="switchTab('ch3')">Chương 3: Môi Trường Marketing</div>
+        <div class="nav-item" onclick="switchTab('ch4')">Chương 4: Quản Trị Thông Tin (MIS)</div>
+        <div class="nav-item" onclick="switchTab('ch5')">Chương 5: Hành Vi Người Tiêu Dùng</div>
+        <div class="nav-item" onclick="switchTab('ch6')">Chương 6: Thị Trường Doanh Nghiệp (B2B)</div>
+
+        <div class="module-group">MODULE 3: TRIỂN KHAI 4Ps HƯỚNG GIÁ TRỊ</div>
+        <div class="nav-item" onclick="switchTab('ch7')">Chương 7: Chiến Lược Cốt Lõi (STP)</div>
+        <div class="nav-item" onclick="switchTab('ch8')">Chương 8: Sản Phẩm & Thương Hiệu</div>
+        <div class="nav-item" onclick="switchTab('ch9')">Chương 9: Phát Triển SP Mới & PLC</div>
+        <div class="nav-item" onclick="switchTab('ch10')">Chương 10: Định Giá (Pricing 1)</div>
+        <div class="nav-item" onclick="switchTab('ch11')">Chương 11: Chiến Lược Giá (Pricing 2)</div>
+        <div class="nav-item" onclick="switchTab('ch12')">Chương 12: Kênh Marketing & Phân Phối</div>
+        <div class="nav-item" onclick="switchTab('ch13')">Chương 13: Bán Lẻ & Bán Sỉ</div>
+        <div class="nav-item" onclick="switchTab('ch14')">Chương 14: Truyền Thông Tích Hợp (IMC)</div>
+        <div class="nav-item" onclick="switchTab('ch15')">Chương 15: Quảng Cáo & PR</div>
+        <div class="nav-item" onclick="switchTab('ch16')">Chương 16: Bán Hàng & Khuyến Mãi</div>
+        <div class="nav-item" onclick="switchTab('ch17')">Chương 17: Digital, Social & Mobile</div>
+
+        <div class="module-group">MODULE 4: VƯƠN TẦM CHIẾN LƯỢC</div>
+        <div class="nav-item" onclick="switchTab('ch18')">Chương 18: Lợi Thế Cạnh Tranh</div>
+        <div class="nav-item" onclick="switchTab('ch19')">Chương 19: Thị Trường Toàn Cầu</div>
+        <div class="nav-item" onclick="switchTab('ch20')">Chương 20: Marketing Bền Vững</div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-container">
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="page-view active">
+            <div class="chapter-banner">
+                <div class="chapter-badge">CHAGEE CAMPUS MASTER HUB</div>
+                <h1 class="chapter-title">HỆ THỐNG HÓA 20 CHƯƠNG PRINCIPLES OF MARKETING</h1>
+                <p class="chapter-subtitle">Giáo trình Kotler & Armstrong (17th Edition) tích hợp Case Study thực chiến độc quyền Chuỗi Trà Hiện Đại Đông Phương CHAGEE (Bá Vương Trà Cơ).</p>
+            </div>
+            <div class="content-container">
+                <div class="section-card">
+                    <div class="section-tag">KIẾN TRÚC KHÓA HỌC</div>
+                    <h2>Chào mừng đến với Cổng Học Tập MBA Marketing Thực Chiến</h2>
+                    <p>Hệ thống học tập được thiết kế nhằm chuẩn hóa toàn bộ nền tảng lý thuyết tiếp thị kinh điển thông qua góc nhìn tác nghiệp và chiến lược của tập đoàn đồ uống tăng trưởng thần tốc bậc nhất châu Á — <strong>CHAGEE</strong>.</p>
+
+                    <div class="takeaway-grid">
+                        <div class="takeaway-card" onclick="switchTab('ch1')" style="cursor:pointer;">
+                            <h4>🟢 Module 1: Kiến Tạo Giá Trị (Ch. 1 - 2)</h4>
+                            <p>Định nghĩa lại marketing, quy trình 5 bước, sứ mệnh hướng thị trường, ma trận BCG, Ansoff và quản trị ROI tiếp thị.</p>
+                        </div>
+                        <div class="takeaway-card" onclick="switchTab('ch3')" style="cursor:pointer;">
+                            <h4>🔵 Module 2: Thấu Hiểu Thị Trường (Ch. 3 - 6)</h4>
+                            <p>Phân tích môi trường vi mô/vĩ mô, hệ thống thông tin MIS, Big Data CRM, hành vi người tiêu dùng B2C và mua sắm B2B.</p>
+                        </div>
+                        <div class="takeaway-card" onclick="switchTab('ch7')" style="cursor:pointer;">
+                            <h4>🟡 Module 3: Triển Khai 4Ps (Ch. 7 - 17)</h4>
+                            <p>Chiến lược định vị STP, phát triển sản phẩm mới, chu kỳ sống PLC, cấu trúc giá, phân phối VMS, Omni-channel và IMC.</p>
+                        </div>
+                        <div class="takeaway-card" onclick="switchTab('ch18')" style="cursor:pointer;">
+                            <h4>🔴 Module 4: Vươn Tầm Chiến Lược (Ch. 18 - 20)</h4>
+                            <p>Tạo dựng lợi thế cạnh tranh của kẻ thách thức (Challenger), chiến lược thâm nhập toàn cầu và tiếp thị bền vững.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==============================================================
+             CHƯƠNG 1: DEEP DIVE (CẬP NHẬT TỪ FILE DEEP DIVE CHƯƠNG 1)
+             ============================================================== -->
+        <div id="ch1" class="page-view">
+            <div class="chapter-banner">
+                <div class="chapter-badge">CHƯƠNG 1 • DEEP DIVE MASTER PROFILE</div>
+                <h1 class="chapter-title">CHƯƠNG 1: MARKETING: TẠO DỰNG GIÁ TRỊ & GẮN KẾT KHÁCH HÀNG</h1>
+                <p class="chapter-subtitle">Cuộc tấn công vào định nghĩa thiển cận về tiếp thị — Chuyển dịch từ bán hàng giao dịch sang quản trị chuỗi giá trị và tài sản khách hàng trọn đời (Customer Equity).</p>
+            </div>
+
+            <div class="content-container">
+                <div class="section-card">
+                    <div class="section-tag">LUẬN ĐIỂM TRUNG TÂM CỦA KOTLER</div>
+                    <h2>1. Bản Chất Thực Sự Của Marketing</h2>
+                    <p>
+                        Kotler khẳng định ngay đầu giáo trình: <em>"Bán hàng và quảng cáo chỉ là phần nổi của tảng băng chìm marketing (the tip of the marketing iceberg)"</em>. Mục tiêu tối thượng của tiếp thị, như Peter Drucker từng đúc kết, là <strong>"Làm cho việc bán hàng trở nên không cần thiết (Make selling unnecessary)"</strong>. Tiếp thị bắt đầu từ trước khi sản phẩm ra đời — nó bắt đầu từ việc thấu cảm nhu cầu sâu kín của con người.
+                    </p>
+
+                    <div class="highlight-box">
+                        <strong>Định nghĩa chính thức (Kotler & Armstrong):</strong><br>
+                        <em>"Marketing là tiến trình mà qua đó doanh nghiệp gắn kết khách hàng, xây dựng mối quan hệ khách hàng bền chặt và kiến tạo giá trị cho khách hàng <strong>ĐỂ ĐỔI LẠI (in order to... in return)</strong> thu về giá trị từ khách hàng."</em><br>
+                        👉 <em>Lợi nhuận và doanh số chỉ là hệ quả tất yếu của giá trị mà doanh nghiệp phụng sự, không bao giờ là điểm xuất phát.</em>
+                    </div>
+
+                    <h3>1.1. Từ Điển Thuật Ngữ Chuẩn & Bằng Chứng Học Thuật</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Thuật Ngữ</th>
+                                <th style="width: 35%;">Định Nghĩa Chuẩn Kotler</th>
+                                <th style="width: 40%;">Lăng Kính Phân Tích Thực Chiến Chagee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Human Needs vs. Wants vs. Demands</strong></td>
+                                <td>
+                                    • <em>Need:</em> Trạng thái cảm thấy thiếu thốn sinh lý, xã hội.<br>
+                                    • <em>Want:</em> Hình thức biểu hiện của nhu cầu bị định hình bởi văn hóa và cá tính.<br>
+                                    • <em>Demand:</em> Mong muốn được bảo chứng bởi sức mua.
+                                </td>
+                                <td>
+                                    • <em>Need:</em> Giải khát, nạp năng lượng buổi chiều.<br>
+                                    • <em>Want:</em> Trà sữa nhưng phải thanh tao, thơm hoa lài, không gây béo, ly cầm sang chảnh.<br>
+                                    • <em>Demand:</em> Sẵn sàng chi 50.000 - 65.000 VNĐ cho ly "Bá Vương Khí Khái".
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sự Cận Thị Marketing (Marketing Myopia)</strong></td>
+                                <td>
+                                    Sai lầm nghiêm trọng khi chú ý quá mức vào <em>sản phẩm vật lý cụ thể</em> mà quên đi <em>lợi ích và trải nghiệm cốt lõi</em> mà khách hàng tìm kiếm (Ẩn dụ kinh điển của Theodore Levitt: "Khách hàng không cần mua mũi khoan 6 ly, họ cần cái lỗ 6 ly").
+                                </td>
+                                <td>
+                                    Chagee không định nghĩa mình "bán ly nước trà sữa pha sẵn" (mũi khoan). Chagee bán <strong>"Khoảnh khắc tao ngộ tinh tế và phong cách sống Đông Phương hiện đại"</strong> (cái lỗ). Do đó, khi thị hiếu đồ uống chuyển dịch, Chagee vẫn trường tồn.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Customer Equity (Tài Sản Khách Hàng)</strong></td>
+                                <td>
+                                    Tổng giá trị trọn đời (CLV) được chiết khấu của toàn bộ khách hàng hiện tại và tiềm năng. <em>"Doanh số và thị phần phản ánh quá khứ, Customer Equity phản ánh tương lai."</em>
+                                </td>
+                                <td>
+                                    Chagee tập trung đo lường <strong>Customer Equity</strong> qua 1,5 triệu thành viên gắn kết trên App thay vì chỉ nhìn vào doanh thu ngắn hạn từng tháng. Nhóm khách trung thành uống 3-4 lần/tuần chính là dòng tiền tương lai bền vững.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- DIAGRAM 5 BƯỚC -->
+                <div class="section-card">
+                    <div class="section-tag">TIẾN TRÌNH MASTER</div>
+                    <h2>2. Quy Trình Marketing 5 Bước & Ma Trận Quan Hệ Khách Hàng</h2>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">MÔ HÌNH 5 BƯỚC CỦA TIẾN TRÌNH MARKETING (FIGURE 1.1)</div>
+                        <div class="flow-row">
+                            <div class="step-box bg-blue">1. Hiểu thị trường<br>& Nhu cầu khách hàng<br><small>(Ch. 3, 4, 5, 6)</small></div>
+                            <div class="arrow">➔</div>
+                            <div class="step-box bg-blue">2. Thiết kế chiến lược<br>hướng giá trị khách<br><small>(Ch. 2, 7)</small></div>
+                            <div class="arrow">➔</div>
+                            <div class="step-box bg-blue">3. Xây dựng chương<br>trình 4P tích hợp<br><small>(Ch. 8 - 17)</small></div>
+                            <div class="arrow">➔</div>
+                            <div class="step-box bg-blue">4. Gắn kết khách hàng<br>& Xây dựng CRM<br><small>(Tạo sự hài lòng)</small></div>
+                            <div class="arrow">➔</div>
+                            <div class="step-box bg-red">5. Thu về giá trị:<br>Lợi nhuận & Equity<br><small>(Ch. 18, 19, 20)</small></div>
+                        </div>
+                        <p style="font-size: 13.5px; color: var(--primary-dark); font-weight: 700; margin-top: 15px;">
+                            QUY TẮC NHÂN QUẢ: Bốn bước đầu tạo ra Giá trị cho Khách hàng ➔ Bước 5 thu hồi Giá trị về cho Doanh nghiệp. Nhảy cóc thẳng vào Bước 5 để đòi doanh số chính là biểu hiện của "Tư duy Bán hàng cưỡng ép (Selling Concept)".
+                        </p>
+                    </div>
+
+                    <h3>2.1. Ma Trận Phân Nhóm Mối Quan Hệ Khách Hàng (Customer Relationship Groups)</h3>
+                    <p>Kotler cảnh báo doanh nghiệp không phải khách hàng nào cũng cần đối xử giống nhau. Cần phân bổ nguồn lực dựa trên <strong>Lợi nhuận tiềm năng</strong> và <strong>Thời hạn trung thành dự kiến</strong>:</p>
+
+                    <div class="diagram-container">
+                        <div class="diagram-title">MA TRẬN PHÂN NHÓM QUAN HỆ KHÁCH HÀNG TẠI CHAGEE</div>
+                        <div class="matrix-grid">
+                            <div class="matrix-cell c-butterflies">
+                                <div class="cell-header">
+                                    <span class="cell-title">🦋 BUTTERFLIES (Bướm Hoa)</span>
+                                    <span class="cell-badge" style="background:#E3F2FD; color:#1D3557;">Lợi nhuận cao - Ngắn hạn</span>
+                                </div>
+                                <p><strong>Đặc điểm:</strong> Khách thích bắt trend trên TikTok/Instagram, săn lùng các mẫu cốc Blind Box phiên bản giới hạn.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • <em>Chiến lược Chagee:</em> Tận dụng tối đa khi họ còn hứng thú; tung chiến dịch bao bì bắt mắt, khuyến mãi nhanh để thu lợi nhuận ngắn hạn, không đầu tư quá nhiều chi phí giữ chân dài hạn.
+                                </p>
+                            </div>
+
+                            <div class="matrix-cell c-truefriends">
+                                <div class="cell-header">
+                                    <span class="cell-title">💎 TRUE FRIENDS (Bạn Tri Kỷ)</span>
+                                    <span class="cell-badge" style="background:#E8F8F5; color:#2D6A4F;">Lợi nhuận cao - Dài hạn</span>
+                                </div>
+                                <p><strong>Đặc điểm:</strong> Dân văn phòng trung thành uống dòng trà sữa tươi "Boyaboy" 3-5 lần/tuần, tin tưởng vào tiêu chuẩn 0 trans-fat.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • <em>Chiến lược Chagee:</em> Đầu tư liên tục vào CRM, cấp đặc quyền VIP trên App, ưu tiên nhận đồ uống trước và tặng quà sinh nhật độc quyền để biến họ thành "Đại sứ truyền miệng".
+                                </p>
+                            </div>
+
+                            <div class="matrix-cell c-strangers">
+                                <div class="cell-header">
+                                    <span class="cell-title">🚶 STRANGERS (Người Lạ)</span>
+                                    <span class="cell-badge" style="background:#F2F2F2; color:#6C757D;">Lợi nhuận thấp - Ngắn hạn</span>
+                                </div>
+                                <p><strong>Đặc điểm:</strong> Người qua đường vãng lai vào mua một ly nước lọc hoặc đổi tiền lẻ, không quan tâm tới thương hiệu.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • <em>Chiến lược Chagee:</em> Không đầu tư bất kỳ chi phí tiếp thị hay ưu đãi nào; thu tiền trên từng giao dịch đơn lẻ.
+                                </p>
+                            </div>
+
+                            <div class="matrix-cell c-barnacles">
+                                <div class="cell-header">
+                                    <span class="cell-title">🐚 BARNACLES (Hàu Bám Thuyền)</span>
+                                    <span class="cell-badge" style="background:#FFF3E0; color:#E67E22;">Lợi nhuận thấp - Dài hạn</span>
+                                </div>
+                                <p><strong>Đặc điểm:</strong> Khách hàng trung thành ngồi chiếm chỗ tại quán suốt 4 tiếng để dùng wifi và máy lạnh nhưng chỉ mua 1 ly trà size nhỏ khi có mã giảm giá 50%.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • <em>Chiến lược Chagee:</em> Tăng giá bán tối thiểu, áp dụng chính sách ngắt wifi sau 2 giờ hoặc giảm chiết khấu voucher để nâng mức chi tiêu; nếu không cải thiện thì chấp nhận "loại bỏ".
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASE STUDY & BÀI HỌC THỰC CHIẾN -->
+                <div class="section-card">
+                    <div class="section-tag">CASE STUDY & THỰC THI QUẢN TRỊ</div>
+                    <h2>3. Hồ Sơ Đào Sâu Chagee & Thử Thách Quản Trị MBA</h2>
+
+                    <div class="chagee-box">
+                        <h3>🧋 Chagee Case Study: Nghệ Thuật Tạo Giá Trị Vượt Trội</h3>
+                        <ul style="margin-left: 18px;">
+                            <li><strong>Minh bạch hóa để xóa tan rào cản nhận thức:</strong> Trong khi ngành trà sữa truyền thống đối mặt với khủng hoảng niềm tin vì bột béo và đường hóa học, Chagee tiên phong cấp "Thẻ căn cước calo" (Nutritional ID Card) trên từng ly trà. Khách hàng biết chính xác họ nạp bao nhiêu kcal, tạo ra <em>Customer-Perceived Value (Giá trị cảm nhận)</em> vượt xa mức giá 60.000 VNĐ.</li>
+                            <li><strong>Kinh tế học lòng trung thành (Economics of Loyalty):</strong> Nghiên cứu của Kotler chỉ ra <em>"Giữ chân 1 khách hàng cũ rẻ hơn 5 lần so với thu hút 1 khách hàng mới"</em>. Chagee tối ưu hóa chỉ số này bằng hệ thống App đặt trước lấy ngay trong 30 giây, giúp tỷ lệ khách hàng mua lại đạt hơn 42% sau 90 ngày.</li>
+                        </ul>
+                    </div>
+
+                    <div class="interactive-box">
+                        <h3>🎯 Interactive Zone: Bài Tập Chẩn Đoán Dành Cho Giám Đốc Tiếp Thị (CMO)</h3>
+                        <p><strong>Tình huống:</strong> Ban lãnh đạo công ty yêu cầu bạn cắt giảm 30% ngân sách R&D và chuyển toàn bộ vào chạy quảng cáo khuyến mại giảm giá trên mạng xã hội để đẩy doanh số quý này lên 20%.</p>
+                        <p><strong>Thử thách MBA:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Hãy sử dụng luận điểm của Kotler về <em>"Tiến trình 5 bước"</em> và <em>"Selling Concept vs. Marketing Concept"</em> để thuyết phục Hội đồng Quản trị vì sao việc chạy theo doanh số ngắn hạn bằng giảm giá sẽ phá hủy Customer Equity của thương hiệu.</li>
+                            <li>Đề xuất 3 chỉ số đo lường hiệu quả hướng tới tương lai để thay thế chỉ số "Doanh số tức thời".</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==============================================================
+             CHƯƠNG 2: DEEP DIVE (CẬP NHẬT TỪ FILE DEEP DIVE CHƯƠNG 2)
+             ============================================================== -->
+        <div id="ch2" class="page-view">
+            <div class="chapter-banner">
+                <div class="chapter-badge">CHƯƠNG 2 • DEEP DIVE MASTER PROFILE</div>
+                <h1 class="chapter-title">CHƯƠNG 2: CHIẾN LƯỢC DOANH NGHIỆP & CHIẾN LƯỢC MARKETING</h1>
+                <p class="chapter-subtitle">Hợp tác xây dựng mối quan hệ khách hàng, thiết kế danh mục kinh doanh (BCG, Ansoff), kết nối chuỗi giá trị và tối ưu hóa lợi nhuận tiếp thị (Marketing ROI).</p>
+            </div>
+
+            <div class="content-container">
+                <div class="section-card">
+                    <div class="section-tag">HOẠCH ĐỊNH CẤP CÔNG TY</div>
+                    <h2>1. Sứ Mệnh Định Hướng Thị Trường & Hệ Thống Mục Tiêu Của Chagee</h2>
+                    <p>
+                        Kotler khẳng định: Hoạch định chiến lược là tiến trình kiến tạo và duy trì sự tương thích chiến lược giữa mục tiêu, năng lực tổ chức với các cơ hội thị trường biến động không ngừng. Bước khởi đầu mang tính quyết định là xây dựng <strong>Bản tuyên bố sứ mệnh hướng thị trường (Market-oriented Mission Statement)</strong>.
+                    </p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Tiêu Chí So Sánh</th>
+                                <th style="width: 35%;">Định Hướng Sản Phẩm Thuần Túy</th>
+                                <th style="width: 40%;">Định Hướng Thị Trường Của Chagee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bản chất tuyên ngôn</strong></td>
+                                <td>"Chúng tôi sản xuất và bán các loại nước trà sữa pha sẵn."</td>
+                                <td><strong>"Hồi sinh và toàn cầu hóa văn hóa Trà đạo Đông Phương hiện đại, mang đến thức uống thanh sạch và trải nghiệm sống tao nhã cho thế hệ trẻ."</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Giá trị chuyển giao</strong></td>
+                                <td>Độ ngọt và giải khát vật lý tức thì.</td>
+                                <td>Triết lý <em>"Trà ngon tao ngộ bạn hiền" (Good Tea, Good Friends)</em>, minh bạch dinh dưỡng 0 creamer, 0 trans-fat.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tầm nhìn dài hạn</strong></td>
+                                <td>Mở chuỗi ki-ốt bán mang đi quy mô lớn.</td>
+                                <td>Trở thành "Starbucks của Trà Phương Đông", đại diện cho phong cách sống Á Đông đương đại tại hơn 100 quốc gia.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="takeaway-grid">
+                        <div class="takeaway-card">
+                            <h4>Mục Tiêu Doanh Nghiệp (Business Objectives)</h4>
+                            <p>• Đạt tốc độ tăng trưởng GMV toàn cầu > 45%/năm.<br>• Mở rộng mạng lưới vượt mốc 6.000 điểm bán vào năm 2026.<br>• Tự động hóa 90% quy trình pha chế bằng công nghệ Tea Bar IoT.</p>
+                        </div>
+                        <div class="takeaway-card">
+                            <h4>Mục Tiêu Tiếp Thị (Marketing Objectives)</h4>
+                            <p>• Chiếm lĩnh vị thế Top-of-Mind (TOM) phân khúc Modern Oriental Tea.<br>• Đạt tỷ lệ mua lại (Repeat Purchase Rate) > 40% trên ứng dụng di động.<br>• Định vị sản phẩm đạt chuẩn quốc tế về minh bạch dinh dưỡng.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MA TRẬN BCG & ANSOFF -->
+                <div class="section-card">
+                    <div class="section-tag">QUẢN TRỊ DANH MỤC SẢN PHẨM</div>
+                    <h2>2. Phân Tích Danh Mục Kinh Doanh: Ma Trận BCG & Ma Trận Ansoff</h2>
+
+                    <div class="diagram-container">
+                        <div class="diagram-title">MA TRẬN BCG DANH MỤC SẢN PHẨM & SBU CHAGEE</div>
+                        <div class="matrix-grid">
+                            <div class="matrix-cell star">
+                                <div class="cell-header">
+                                    <span class="cell-title">⭐ STARS (Ngôi Sao)</span>
+                                    <span class="cell-badge" style="background:#FDE8E9; color:#E63946;">Tăng trưởng cao - Thị phần cao</span>
+                                </div>
+                                <p><strong>Dòng Trà Sữa Tươi Tinh Tuyển (Fresh Milk Tea)</strong><br>
+                                <em>Đại diện:</em> <strong>Boyaboy (Bá Vương Khí Khái / Jasmine Green Milk Tea)</strong>.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • Chiếm hơn 55% tổng doanh thu toàn cầu.<br>
+                                    • <em>Chiến lược:</em> Đầu tư mạnh để bảo vệ thị phần, đảm bảo chuỗi cung ứng sữa tươi và trà lài hữu cơ độc quyền.
+                                </p>
+                            </div>
+
+                            <div class="matrix-cell question">
+                                <div class="cell-header">
+                                    <span class="cell-title">❓ QUESTION MARKS (Dấu Hỏi)</span>
+                                    <span class="cell-badge" style="background:#FFF3E8; color:#F4A261;">Tăng trưởng cao - Thị phần thấp</span>
+                                </div>
+                                <p><strong>Cà Phê Trà & RTD Đóng Lon / Cửa Hàng Tại Bắc Mỹ</strong><br>
+                                <em>Đại diện:</em> Trà nitro pha lạnh, trà đóng chai bán lẻ tại siêu thị quốc tế.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • Thị trường phương Tây bùng nổ nhu cầu đồ uống healthy nhưng Chagee mới thâm nhập.<br>
+                                    • <em>Chiến lược:</em> Rót vốn theo giai đoạn (Stage-Gate), kiểm tra phản ứng thị trường.
+                                </p>
+                            </div>
+
+                            <div class="matrix-cell cashcow">
+                                <div class="cell-header">
+                                    <span class="cell-title">🐄 CASH COWS (Bò Sữa)</span>
+                                    <span class="cell-badge" style="background:#E8F6F4; color:#2A9D8F;">Tăng trưởng thấp - Thị phần cao</span>
+                                </div>
+                                <p><strong>Trà Trái Cây Nguyên Bản & Trà Phổ Nhĩ Vân Nam</strong><br>
+                                <em>Đại diện:</em> Trà Cam Vân Nam, Trà Đen Ceylon, Trà Ô Long Tuyết.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • Lượng khách trung thành cực kỳ ổn định, chi phí R&D và quảng cáo rất thấp.<br>
+                                    • <em>Chiến lược:</em> "Vắt sữa" dòng tiền để tài trợ cho các dự án Stars và mở rộng quốc tế.
+                                </p>
+                            </div>
+
+                            <div class="matrix-cell dog">
+                                <div class="cell-header">
+                                    <span class="cell-title">🐶 DOGS (Chó Mực)</span>
+                                    <span class="cell-badge" style="background:#F0F0F0; color:#6C757D;">Tăng trưởng thấp - Thị phần thấp</span>
+                                </div>
+                                <p><strong>Bánh Ngọt Tráng Miệng & Trà Sữa Kem Phô Mai Truyền Thống</strong><br>
+                                <em>Đại diện:</em> Các món trà có topping trân châu nặng, kem cheese béo ngậy kiểu cũ.</p>
+                                <p style="font-size:13px; color:#555;">
+                                    • Xu hướng tiêu dùng tẩy chay chất béo chuyển hóa; tồn kho ngắn hạn.<br>
+                                    • <em>Chiến lược:</em> Cắt tỉa (Harvesting) hoặc loại bỏ dần để giữ menu tinh gọn (Lean Menu).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>2.1. Lưới Mở Rộng Sản Phẩm - Thị Trường Ansoff Của Chagee</h3>
+                    <div class="diagram-container">
+                        <div class="diagram-title">CHIẾN LƯỢC TĂNG TRƯỞNG THEO MA TRẬN ANSOFF TẠI CHAGEE</div>
+                        <div class="matrix-grid">
+                            <div class="matrix-cell" style="border-top: 4px solid var(--c-blue);">
+                                <div class="cell-header"><span class="cell-title">1. Thâm Nhập Thị Trường</span></div>
+                                <p><strong>SP Hiện Tại × TT Hiện Tại</strong></p>
+                                <p style="font-size:13px; color:#555;">Mở rộng mật độ cửa hàng tại các thành phố lớn ở Trung Quốc và Malaysia; triển khai chiến dịch cốc xé đáy "Blind Box Cups" để tăng tần suất uống hàng ngày.</p>
+                            </div>
+
+                            <div class="matrix-cell" style="border-top: 4px solid var(--c-teal);">
+                                <div class="cell-header"><span class="cell-title">2. Phát Triển Sản Phẩm</span></div>
+                                <p><strong>SP MỚI × TT Hiện Tại</strong></p>
+                                <p style="font-size:13px; color:#555;">Ra mắt dòng Trà Sữa Không Đường Lên Men Tự Nhiên (Sugar-free Tea-latte) và Trà Lạnh Cold Brew cho tệp khách hàng văn phòng ăn kiêng.</p>
+                            </div>
+
+                            <div class="matrix-cell" style="border-top: 4px solid var(--c-orange);">
+                                <div class="cell-header"><span class="cell-title">3. Phát Triển Thị Trường</span></div>
+                                <p><strong>SP Hiện Tại × TT MỚI</strong></p>
+                                <p style="font-size:13px; color:#555;">Đưa menu trà sữa tươi tinh tuyển sang các quốc gia Đông Nam Á (Việt Nam, Thái Lan, Singapore) và các đô thị lớn tại Mỹ, Pháp.</p>
+                            </div>
+
+                            <div class="matrix-cell" style="border-top: 4px solid var(--primary-color);">
+                                <div class="cell-header"><span class="cell-title">4. Đa Dạng Hóa</span></div>
+                                <p><strong>SP MỚI × TT MỚI</strong></p>
+                                <p style="font-size:13px; color:#555;">Phát triển thương hiệu quà tặng phong cách sống Chagee Tea Lifestyle Boutique (trà cụ nghệ thuật, hộp quà Tết thượng hạng cho khách hàng doanh nghiệp B2B quốc tế).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHUỖI GIÁ TRỊ & MARKETING ROI -->
+                <div class="section-card">
+                    <div class="section-tag">THỰC THI & KIỂM SOÁT</div>
+                    <h2>3. Chuỗi Giá Trị Nội Bộ & Đo Lường Hiệu Quả Tiếp Thị (Marketing ROI)</h2>
+
+                    <div class="workflow-flex">
+                        <div class="step-item">
+                            <div class="step-number">R&D</div>
+                            <div class="step-content">
+                                <h5>Nghiên Cứu & Phát Triển Trà Độc Quyền</h5>
+                                <p>Phối trộn lá trà hữu cơ Vân Nam và sữa tươi nguyên kem ở nhiệt độ 85°C chính xác để giữ trọn vẹn hương vị tự nhiên mà không cần siro đường tổng hợp.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">OPS</div>
+                            <div class="step-content">
+                                <h5>Tự Động Hóa Vận Hành Bằng Máy Pha Tea Bar IoT</h5>
+                                <p>Chiết xuất 1 ly trà chuẩn vị chỉ trong <strong>8 giây</strong> với sai số hương vị dưới 1%, giải phóng thời gian của nhân viên để tập trung chào đón khách hàng.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">LOG</div>
+                            <div class="step-content">
+                                <h5>Chuỗi Cung Ứng Lạnh Khép Kín</h5>
+                                <p>Vận chuyển sữa tươi trong vòng 72 giờ từ nông trường tới cửa hàng, đảm bảo tiêu chuẩn tươi ngon vượt bậc so với đối thủ dùng sữa bột.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>3.1. Đo Lường Lợi Nhuận Tiếp Thị (Marketing Return on Investment - M-ROI)</h3>
+                    <div class="formula-box">
+                        Marketing ROI (%) = [ (Doanh Thu Tăng Thêm do Marketing × Biên Lợi Nhuận Gộp) - Tổng Chi Phí Tiếp Thị ] ÷ Tổng Chi Phí Tiếp Thị × 100%
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nhóm Chỉ Số</th>
+                                <th>Chỉ Số Cụ Thể (KPIs)</th>
+                                <th>Áp Dụng Thực Tế Tại Chagee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Chỉ số Tài chính Cốt lõi</strong></td>
+                                <td>• Customer Lifetime Value (CLV)<br>• Customer Acquisition Cost (CAC)<br>• Net Marketing Contribution (NMC)</td>
+                                <td>Duy trì tỷ lệ <strong>CLV / CAC > 3.5</strong>. Chi phí thu hút 1 khách hàng mới trên App được hoàn vốn chỉ sau 3 lần mua hàng đầu tiên.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chỉ số Gắn kết Khách hàng</strong></td>
+                                <td>• Net Promoter Score (NPS)<br>• Monthly Active Users (MAU trên App)<br>• Tỷ lệ kích hoạt quà tặng cốc bí ẩn</td>
+                                <td>Chỉ số NPS luôn duy trì trên 65 điểm nhờ dịch vụ khách hàng chuẩn mực và thiết kế bao bì sang trọng kích hoạt truyền miệng tự nhiên.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="interactive-box">
+                        <h3>🎯 Thử Thách Chiến Lược MBA: Bảo Vệ Thị Phần Trước Đối Thủ Bắt Chước</h3>
+                        <p><strong>Tình huống:</strong> Tại thị trường Đông Nam Á, xuất hiện hàng loạt chuỗi trà sữa địa phương sao chép thiết kế cốc giấy Dior và công thức trà lài sữa của Chagee với mức giá rẻ hơn 30%.</p>
+                        <p><strong>Nhiệm vụ:</strong> Áp dụng khung chiến lược Chương 2 (Chuỗi giá trị và 4Ps chuyển hóa sang 4As), hãy đề xuất giải pháp để Chagee giữ vững biên lợi nhuận cao mà không bị cuốn vào cuộc chiến giảm giá hủy diệt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==============================================================
+             CHƯƠNG 3 ĐẾN CHƯƠNG 20 (TIẾP TỤC CẤU TRÚC ĐẦY ĐỦ)
+             ============================================================== -->
+                <!-- ==============================================================
+             CHƯƠNG 3: DEEP DIVE MASTER PROFILE
+             ============================================================== -->
+        <div id="ch3" class="page-view">
+            <div class="chapter-banner">
+                <div class="chapter-badge">CHƯƠNG 3 • DEEP DIVE MASTER PROFILE</div>
+                <h1 class="chapter-title">CHƯƠNG 3: PHÂN TÍCH MÔI TRƯỜNG MARKETING TOÀN DIỆN</h1>
+                <p class="chapter-subtitle">Khung lý thuyết Kotler 17e & Deep Dive Thực Chiến: Quét và giải mã 6 tác nhân vi mô và 6 lực lượng vĩ mô (PESTEL) định hình chiến lược Chuỗi Trà Hiện Đại Đông Phương CHAGEE (Bá Vương Trà Cơ).</p>
+            </div>
+
+            <div class="content-container">
+                <!-- TỔNG QUAN & MỤC TIÊU -->
+                <div class="section-card">
+                    <div class="section-tag">LUẬN ĐIỂM TRUNG TÂM CỦA KOTLER</div>
+                    <h2>1. Bản Chất Môi Trường Marketing Hiện Đại: Khung Môi Trường Đôi (Dual-Environment Framework)</h2>
+                    <p>
+                        Theo Philip Kotler (17th Edition), môi trường marketing bao gồm <em>toàn bộ các tác nhân và lực lượng bên ngoài phòng marketing nhưng lại tác động trực tiếp đến khả năng xây dựng, duy trì mối quan hệ sinh lời với khách hàng mục tiêu</em>. Doanh nghiệp không vận hành trong chân không; thành bại của một thương hiệu phụ thuộc vào năng lực quét sóng radar (environmental scanning) và khả năng chuyển dịch từ <strong>thích ứng thụ động (reactive)</strong> sang <strong>kiến tạo chủ động (proactive)</strong>.
+                    </p>
+                    <div class="highlight-box">
+                        <strong>Luận điểm cốt lõi (Philip Kotler):</strong><br>
+                        <em>"Marketing môi trường không đơn thuần là việc dự báo thời tiết kinh doanh thụ động, mà là nghệ thuật giương buồm để biến mọi cơn gió ngược vĩ mô thành động lực đẩy con thuyền doanh nghiệp tiến về phía trước."</em>
+                    </div>
+
+                    <h3>Sơ Đồ Mạng Lưới Môi Trường Vi Mô & Vĩ Mô Đồng Tâm Của CHAGEE</h3>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">HÌNH 3.1: HỆ SINH THÁI MÔI TRƯỜNG MARKETING TOÀN DIỆN CHAGEE</div>
+                        <svg viewBox="0 0 850 480" width="100%" height="100%" style="max-height: 480px;">
+                            <!-- Macro Outer Circle -->
+                            <circle cx="425" cy="240" r="225" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6,4"/>
+                            <!-- Micro Middle Circle -->
+                            <circle cx="425" cy="240" r="145" fill="#FEF2F2" stroke="#8C1D24" stroke-width="2"/>
+                            <!-- Center Circle (CHAGEE Core) -->
+                            <circle cx="425" cy="240" r="65" fill="#8C1D24" stroke="#631217" stroke-width="3"/>
+                            
+                            <!-- Center Text -->
+                            <text x="425" y="235" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">CHAGEE</text>
+                            <text x="425" y="255" font-size="11" fill="#FAF5EB" text-anchor="middle">Giá Trị Khách Hàng</text>
+
+                            <!-- Micro Actors (Inside red ring) -->
+                            <!-- Top -->
+                            <rect x="365" y="105" width="120" height="26" rx="13" fill="#FFFFFF" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="425" y="122" font-size="10.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">1. Nội bộ Công ty</text>
+                            
+                            <!-- Top Right -->
+                            <rect x="490" y="145" width="120" height="26" rx="13" fill="#FFFFFF" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="550" y="162" font-size="10.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">2. Nhà cung ứng</text>
+                            
+                            <!-- Bottom Right -->
+                            <rect x="490" y="305" width="120" height="26" rx="13" fill="#FFFFFF" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="550" y="322" font-size="10.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">3. Trung gian Marketing</text>
+                            
+                            <!-- Bottom -->
+                            <rect x="365" y="350" width="120" height="26" rx="13" fill="#FFFFFF" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="425" y="367" font-size="10.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">4. Khách hàng Mục tiêu</text>
+                            
+                            <!-- Bottom Left -->
+                            <rect x="240" y="305" width="120" height="26" rx="13" fill="#FFFFFF" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="300" y="322" font-size="10.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">5. Công chúng (Publics)</text>
+                            
+                            <!-- Top Left -->
+                            <rect x="240" y="145" width="120" height="26" rx="13" fill="#FFFFFF" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="300" y="162" font-size="10.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">6. Đối thủ cạnh tranh</text>
+
+                            <!-- Macro Forces (Outer Ring) -->
+                            <!-- Top Left Macro -->
+                            <rect x="80" y="40" width="170" height="40" rx="6" fill="#1E293B" stroke="none"/>
+                            <text x="165" y="65" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🏛️ Chính trị - Pháp luật</text>
+                            <line x1="220" y1="80" x2="300" y2="120" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                            <!-- Top Center Macro -->
+                            <rect x="340" y="5" width="170" height="40" rx="6" fill="#1E293B" stroke="none"/>
+                            <text x="425" y="30" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">📈 Kinh tế & Sức mua</text>
+                            <line x1="425" y1="45" x2="425" y2="95" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                            <!-- Top Right Macro -->
+                            <rect x="600" y="40" width="170" height="40" rx="6" fill="#1E293B" stroke="none"/>
+                            <text x="685" y="65" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">👥 Nhân khẩu học (Gen Z)</text>
+                            <line x1="630" y1="80" x2="550" y2="120" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                            <!-- Bottom Right Macro -->
+                            <rect x="600" y="400" width="170" height="40" rx="6" fill="#1E293B" stroke="none"/>
+                            <text x="685" y="425" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🎋 Văn hóa & Lối sống</text>
+                            <line x1="630" y1="400" x2="550" y2="360" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                            <!-- Bottom Center Macro -->
+                            <rect x="340" y="435" width="170" height="40" rx="6" fill="#1E293B" stroke="none"/>
+                            <text x="425" y="460" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🌱 Môi trường Tự nhiên</text>
+                            <line x1="425" y1="435" x2="425" y2="385" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                            <!-- Bottom Left Macro -->
+                            <rect x="80" y="400" width="170" height="40" rx="6" fill="#1E293B" stroke="none"/>
+                            <text x="165" y="425" font-size="11.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">⚙️ Công nghệ & Số hóa</text>
+                            <line x1="220" y1="400" x2="300" y2="360" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- PHẦN 2: DEEP DIVE VI MÔ -->
+                <div class="section-card">
+                    <div class="section-tag">DEEP DIVE VI MÔ (MICROENVIRONMENT)</div>
+                    <h2>2. Bóc Tách 6 Tác Nhân Vi Mô Định Hình Chuỗi Cung Ứng CHAGEE</h2>
+                    <p>Môi trường vi mô bao gồm các chủ thể có quan hệ hữu cơ gắn bó chặt chẽ, quyết định trực tiếp đến năng lực phụng sự khách hàng của CHAGEE hàng ngày:</p>
+                    
+                    <div class="takeaway-grid">
+                        <div class="takeaway-card" style="border-left: 4px solid var(--primary-color);">
+                            <h4>🏢 1. Nội Bộ Doanh Nghiệp (The Company)</h4>
+                            <p>Đồng bộ hóa liên chức năng: <strong>Marketing + R&D + Supply Chain + Tài chính</strong>. Marketing không hoạt động đơn lẻ mà tích hợp sâu vào quy trình R&D (tạo dòng "Trà sữa nguyên lá + Sữa tươi sạch") và bộ phận SCM để đảm bảo độ tươi 100% khi tới từng cửa hàng.</p>
+                        </div>
+                        <div class="takeaway-card" style="border-left: 4px solid var(--accent-gold);">
+                            <h4>🌿 2. Mạng Lưới Cung Ứng (Suppliers)</h4>
+                            <p>Chiến lược kiểm soát thượng nguồn: Bao tiêu độc quyền các đồi trà hữu cơ tại Vân Nam, Phúc Kiến, Triều Châu. Hợp tác cùng các tập đoàn sữa hàng đầu để sản xuất dòng sữa tươi thanh trùng chuẩn quốc tế, loại bỏ triệt để chất béo chuyển hóa (0 Trans-fat).</p>
+                        </div>
+                        <div class="takeaway-card" style="border-left: 4px solid var(--c-blue);">
+                            <h4>📱 3. Trung Gian Marketing (Intermediaries)</h4>
+                            <p>Hệ thống hợp tác đa kênh: Mini-Program trên WeChat/Alipay, các nền tảng giao đồ ăn (Meituan, GrabFood, ShopeeFood), các trung tâm thương mại hạng A (Vạn Đạt, MixC, Pavilion) và hệ thống phân phối nhượng quyền tiêu chuẩn cao.</p>
+                        </div>
+                        <div class="takeaway-card" style="border-left: 4px solid var(--c-teal);">
+                            <h4>🎯 4. Khách Hàng Mục Tiêu (Customers)</h4>
+                            <p>Tập trung vào 3 phân khúc nòng cốt: <strong>Gen Z sành điệu</strong> (yêu thích văn hóa Quốc triều & check-in), <strong>Dân văn phòng thành thị</strong> (cần thức uống tỉnh táo, thanh nhẹ thay cà phê), và <strong>Nhóm Health-conscious</strong> (đặc biệt quan tâm calo & độ ngọt).</p>
+                        </div>
+                        <div class="takeaway-card" style="border-left: 4px solid var(--c-orange);">
+                            <h4>⚔️ 5. Đối Thủ Cạnh Tranh (Competitors)</h4>
+                            <p>Định vị khác biệt hóa trong "Đại dương đỏ" F&B: Né tránh cuộc chiến đẫm máu về giá của trà bình dân (Mixue) và sự phức tạp nhiều topping của trà phô mai trái cây (Heytea) để chiếm lĩnh phân khúc <em>Trà sữa hiện đại nguyên vị (Fresh Milk Tea)</em>.</p>
+                        </div>
+                        <div class="takeaway-card" style="border-left: 4px solid var(--c-red);">
+                            <h4>📣 6. Cộng Đồng & Công Chúng (Publics)</h4>
+                            <p>Quản trị mối quan hệ đa tầng với: Giới truyền thông ẩm thực, các cơ quan an toàn thực phẩm (FDA địa phương), cộng đồng bảo vệ môi trường (Green Movement), và các tổ chức quảng bá văn hóa nghệ thuật truyền thống.</p>
+                        </div>
+                    </div>
+
+                    <!-- SVG 3.2: MA TRẬN PHÂN PHỐI ĐA KÊNH -->
+                    <h3>Sơ Đồ Dòng Chảy Trung Gian Marketing Đa Kênh Của CHAGEE</h3>
+                    <div class="diagram-container">
+                        <div class="diagram-title">HÌNH 3.2: MÔ HÌNH HỢP TÁC TRUNG GIAN OMNICHANNEL CỦA CHAGEE</div>
+                        <svg viewBox="0 0 800 220" width="100%" height="100%" style="max-height: 220px;">
+                            <!-- Stage 1 -->
+                            <rect x="20" y="30" width="160" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+                            <rect x="20" y="30" width="160" height="35" rx="8" fill="#8C1D24"/>
+                            <text x="100" y="53" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Sàn Giao Đồ Ăn</text>
+                            <text x="100" y="95" font-size="11" fill="#334155" text-anchor="middle">• Meituan / Ele.me (TQ)</text>
+                            <text x="100" y="120" font-size="11" fill="#334155" text-anchor="middle">• GrabFood / ShopeeFood</text>
+                            <text x="100" y="145" font-size="11" fill="#334155" text-anchor="middle">• Foodpanda (SEA)</text>
+
+                            <!-- Arrow 1 -->
+                            <path d="M 185 105 L 225 105" fill="none" stroke="#8C1D24" stroke-width="2"/>
+
+                            <!-- Stage 2 -->
+                            <rect x="230" y="30" width="160" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+                            <rect x="230" y="30" width="160" height="35" rx="8" fill="#8C1D24"/>
+                            <text x="310" y="53" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Mạng Xã Hội / Livestream</text>
+                            <text x="310" y="95" font-size="11" fill="#334155" text-anchor="middle">• Douyin / TikTok Shop</text>
+                            <text x="310" y="120" font-size="11" fill="#334155" text-anchor="middle">• Tiểu Hồng Thư (RED)</text>
+                            <text x="310" y="145" font-size="11" fill="#334155" text-anchor="middle">• WeChat Mini-Program</text>
+
+                            <!-- Arrow 2 -->
+                            <path d="M 395 105 L 435 105" fill="none" stroke="#8C1D24" stroke-width="2"/>
+
+                            <!-- Stage 3 -->
+                            <rect x="440" y="30" width="160" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+                            <rect x="440" y="30" width="160" height="35" rx="8" fill="#8C1D24"/>
+                            <text x="520" y="53" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Đối Tác Mặt Bằng</text>
+                            <text x="520" y="95" font-size="11" fill="#334155" text-anchor="middle">• TTTM Cao cấp (Vạn Đạt)</text>
+                            <text x="520" y="120" font-size="11" fill="#334155" text-anchor="middle">• Sân bay & Ga quốc tế</text>
+                            <text x="520" y="145" font-size="11" fill="#334155" text-anchor="middle">• Tuyến phố du lịch vàng</text>
+
+                            <!-- Arrow 3 -->
+                            <path d="M 605 105 L 645 105" fill="none" stroke="#8C1D24" stroke-width="2"/>
+
+                            <!-- Stage 4 -->
+                            <rect x="650" y="30" width="130" height="150" rx="8" fill="#FEF2F2" stroke="#8C1D24" stroke-width="2"/>
+                            <rect x="650" y="30" width="130" height="35" rx="8" fill="#8C1D24"/>
+                            <text x="715" y="53" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Khách Hàng</text>
+                            <text x="715" y="100" font-size="11" font-weight="bold" fill="#8C1D24" text-anchor="middle">Trải Nghiệm</text>
+                            <text x="715" y="120" font-size="11" font-weight="bold" fill="#8C1D24" text-anchor="middle">Omnichannel</text>
+                            <text x="715" y="145" font-size="10" fill="#64748B" text-anchor="middle">Tiện lợi & Chuẩn xác</text>
+                        </svg>
+                    </div>
+
+                    <!-- BẢNG ĐỐI CHUẨN CẠNH TRANH -->
+                    <h3>Ma Trận Định Vị & Đối Chuẩn Cạnh Tranh (Competitor Benchmarking Matrix)</h3>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thương Hiệu</th>
+                                    <th>Mức Giá Trung Bình</th>
+                                    <th>Dòng Sản Phẩm Cốt Lõi</th>
+                                    <th>Định Vị Thương Hiệu</th>
+                                    <th>Chiến Lược Đối Đầu Của CHAGEE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: #FFFDF9;">
+                                    <td style="font-weight: bold; color: var(--primary-color);">CHAGEE (Bá Vương Trà Cơ)</td>
+                                    <td>16 - 22 RMB (~60k - 80k VND)</td>
+                                    <td>Trà sữa tươi nguyên lá (Bá Vương Hoa Nhài)</td>
+                                    <td>Trà đạo tân cổ điển, Thẩm mỹ Đông Phương, Lành mạnh</td>
+                                    <td><em>Chuẩn hóa máy pha tự động 10s/ly, minh bạch thẻ calo, thiết kế 'Cốc Trà Cầm Tay'.</em></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">HEYTEA (Hỷ Trà)</td>
+                                    <td>18 - 28 RMB</td>
+                                    <td>Trà trái cây tươi, Trà kem cheese</td>
+                                    <td>Hiện đại, Trendy, Sáng tạo nghệ thuật thời thượng</td>
+                                    <td>Tập trung vào dòng thanh nhẹ ít béo, thời gian chờ ngắn hơn, mở rộng nhượng quyền nhanh hơn.</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">MIXUE</td>
+                                    <td>6 - 10 RMB</td>
+                                    <td>Kem tươi, Nước chanh, Trà sữa trân châu cơ bản</td>
+                                    <td>Bình dân tối đa, Giá rẻ, Độ phủ đường phố</td>
+                                    <td>Không cạnh tranh giá; tập trung tầng lớp trung lưu văn phòng và không gian trải nghiệm văn hóa.</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">STARBUCKS</td>
+                                    <td>32 - 45 RMB</td>
+                                    <td>Cà phê pha máy, Frappuccino</td>
+                                    <td>Third Place phương Tây, Đẳng cấp công sở toàn cầu</td>
+                                    <td>Xây dựng "Third Place Văn Hóa Phương Đông" với mức giá dễ tiếp cận hơn 40%.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PHẦN 3: DEEP DIVE VĨ MÔ PESTEL -->
+                <div class="section-card">
+                    <div class="section-tag">DEEP DIVE VĨ MÔ (PESTEL FRAMEWORK)</div>
+                    <h2>3. Quét Radar 6 Lực Lượng Vĩ Mô Định Hình Tương Lai Của CHAGEE</h2>
+                    <p>Môi trường vĩ mô bao gồm các xu hướng lớn định hình toàn ngành F&B toàn cầu mà doanh nghiệp phải chủ động nắm bắt để mở rộng thị phần:</p>
+
+                    <!-- SVG 3.3: RADAR PESTEL -->
+                    <div class="diagram-container">
+                        <div class="diagram-title">HÌNH 3.3: MA TRẬN 6 LỰC LƯỢNG VĨ MÔ TÁC ĐỘNG TỚI CHIẾN LƯỢC TOÀN CẦU CHAGEE</div>
+                        <svg viewBox="0 0 820 320" width="100%" height="100%" style="max-height: 320px;">
+                            <!-- 1. Demographic -->
+                            <g transform="translate(15, 15)">
+                                <rect width="250" height="135" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+                                <rect width="250" height="28" rx="8" fill="#8C1D24"/>
+                                <text x="125" y="19" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1. Nhân Khẩu Học (Demographic)</text>
+                                <text x="12" y="52" font-size="10.5" fill="#334155">• Gen Z & Millennials chiếm 72% sức mua.</text>
+                                <text x="12" y="74" font-size="10.5" fill="#334155">• Đô thị hóa nhanh, dân văn phòng gia tăng.</text>
+                                <text x="12" y="96" font-size="10.5" fill="#334155">• Nhóm "Health-conscious" chuộng ít đường.</text>
+                                <text x="12" y="120" font-size="10" font-weight="bold" fill="#8C1D24">👉 Cơ hội: Menu phân tầng calo rõ ràng.</text>
+                            </g>
+
+                            <!-- 2. Economic -->
+                            <g transform="translate(285, 15)">
+                                <rect width="250" height="135" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+                                <rect width="250" height="28" rx="8" fill="#8C1D24"/>
+                                <text x="125" y="19" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2. Kinh Tế (Economic)</text>
+                                <text x="12" y="52" font-size="10.5" fill="#334155">• Xu hướng "Tiêu dùng tỉnh táo" (Rational).</text>
+                                <text x="12" y="74" font-size="10.5" fill="#334155">• Nhu cầu "Xa xỉ phẩm trong tầm tay" (16-20 tệ).</text>
+                                <text x="12" y="96" font-size="10.5" fill="#334155">• Biến động chi phí logistics quốc tế.</text>
+                                <text x="12" y="120" font-size="10" font-weight="bold" fill="#8C1D24">👉 Cơ hội: Mức giá hợp lý, biên lợi nhuận cao.</text>
+                            </g>
+
+                            <!-- 3. Socio-Cultural -->
+                            <g transform="translate(555, 15)">
+                                <rect width="250" height="135" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+                                <rect width="250" height="28" rx="8" fill="#8C1D24"/>
+                                <text x="125" y="19" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3. Văn Hóa - Xã Hội (Socio-Cultural)</text>
+                                <text x="12" y="52" font-size="10.5" fill="#334155">• Làn sóng "Quốc triều" (Guochao) bùng nổ.</text>
+                                <text x="12" y="74" font-size="10.5" fill="#334155">• Cốc trà là phụ kiện thời trang & phong cách sống.</text>
+                                <text x="12" y="96" font-size="10.5" fill="#334155">• Trà thay thế cà phê cho giới trẻ Á Đông.</text>
+                                <text x="12" y="120" font-size="10" font-weight="bold" fill="#8C1D24">👉 Cơ hội: Lan tỏa văn hóa Con Đường Tơ Lụa.</text>
+                            </g>
+
+                            <!-- 4. Technological -->
+                            <g transform="translate(15, 165)">
+                                <rect width="250" height="135" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+                                <rect width="250" height="28" rx="8" fill="#1E293B"/>
+                                <text x="125" y="19" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">4. Công Nghệ (Technological)</text>
+                                <text x="12" y="52" font-size="10.5" fill="#334155">• Thiết bị chiết xuất tự động (Tea Barista IoT).</text>
+                                <text x="12" y="74" font-size="10.5" fill="#334155">• AI dự báo lượng tồn kho nguyên liệu tươi.</text>
+                                <text x="12" y="96" font-size="10.5" fill="#334155">• App tự phục vụ: 80% đơn đặt qua Mini App.</text>
+                                <text x="12" y="120" font-size="10" font-weight="bold" fill="#1D3557">👉 Đòn bẩy: Tốc độ ra món chỉ 8-10 giây/ly.</text>
+                            </g>
+
+                            <!-- 5. Natural / Environmental -->
+                            <g transform="translate(285, 165)">
+                                <rect width="250" height="135" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+                                <rect width="250" height="28" rx="8" fill="#1E293B"/>
+                                <text x="125" y="19" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">5. Tự Nhiên (Natural / Green)</text>
+                                <text x="12" y="52" font-size="10.5" fill="#334155">• Biến đổi khí hậu đe dọa sản lượng trà hữu cơ.</text>
+                                <text x="12" y="74" font-size="10.5" fill="#334155">• Áp lực giảm rác thải nhựa đơn dụng.</text>
+                                <text x="12" y="96" font-size="10.5" fill="#334155">• Xu hướng truy xuất nguồn gốc Farm-to-Cup.</text>
+                                <text x="12" y="120" font-size="10" font-weight="bold" fill="#1D3557">👉 Đòn bẩy: Cốc giấy 3 lớp & ống hút sinh học.</text>
+                            </g>
+
+                            <!-- 6. Political / Legal -->
+                            <g transform="translate(555, 165)">
+                                <rect width="250" height="135" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+                                <rect width="250" height="28" rx="8" fill="#1E293B"/>
+                                <text x="125" y="19" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">6. Chính Trị - Pháp Lý (Political/Legal)</text>
+                                <text x="12" y="52" font-size="10.5" fill="#334155">• Quy định dán nhãn dinh dưỡng & "Đèn calo".</text>
+                                <text x="12" y="74" font-size="10.5" fill="#334155">• Tiêu chuẩn kiểm dịch thực vật tại ĐNÁ.</text>
+                                <text x="12" y="96" font-size="10.5" fill="#334155">• Bảo hộ quyền sở hữu trí tuệ công thức trà.</text>
+                                <text x="12" y="120" font-size="10" font-weight="bold" fill="#1D3557">👉 Đòn bẩy: Công bố chứng nhận "0 Trans-fat".</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- PHẦN 4: CHIẾN LƯỢC QUẢN TRỊ CHỦ ĐỘNG -->
+                <div class="section-card">
+                    <div class="section-tag">QUẢN TRỊ MÔI TRƯỜNG CHIẾN LƯỢC</div>
+                    <h2>4. Chuyển Dịch Quản Trị: Thụ Động Đối Phó vs. Chủ Động Kiến Tạo (Proactive Posture)</h2>
+                    <p>Philip Kotler nhấn mạnh: Doanh nghiệp có thể phản ứng với môi trường theo 3 mức độ: (1) Bất lực nhìn điều đó xảy ra, (2) Thắc mắc tại sao điều đó xảy ra, hoặc <strong>(3) Chủ động làm cho điều đó xảy ra</strong>. CHAGEE áp dụng triệt để tư duy quản trị chủ động:</p>
+
+                    <!-- SVG 3.4: PROACTIVE FLOW -->
+                    <div class="diagram-container">
+                        <div class="diagram-title">HÌNH 3.4: BA TRỤ CỘT KIẾN TẠO MÔI TRƯỜNG CHỦ ĐỘNG CỦA CHAGEE</div>
+                        <svg viewBox="0 0 780 180" width="100%" height="100%" style="max-height: 180px;">
+                            <rect x="10" y="20" width="225" height="135" rx="8" fill="#FEF2F2" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="122" y="48" font-size="12.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">1. Định Hình Chuẩn Mực Ngành</text>
+                            <text x="25" y="78" font-size="11" fill="#334155">• Tiên phong "ID Thẻ Calo" minh bạch</text>
+                            <text x="25" y="100" font-size="11" fill="#334155">• Tuyên ngôn "Sữa thật - Trà thật"</text>
+                            <text x="25" y="122" font-size="11" fill="#334155">• Biến tiêu chuẩn luật thành vũ khí PR</text>
+
+                            <path d="M 245 87 L 275 87" stroke="#8C1D24" stroke-width="2"/>
+                            
+                            <rect x="280" y="20" width="225" height="135" rx="8" fill="#FEF2F2" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="392" y="48" font-size="12.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">2. Tự Động Hóa Vận Hành IoT</text>
+                            <text x="295" y="78" font-size="11" fill="#334155">• Tự nghiên cứu máy pha trà thông minh</text>
+                            <text x="295" y="100" font-size="11" fill="#334155">• Giảm phụ thuộc tay nghề Barista</text>
+                            <text x="295" y="122" font-size="11" fill="#334155">• Chuẩn hóa hương vị 100% toàn cầu</text>
+
+                            <path d="M 515 87 L 545 87" stroke="#8C1D24" stroke-width="2"/>
+
+                            <rect x="550" y="20" width="220" height="135" rx="8" fill="#FEF2F2" stroke="#8C1D24" stroke-width="1.5"/>
+                            <text x="660" y="48" font-size="12.5" font-weight="bold" fill="#8C1D24" text-anchor="middle">3. Tái Thiết Văn Hóa Trà Đạo</text>
+                            <text x="565" y="78" font-size="11" fill="#334155">• Hồi sinh Trà Mã Cổ Đạo thời hiện đại</text>
+                            <text x="565" y="100" font-size="11" fill="#334155">• Biến cốc trà thành biểu tượng Lifestyle</text>
+                            <text x="565" y="122" font-size="11" fill="#334155">• Tạo ra làn sóng tiêu dùng mới</text>
+                        </svg>
+                    </div>
+
+                    <div class="chagee-box">
+                        <h3>💡 Bài Học Quản Trị Đắt Giá (Executive Takeaways)</h3>
+                        <p>1. <strong>Môi trường không phải là "Hằng số":</strong> Doanh nghiệp dẫn dắt thị trường không thụ động chờ quy định pháp luật ra đời mới tuân thủ, mà chủ động dán nhãn calo và hàm lượng đường trước khi cơ quan quản lý ban hành luật, biến rào cản thành lợi thế cạnh tranh tiên phong.</p>
+                        <p>2. <strong>Chiến lược "Văn Hóa Làm Gốc - Công Nghệ Làm Cánh":</strong> Sức hút văn hóa truyền thống Á Đông (Guochao) tạo ra lòng tự hào và lực kéo cảm xúc mãnh liệt, trong khi công nghệ IoT và dữ liệu chuỗi cung ứng đem lại năng lực nhân bản quy mô toàn cầu với chất lượng đồng nhất.</p>
+                    </div>
+                </div>
+
+                <!-- PHẦN 5: INTERACTIVE ZONE & QUIZ -->
+                <div class="section-card">
+                    <div class="section-tag">INTERACTIVE ZONE • MBA SCENARIO CHALLENGE</div>
+                    <h2>5. Tình Huống Chiến Lược: Phản Ứng Khi Thâm Nhập Thị Trường Mới</h2>
+                    <p><strong>Bối cảnh thực tế:</strong> CHAGEE chuẩn bị mở rộng vào thị trường Đông Nam Á (ví dụ: Việt Nam). Giả sử chính phủ nước sở tại chuẩn bị ban hành chính sách <em>Thuế tiêu thụ đặc biệt đối với đồ uống có hàm lượng đường trên 5g/100ml</em>, đồng thời đối thủ bản địa đang đẩy mạnh truyền thông nhấn mạnh yếu tố "Nông sản địa phương".</p>
+                    
+                    <div class="interactive-box">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Thử Thách Dành Cho Giám Đốc Tiếp Thị (CMO):</h4>
+                        <ol style="margin-left: 20px; line-height: 1.8;">
+                            <li>Xác định 2 lực lượng Vi mô và 2 lực lượng Vĩ mô bị tác động mạnh nhất trong tình huống trên.</li>
+                            <li>Xây dựng chiến lược phản ứng chủ động <em>(Proactive Strategy)</em> trong 30 ngày đầu để biến nguy cơ thuế đường thành đòn bẩy chiếm lĩnh phân khúc trà sữa cao cấp lành mạnh.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPCOMING CHAPTERS PLACEHOLDER VIEW -->
+        <div id="upcoming" class="page-view">
+            <div class="chapter-banner">
+                <div class="chapter-badge">CHAGEE CAMPUS • MBA CURRICULUM</div>
+                <h1 id="upcoming-title" class="chapter-title">NỘI DUNG ĐANG ĐƯỢC CẬP NHẬT DEEP DIVE</h1>
+                <p id="upcoming-subtitle" class="chapter-subtitle">Chương học này đang được đội ngũ học thuật CHAGEE CAMPUS biên soạn hồ sơ đào sâu chi tiết.</p>
+            </div>
+            <div class="content-container">
+                <div class="section-card" style="text-align: center; padding: 50px 30px;">
+                    <div style="font-size: 50px; margin-bottom: 20px;">📚</div>
+                    <h2 style="border: none; margin-bottom: 15px; color: var(--primary-color);">Hồ Sơ Đào Sâu (Deep Dive Profile) Sắp Ra Mắt</h2>
+                    <p style="max-width: 650px; margin: 0 auto 25px auto; color: var(--light-text);">
+                        Chương học đang trong quá trình chuẩn hóa sơ đồ trực quan hóa (Visualizations), ma trận tác nghiệp và Case Study phân tích sâu thực chiến chuỗi CHAGEE. Vui lòng tham khảo các chương <strong>Deep Dive đã hoàn thành: Chương 1, Chương 2, Chương 3</strong>.
+                    </p>
+                    <button onclick="switchTab('dashboard')" style="background: var(--primary-color); color: #fff; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s;">
+                        Quay lại Dashboard Tổng Quan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT NAVIGATION -->
+    <script>
+        const chapterTitles = {
+            'dashboard': 'Tổng Quan Khóa Học',
+            'ch1': 'Chương 1: Marketing & Giá Trị',
+            'ch2': 'Chương 2: Chiến Lược Công Ty',
+            'ch3': 'Chương 3: Môi Trường Marketing',
+            'ch4': 'Chương 4: Quản Trị Thông Tin (MIS)',
+            'ch5': 'Chương 5: Hành Vi Người Tiêu Dùng',
+            'ch6': 'Chương 6: Thị Trường Doanh Nghiệp (B2B)',
+            'ch7': 'Chương 7: Chiến Lược Cốt Lõi (STP)',
+            'ch8': 'Chương 8: Sản Phẩm & Thương Hiệu',
+            'ch9': 'Chương 9: Phát Triển SP Mới & PLC',
+            'ch10': 'Chương 10: Định Giá (Pricing 1)',
+            'ch11': 'Chương 11: Chiến Lược Giá (Pricing 2)',
+            'ch12': 'Chương 12: Kênh Marketing & Phân Phối',
+            'ch13': 'Chương 13: Bán Lẻ & Bán Sỉ',
+            'ch14': 'Chương 14: Truyền Thông Tích Hợp (IMC)',
+            'ch15': 'Chương 15: Quảng Cáo & PR',
+            'ch16': 'Chương 16: Bán Hàng & Khuyến Mãi',
+            'ch17': 'Chương 17: Digital, Social & Mobile',
+            'ch18': 'Chương 18: Lợi Thế Cạnh Tranh',
+            'ch19': 'Chương 19: Thị Trường Toàn Cầu',
+            'ch20': 'Chương 20: Marketing Bền Vững'
+        };
+
+        function switchTab(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => p.classList.remove('active'));
+
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            } else {
+                const upcomingPage = document.getElementById('upcoming');
+                if (upcomingPage) {
+                    upcomingPage.classList.add('active');
+                    if (chapterTitles[pageId]) {
+                        document.getElementById('upcoming-title').textContent = chapterTitles[pageId].toUpperCase() + ' (DEEP DIVE)';
+                        document.getElementById('upcoming-subtitle').textContent = 'Hồ sơ đào sâu ' + chapterTitles[pageId] + ' đang được hoàn thiện theo chuẩn giáo trình MBA.';
+                    }
+                }
+            }
+
+            // Update sidebar nav active
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            const activeItem = Array.from(navItems).find(item => item.getAttribute('onclick') && item.getAttribute('onclick').includes(pageId));
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+
+            // Scroll main container to top
+            document.getElementById('main-container').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
