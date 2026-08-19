@@ -20,41 +20,20 @@
     
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
-        h1, h2, h3, h4 { color: #0f172a; }
         .text-body { line-height: 1.7; }
 
-        /* General process and accordion styles */
-        .process-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s; opacity: 0; }
+        /* Các class tương tác dùng chung cho mọi chương */
+        .process-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, opacity 0.3s, padding 0.3s; opacity: 0; }
         .process-content.active { max-height: 2000px; opacity: 1; padding-top: 1rem; padding-bottom: 1rem; }
-
-        /* Flowchart tooltips */
-        .flowchart-tooltip { visibility: hidden; opacity: 0; transition: opacity 0.3s; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); width: max-content; max-width: 250px; z-index: 10; }
-        .flowchart-node:hover .flowchart-tooltip { visibility: visible; opacity: 1; }
-        
-        @media (min-width: 768px) {
-            .flow-line-right::after { content: ''; position: absolute; right: -24px; top: 50%; width: 24px; height: 2px; background-color: #cbd5e1; transform: translateY(-50%); }
-            .flow-line-right-arrow::after { content: '▶'; position: absolute; right: -30px; top: 50%; transform: translateY(-50%); color: #cbd5e1; font-size: 12px; }
-            .flow-line-down::after { content: '▼'; position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%); color: #cbd5e1; font-size: 16px; height: 20px; display: flex; align-items: end; border-left: 2px solid #cbd5e1; }
-            
-            /* Add arrow for 4 step flow in chapter 4 */
-            .flow-arrow-right::after { content: '\25B6'; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 20px; }
-        }
-
-        /* 3D Flip Card */
         .flip-card { background-color: transparent; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border-radius: 0.75rem; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border-radius: 0.75rem; }
         .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.75rem; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.5rem; }
         .flip-card-back { transform: rotateY(180deg); }
-        
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
         .animate-float { animation: float 3s ease-in-out infinite; }
-
-        /* Matrix specific styles */
         .matrix-quadrant { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
         .matrix-quadrant:hover { transform: scale(1.02); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); z-index: 20; }
-        
-        /* Tab specific styles for chapter 4 */
         .tab-btn-ch4 { cursor: pointer; transition: all 0.3s ease; }
         .tab-btn-ch4.active { border-bottom-color: #4f46e5; color: #4f46e5; font-weight: 700; background-color: #eef2ff; }
         .tab-pane-ch4 { display: none; }
@@ -68,1216 +47,102 @@
         <div class="max-w-5xl mx-auto">
             <p class="text-indigo-200 font-semibold tracking-wider text-sm uppercase mb-3">Sách giáo khoa điện tử chuẩn mực</p>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 !text-white">PRINCIPLES OF MARKETING</h1>
-            <p class="text-indigo-100 text-lg max-w-3xl border-l-4 border-indigo-400 pl-4 py-1">
-                Môn học: Nguyên lý Tiếp thị (Principles of Marketing)<br>
-                Giáo trình: Kotler & Armstrong (17th Edition)
-            </p>
+            <p class="text-indigo-100 text-lg max-w-3xl border-l-4 border-indigo-400 pl-4 py-1">Giáo trình: Kotler & Armstrong (17th Edition)</p>
         </div>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 sm:px-12 -mt-6 relative z-10">
         
-        <!-- Navigation Bar -->
-        <nav class="flex flex-col sm:flex-row border-b border-slate-200 mb-8 bg-white rounded-t-xl overflow-hidden shadow-sm overflow-x-auto whitespace-nowrap scrollbar-thin">
-            <button onclick="switchTab('chapter-1')" id="tab-btn-chapter-1" class="flex-1 py-4 px-6 text-indigo-700 font-bold border-b-4 border-indigo-600 bg-indigo-50 transition-all text-sm sm:text-base outline-none focus:bg-indigo-100">
-                <i class="fas fa-bookmark mr-2"></i>Chương 1: Nguyên lý Tiếp thị
-            </button>
-            <button onclick="switchTab('chapter-2')" id="tab-btn-chapter-2" class="flex-1 py-4 px-6 text-slate-500 font-medium border-b-4 border-transparent hover:text-indigo-600 hover:bg-slate-50 transition-all text-sm sm:text-base outline-none focus:bg-slate-100">
-                <i class="fas fa-chess mr-2"></i>Chương 2: Chiến lược Công ty
-            </button>
-            <button onclick="switchTab('chapter-3')" id="tab-btn-chapter-3" class="flex-1 py-4 px-6 text-slate-500 font-medium border-b-4 border-transparent hover:text-indigo-600 hover:bg-slate-50 transition-all text-sm sm:text-base outline-none focus:bg-slate-100">
-                <i class="fas fa-globe mr-2"></i>Chương 3: Môi trường Marketing
-            </button>
-            <button onclick="switchTab('chapter-4')" id="tab-btn-chapter-4" class="flex-1 py-4 px-6 text-slate-500 font-medium border-b-4 border-transparent hover:text-indigo-600 hover:bg-slate-50 transition-all text-sm sm:text-base outline-none focus:bg-slate-100">
-                <i class="fas fa-database mr-2"></i>Chương 4: Quản trị Thông tin
-            </button>
+        <!-- Thanh Điều Hướng (Hỗ trợ cuộn ngang cho 20 chương) -->
+        <nav class="flex border-b border-slate-200 mb-8 bg-white rounded-t-xl shadow-sm overflow-x-auto whitespace-nowrap scrollbar-thin scroll-smooth" id="nav-container">
+            <!-- Tự động sinh nút thông qua JS -->
         </nav>
 
-        <!-- ========================================== -->
-        <!-- CHAPTER 1 CONTENT -->
-        <!-- ========================================== -->
-        <div id="chapter-1" class="tab-content block">
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 mb-10 border border-slate-100">
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 flex items-center">
-                    <i class="fas fa-book-open mr-3"></i> PHẦN I: HỆ THỐNG HÓA LÝ THUYẾT GỐC KINH ĐIỂN
-                </h2>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">1. Định nghĩa Học thuật Chuẩn về Tiếp thị</h3>
-                <p class="text-body mb-4 text-slate-600">Để hiểu đúng bản chất của Tiếp thị, chúng ta phải tách biệt hai góc độ định nghĩa được Philip Kotler và Gary Armstrong làm rõ trong sách gốc:</p>
-                <ul class="list-disc pl-6 space-y-3 text-slate-600 text-body mb-6">
-                    <li><strong class="text-slate-800">Định nghĩa trong bối cảnh quản trị doanh nghiệp (Narrower Business Context):</strong> Tiếp thị <code class="bg-slate-100 text-pink-600 px-1 rounded text-sm">(Marketing)</code> là quy trình mà qua đó các công ty tương tác với khách hàng, xây dựng các mối quan hệ khách hàng mạnh mẽ, và tạo ra giá trị cho khách hàng nhằm mục đích thu lại giá trị từ khách hàng.</li>
-                    <li><strong class="text-slate-800">Định nghĩa rộng dưới góc độ xã hội (Broad Social & Managerial Definition):</strong> Tiếp thị là một quy trình xã hội và quản trị mà qua đó các cá nhân và tổ chức đạt được những gì họ cần và muốn thông qua việc kiến tạo và trao đổi giá trị với người khác.</li>
-                    <li><strong class="text-slate-800">Mục tiêu tối hậu:</strong> Thu hút khách hàng mới bằng cách hứa hẹn giá trị vượt trội và giữ chân, phát triển nhóm khách hàng hiện tại bằng cách chuyển giao sự hài lòng.</li>
-                </ul>
-                <div class="bg-slate-50 border-l-4 border-slate-400 p-4 rounded-r-lg italic text-slate-700">
-                    <i class="fas fa-quote-left text-slate-300 mr-2"></i>
-                    <strong class="font-semibold">Tư duy Drucker:</strong> Bậc thầy quản trị Peter Drucker từng tuyên bố: "Mục tiêu của tiếp thị là làm cho việc bán hàng trở nên không cần thiết (make selling unnecessary)."
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">2. Mô hình Quy trình Tiếp thị 5 bước (Figure 1.1)</h3>
-                <div class="w-full flex flex-col md:flex-row gap-4 mb-8" id="Flow_Marketing_Process_5Steps">
-                    <div class="flex-1 flex flex-col gap-4">
-                        <div class="flex flex-col sm:flex-row gap-4 h-full relative">
-                            <!-- Step 1 -->
-                            <div class="flex-1 text-center group cursor-pointer" onclick="toggleProcess(1)">
-                                <div class="h-full bg-teal-500 hover:bg-teal-600 text-white rounded-lg p-4 shadow transition-colors flex flex-col justify-center items-center relative z-10" id="step-btn-1">
-                                    <span class="block text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Bước 1</span>
-                                    <span class="font-semibold leading-snug">Hiểu thị trường<br>& Nhu cầu</span>
-                                </div>
-                            </div>
-                            <div class="hidden sm:flex items-center text-teal-300"><i class="fas fa-chevron-right"></i></div>
-                            <!-- Step 2 -->
-                            <div class="flex-1 text-center group cursor-pointer" onclick="toggleProcess(2)">
-                                <div class="h-full bg-teal-500 hover:bg-teal-600 text-white rounded-lg p-4 shadow transition-colors flex flex-col justify-center items-center relative z-10" id="step-btn-2">
-                                    <span class="block text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Bước 2</span>
-                                    <span class="font-semibold leading-snug">Thiết kế<br>Chiến lược STP</span>
-                                </div>
-                            </div>
-                            <div class="hidden sm:flex items-center text-teal-300"><i class="fas fa-chevron-right"></i></div>
-                            <!-- Step 3 -->
-                            <div class="flex-1 text-center group cursor-pointer" onclick="toggleProcess(3)">
-                                <div class="h-full bg-teal-500 hover:bg-teal-600 text-white rounded-lg p-4 shadow transition-colors flex flex-col justify-center items-center relative z-10" id="step-btn-3">
-                                    <span class="block text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Bước 3</span>
-                                    <span class="font-semibold leading-snug">Phát triển<br>Chương trình 4Ps</span>
-                                </div>
-                            </div>
-                            <div class="hidden sm:flex items-center text-teal-300"><i class="fas fa-chevron-right"></i></div>
-                            <!-- Step 4 -->
-                            <div class="flex-1 text-center group cursor-pointer" onclick="toggleProcess(4)">
-                                <div class="h-full bg-teal-600 hover:bg-teal-700 text-white rounded-lg p-4 shadow transition-colors flex flex-col justify-center items-center relative z-10 border-b-4 border-teal-800" id="step-btn-4">
-                                    <span class="block text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Bước 4</span>
-                                    <span class="font-semibold leading-snug">Quản trị CRM<br>& Hài lòng</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center text-sm font-semibold text-teal-600 tracking-wide uppercase">Tạo ra giá trị cho khách hàng</div>
-                    </div>
-                    <div class="hidden md:flex items-center text-slate-300 px-2"><i class="fas fa-arrow-right fa-2x"></i></div>
-                    <div class="flex-none md:w-1/4 flex flex-col gap-4">
-                        <div class="h-full text-center cursor-pointer" onclick="toggleProcess(5)">
-                            <div class="h-full bg-amber-500 hover:bg-amber-600 text-white rounded-lg p-4 shadow transition-colors flex flex-col justify-center items-center relative z-10 border-b-4 border-amber-700" id="step-btn-5">
-                                <span class="block text-xs font-bold uppercase tracking-wider mb-1 opacity-80">Bước 5</span>
-                                <span class="font-semibold leading-snug text-lg">Thu hồi<br>Giá trị</span>
-                            </div>
-                        </div>
-                        <div class="text-center text-sm font-semibold text-amber-600 tracking-wide uppercase">Thu giá trị về công ty</div>
-                    </div>
-                </div>
-
-                <!-- Accordion Contents -->
-                <div class="bg-slate-50 rounded-lg px-6 border border-slate-200">
-                    <div id="process-desc-1" class="process-content text-slate-700"><strong class="text-teal-700"><i class="fas fa-search mr-2"></i>Bước 1: Thấu hiểu thị trường và nhu cầu khách hàng.</strong> Nghiên cứu thị trường và quản lý thông tin tiếp thị để hiểu sâu sắc nhu cầu, mong muốn, sức mua và giá trị cảm nhận.</div>
-                    <div id="process-desc-2" class="process-content text-slate-700"><strong class="text-teal-700"><i class="fas fa-crosshairs mr-2"></i>Bước 2: Thiết kế chiến lược tiếp thị hướng khách hàng.</strong> Quyết định phục vụ ai thông qua Phân khúc (Segmentation) và Mục tiêu (Targeting). Phục vụ thế nào qua Định vị (Positioning).</div>
-                    <div id="process-desc-3" class="process-content text-slate-700"><strong class="text-teal-700"><i class="fas fa-cubes mr-2"></i>Bước 3: Xây dựng chương trình 4Ps.</strong> Biến chiến lược thành hành động thông qua Sản phẩm, Giá cả, Phân phối, và Chiêu thị.</div>
-                    <div id="process-desc-4" class="process-content text-slate-700"><strong class="text-teal-800"><i class="fas fa-heart mr-2"></i>Bước 4: Quản trị quan hệ khách hàng (CRM).</strong> Tương tác sâu sắc với khách hàng, tạo ra sự thích thú (customer delight).</div>
-                    <div id="process-desc-5" class="process-content text-slate-700"><strong class="text-amber-700"><i class="fas fa-sack-dollar mr-2"></i>Bước 5: Thu hồi giá trị từ khách hàng.</strong> Gặt hái doanh số, thị phần, và gia tăng tài sản khách hàng (customer equity).</div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">3. Năm Khái niệm Cốt lõi của Thị trường và Thấu hiểu Nhu cầu</h3>
-                <div class="space-y-6 text-slate-600 text-body">
-                    <div>
-                        <h4 class="font-semibold text-indigo-700 text-lg mb-2">A. Nhu cầu (Needs), Mong muốn (Wants) & Sức mua (Demands)</h4>
-                        <ul class="list-disc pl-6 space-y-2">
-                            <li><strong>Nhu cầu:</strong> Trạng thái cảm thấy bị thiếu thốn (thể xác, xã hội, cá nhân). Nhà tiếp thị <em>không</em> tạo ra nhu cầu; nó thuộc về bản chất con người.</li>
-                            <li><strong>Mong muốn:</strong> Hình thức mà nhu cầu thể hiện ra dưới sự uốn nắn của văn hóa và cá tính.</li>
-                            <li><strong>Sức mua (Cầu tiêu dùng):</strong> Những mong muốn được hậu thuẫn bởi khả năng thanh toán. Khách hàng tối ưu hóa giá trị trên từng đồng chi tiêu.</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-semibold text-indigo-700 text-lg mb-2">B. Sản phẩm thị trường & Cận thị Tiếp thị (Marketing Myopia)</h4>
-                        <p class="mb-2"><strong>Sản phẩm thị trường (Market Offerings):</strong> Sự kết hợp giữa sản phẩm vật lý, dịch vụ, thông tin, trải nghiệm cung cấp cho thị trường.</p>
-                        <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded text-slate-700 text-sm">
-                            <strong class="text-red-700">Cận thị tiếp thị (Marketing Myopia):</strong> Sai lầm khi quá chú trọng vào sản phẩm cụ thể hơn là lợi ích trải nghiệm. <em>Ví dụ: Nhà sản xuất bẫy chuột tin rằng khách hàng cần "chiếc bẫy chuột tốt hơn", trong khi khách hàng thực chất cần "giải pháp diệt chuột".</em>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="font-semibold text-indigo-700 text-lg mb-2">C. Giá trị cảm nhận & Sự hài lòng</h4>
-                        <ul class="list-disc pl-6 space-y-2">
-                            <li><strong>Giá trị cảm nhận:</strong> Đánh giá chủ quan của khách hàng về sự chênh lệch giữa lợi ích và chi phí so với đối thủ.</li>
-                            <li><strong>Sự hài lòng:</strong> Mức độ hiệu năng cảm nhận khớp với kỳ vọng. Hiệu năng > Kỳ vọng = Thích thú (Delighted).</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 class="font-semibold text-indigo-700 text-lg mb-2">D. Trao đổi và các mối quan hệ</h4>
-                        <p>Tiếp thị không chỉ đơn thuần là thực hiện một giao dịch mua bán đơn lẻ. Mục tiêu dài hạn của tiếp thị là xây dựng, duy trì và phát triển các mối quan hệ trao đổi có lợi với các đối tượng mục tiêu.</p>
-                    </div>
-
-                    <div>
-                        <h4 class="font-semibold text-indigo-700 text-lg mb-2">E. Thị trường (Markets)</h4>
-                        <p>Tập hợp tất cả những người mua thực tế và tiềm năng của một sản phẩm hoặc dịch vụ.</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">4. Sơ đồ Hệ thống Tiếp thị Hiện đại (Figure 1.2)</h3>
-                <div class="bg-white p-6 md:p-10 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden" id="Diagram_Modern_Marketing_System">
-                    <div class="absolute inset-4 border-2 border-dashed border-slate-300 rounded-lg pointer-events-none z-0"></div>
-                    <div class="text-center absolute top-2 left-1/2 transform -translate-x-1/2 bg-white px-4 text-xs font-bold text-slate-400 tracking-widest uppercase z-10">Môi trường Vĩ mô</div>
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full mt-8 relative z-10">
-                        <div class="flowchart-node relative w-full md:w-1/4 bg-slate-50 border border-slate-300 rounded-lg p-4 text-center cursor-help flow-line-right flow-line-right-arrow z-20 hover:border-indigo-400 transition-all"><span class="font-semibold text-slate-700">Nhà cung cấp</span></div>
-                        <div class="flex flex-col w-full md:w-1/3 gap-4 flow-line-right flow-line-right-arrow z-20">
-                            <div class="flowchart-node relative bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-center cursor-help hover:border-indigo-400 transition-all"><span class="font-bold text-indigo-800">Công ty chính</span></div>
-                            <div class="flowchart-node relative bg-rose-50 border border-rose-200 rounded-lg p-4 text-center cursor-help hover:border-rose-400 transition-all"><span class="font-semibold text-rose-800">Đối thủ</span></div>
-                        </div>
-                        <div class="flowchart-node relative w-full md:w-1/4 bg-slate-50 border border-slate-300 rounded-lg p-4 text-center cursor-help flow-line-right flow-line-right-arrow z-20 hover:border-indigo-400 transition-all"><span class="font-semibold text-slate-700">Trung gian Tiếp thị</span></div>
-                        <div class="flowchart-node relative w-full md:w-1/4 bg-amber-100 border-2 border-amber-400 rounded-lg p-4 text-center z-20 transform md:scale-110 shadow-md hover:bg-amber-200 transition-all"><span class="font-bold text-amber-900">Người tiêu dùng</span></div>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">5. Thiết kế Chiến lược Tiếp thị hướng đến Giá trị Khách hàng</h3>
-                <ul class="list-disc pl-6 space-y-2 text-slate-600 text-body mb-8">
-                    <li><strong>Phục vụ ai? (Who to serve?):</strong> Phân khúc thị trường & Lựa chọn thị trường mục tiêu.</li>
-                    <li><strong>Phục vụ bằng cách nào? (Value Proposition):</strong> Tuyên ngôn giá trị để khác biệt hóa và định vị. Trả lời câu hỏi: <em>"Tại sao tôi nên mua của bạn thay vì đối thủ?"</em></li>
-                </ul>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">6. Năm Triết lý Quản trị Tiếp thị Cổ điển</h3>
-                <div class="space-y-4 text-slate-600 text-body mb-6">
-                    <p><strong>1. Quan điểm Sản xuất:</strong> Tập trung cải tiến hiệu suất sản xuất và hệ thống phân phối (Ví dụ: Lenovo).</p>
-                    <p><strong>2. Quan điểm Sản phẩm:</strong> Tập trung liên tục cải tiến chất lượng sản phẩm. Rủi ro dễ dẫn đến Cận thị Tiếp thị.</p>
-                    <p><strong>3. Quan điểm Bán hàng (Inside-Out):</strong> Tập trung nỗ lực bán hàng và khuyến mại quy mô lớn (Từ Nhà máy -> Sản phẩm -> Bán hàng -> Doanh số ngắn hạn).</p>
-                    <p><strong>4. Quan điểm Tiếp thị (Outside-In):</strong> Tập trung thấu hiểu và thỏa mãn nhu cầu khách hàng tốt hơn đối thủ (Từ Thị trường mục tiêu -> Nhu cầu -> Tiếp thị tích hợp -> Sự hài lòng dài hạn).</p>
-                    <p><strong>5. Quan điểm Tiếp thị có Trách nhiệm Xã hội:</strong> Cân bằng giữa Lợi nhuận công ty, Mong muốn của khách hàng và Lợi ích xã hội lâu dài (Shared Value).</p>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">7. Quản trị Quan hệ Khách hàng & Ma trận CRM (Figure 1.5)</h3>
-                <div class="relative max-w-2xl mx-auto mb-10" id="Matrix_Customer_Relationship_Groups">
-                    <div class="absolute -left-12 top-1/2 transform -translate-y-1/2 -rotate-90 origin-center text-sm font-bold text-slate-500 whitespace-nowrap tracking-widest hidden sm:block">LỢI NHUẬN TIỀM NĂNG (Y)</div>
-                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm font-bold text-slate-500 tracking-widest hidden sm:block">ĐỘ TRUNG THÀNH DỰ KIẾN (X)</div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 border-l-2 border-b-2 border-slate-300 pb-2 pl-2">
-                        <div class="h-48 flip-card group" onclick="this.classList.toggle('is-flipped')">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-sky-50 border border-sky-200"><span class="text-xs font-bold text-sky-400 absolute top-2 left-2 uppercase">Lợi nhuận: Cao | Trung thành: Ngắn</span><i class="fas fa-fan text-4xl text-sky-400 mb-3 animate-float"></i><h4 class="text-lg font-bold text-sky-800">Butterflies (Bướm hoa)</h4><p class="text-xs text-slate-500 mt-2">Thích săn deal, đến rồi đi.</p></div>
-                                <div class="flip-card-back bg-sky-600 text-white"><p class="text-sm">Tận hưởng lợi nhuận ngắn hạn. Chốt đơn nhanh. Không đầu tư nguồn lực chăm sóc dài hạn.</p></div>
-                            </div>
-                        </div>
-                        <div class="h-48 flip-card group" onclick="this.classList.toggle('is-flipped')">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-rose-50 border border-rose-200"><span class="text-xs font-bold text-rose-400 absolute top-2 right-2 uppercase">Lợi nhuận: Cao | Trung thành: Dài</span><i class="fas fa-handshake-angle text-4xl text-rose-400 mb-3 animate-float" style="animation-delay: 0.5s;"></i><h4 class="text-lg font-bold text-rose-800">True Friends (Bạn đích thực)</h4><p class="text-xs text-slate-500 mt-2">Fan cuồng, tương thích tuyệt đối.</p></div>
-                                <div class="flip-card-back bg-rose-600 text-white"><p class="text-sm">Đầu tư tối đa. Tương tác liên tục. Biến họ thành True Believers truyền miệng miễn phí.</p></div>
-                            </div>
-                        </div>
-                        <div class="h-48 flip-card group" onclick="this.classList.toggle('is-flipped')">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-slate-100 border border-slate-200"><span class="text-xs font-bold text-slate-400 absolute bottom-2 left-2 uppercase">Lợi nhuận: Thấp | Trung thành: Ngắn</span><i class="fas fa-user-ninja text-4xl text-slate-400 mb-3"></i><h4 class="text-lg font-bold text-slate-600">Strangers (Người lạ)</h4><p class="text-xs text-slate-500 mt-2">Không phù hợp với sản phẩm.</p></div>
-                                <div class="flip-card-back bg-slate-700 text-white"><p class="text-sm">Không đầu tư bất kỳ nguồn lực nào. Thu tiền từ giao dịch đơn lẻ rồi để họ tự rời đi.</p></div>
-                            </div>
-                        </div>
-                        <div class="h-48 flip-card group" onclick="this.classList.toggle('is-flipped')">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front bg-amber-50 border border-amber-200"><span class="text-xs font-bold text-amber-400 absolute bottom-2 right-2 uppercase">Lợi nhuận: Thấp | Trung thành: Dài</span><i class="fas fa-anchor text-4xl text-amber-400 mb-3 animate-float" style="animation-delay: 1s;"></i><h4 class="text-lg font-bold text-amber-800">Barnacles (Hàu bám đá)</h4><p class="text-xs text-slate-500 mt-2">Đến thường xuyên nhưng chi cực ít.</p></div>
-                                <div class="flip-card-back bg-amber-600 text-white"><p class="text-sm">Nhóm nguy hiểm nhất (bào mòn chi phí). Phải Up-selling để vắt ra lợi nhuận hoặc tìm cách sa thải khéo léo.</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-12">8. Thu hồi Giá trị từ Khách hàng: Đo lường Chỉ số</h3>
-                <ul class="list-none space-y-4 text-slate-600 text-body mb-8">
-                    <li class="bg-slate-50 p-4 rounded border-l-4 border-indigo-400">
-                        <strong class="text-indigo-800 block mb-1">Customer Lifetime Value (CLV): Giá trị vòng đời khách hàng</strong>
-                        <div class="mt-3 overflow-x-auto text-center py-2 bg-white rounded shadow-inner border border-slate-100">
-                            $$NPV = \sum_{t=1}^{N} \frac{C_t}{(1 + r)^t}$$
-                            <p class="text-xs text-slate-500 mt-1">($C_t$: Dòng tiền ròng năm $t$ | $r$: Tỷ lệ chiết khấu | $N$: Tổng số năm vòng đời)</p>
-                        </div>
-                    </li>
-                    <li><strong>Share of Customer:</strong> Thị phần chi tiêu của khách hàng.</li>
-                    <li><strong>Customer Equity:</strong> Tổng hợp giá trị vòng đời của tất cả các khách hàng. Thước đo sức khỏe tài chính tương lai.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-12">9. Bối cảnh Tiếp thị đang Thay đổi</h3>
-                <ul class="list-disc pl-6 space-y-2 text-slate-600 text-body mb-8">
-                    <li>Kỷ nguyên Kỹ thuật số (Digital Age).</li>
-                    <li>Môi trường kinh tế biến động (Thực dụng và tiết kiệm hơn).</li>
-                    <li>Sự trỗi dậy của Tiếp thị phi lợi nhuận.</li>
-                    <li>Toàn cầu hóa thần tốc.</li>
-                    <li>Trách nhiệm xã hội và môi trường.</li>
-                </ul>
-            </section>
-
-            <section class="chagee-box bg-gradient-to-br from-red-50 to-orange-50 rounded-xl shadow-lg border border-red-100 p-8 sm:p-10 mb-10 overflow-hidden relative">
-                <div class="relative z-10">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-600 text-white p-3 rounded-lg shadow-md mr-4"><i class="fas fa-mug-hot text-2xl"></i></div>
-                        <h2 class="text-2xl font-bold text-red-900 leading-tight">HỘP TIÊU ĐIỂM THỰC CHIẾN:<br>CHAGEE IN-ACTION</h2>
-                    </div>
-                    <p class="text-slate-700 text-body mb-6 font-medium italic border-b border-red-200 pb-4">CRM & Tối ưu hóa Ma trận Phân loại Khách hàng Thực chiến tại Chagee Việt Nam.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-                        <div class="bg-white/80 backdrop-blur rounded-lg p-5 border-l-4 border-rose-500 shadow-sm">
-                            <h4 class="font-bold text-rose-800 mb-2 flex items-center"><i class="fas fa-handshake-angle mr-2"></i>Nhóm True Friends</h4>
-                            <p class="text-sm text-slate-600">Gen Z sành điệu, đặt 3-4 ly/tuần. Chagee đầu tư tặng túi canvas thiết kế riêng, voucher sinh nhật cá nhân hóa.</p>
-                        </div>
-                        <div class="bg-white/80 backdrop-blur rounded-lg p-5 border-l-4 border-amber-500 shadow-sm">
-                            <h4 class="font-bold text-amber-800 mb-2 flex items-center"><i class="fas fa-anchor mr-2"></i>Nhóm Barnacles (Hàu bám đá)</h4>
-                            <p class="text-sm text-slate-600">Ngồi làm việc cả ngày bằng wifi chùa, gọi 1 ly trà đá 35k. Chi phí cao, làm mất chỗ khách khác.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm border border-red-100">
-                        <h4 class="font-bold text-red-800 mb-3">Chiến lược Xử lý Thực chiến:</h4>
-                        <ul class="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                            <li><strong>Up-selling (Bán thêm):</strong> App tự động gợi ý popup: "Thêm 15k có ngay combo bánh Macaron".</li>
-                            <li><strong>Hợp lý hóa chi phí (Khéo léo "Sa thải"):</strong> Giới hạn wifi 1.5 giờ qua mã hóa đơn. Muốn dùng thêm phải mua ly mới.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 border border-indigo-100 relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-bl-lg uppercase tracking-widest">Interactive Zone</div>
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-8 flex items-center">
-                    <i class="fas fa-gamepad mr-3"></i> PHẦN IV: THỬ THÁCH NHÀ QUẢN TRỊ (CHƯƠNG 1)
-                </h2>
-                
-                <div class="mb-10">
-                    <h3 class="text-lg font-bold text-slate-800 mb-4 bg-slate-100 inline-block px-3 py-1 rounded text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu hỏi trắc nghiệm</h3>
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <p class="font-medium text-slate-700 mb-4 text-sm leading-relaxed">Một nhà quản trị tin rằng: "Sản phẩm của chúng tôi có công nghệ tối tân nhất. Không cần nghiên cứu nhu cầu, khách sẽ tự tìm đến mua." Nhà quản trị này đang chịu ảnh hưởng bởi rủi ro gì?</p>
-                        <div class="space-y-3" id="quiz-options">
-                            <label class="flex items-start p-3 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q1" value="A" class="mt-1 mr-3 text-indigo-600 focus:ring-indigo-500"><span class="text-sm text-slate-700">A. Quan điểm Sản xuất - Rủi ro giảm biên lợi nhuận.</span></label>
-                            <label class="flex items-start p-3 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q1" value="B" class="mt-1 mr-3 text-indigo-600 focus:ring-indigo-500"><span class="text-sm text-slate-700">B. Quan điểm Bán hàng - Rủi ro mất niềm tin.</span></label>
-                            <label class="flex items-start p-3 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q1" value="C" class="mt-1 mr-3 text-indigo-600 focus:ring-indigo-500"><span class="text-sm text-slate-700">C. Quan điểm Sản phẩm - Rủi ro Cận thị Tiếp thị.</span></label>
-                        </div>
-                        <button onclick="checkQuiz1()" class="mt-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-white font-semibold py-2 px-6 rounded text-sm">Kiểm tra đáp án</button>
-                        <div id="quiz-result-1" class="mt-4 hidden p-4 rounded-lg text-sm"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-4 bg-slate-100 inline-block px-3 py-1 rounded text-sm"><i class="fas fa-briefcase text-amber-500 mr-2"></i>Thử thách Giám đốc Tăng trưởng</h3>
-                    <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
-                        <p class="font-medium text-amber-900 mb-3">Tình huống giả định:</p>
-                        <p class="text-sm text-slate-700 mb-4">Bạn là Growth Director mới của Chagee. Dữ liệu chỉ ra nhóm <strong>Barnacles</strong> chiếm 25% traffic nhưng chỉ góp 3.5% doanh thu, gây tắc nghẽn giờ cao điểm.</p>
-                        <textarea class="w-full mt-4 p-3 border border-amber-300 rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none resize-y min-h-[100px] text-sm text-slate-700" placeholder="Đề xuất kế hoạch 3 bước tái cấu trúc hành vi chi tiêu..."></textarea>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- CHAPTER 2 CONTENT -->
-        <!-- ========================================== -->
-        <div id="chapter-2" class="tab-content hidden">
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 mb-10 border border-slate-100">
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 flex items-center">
-                    <i class="fas fa-chess-board mr-3"></i> PHẦN I: HOẠCH ĐỊNH CHIẾN LƯỢC TOÀN CÔNG TY
-                </h2>
-                
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">1. Định nghĩa Học thuật Chuẩn</h3>
-                <ul class="list-disc pl-6 space-y-2 text-slate-600 text-sm mb-6">
-                    <li><strong>Hoạch định chiến lược (Strategic Planning):</strong> Quy trình phát triển sự thích ứng chiến lược giữa mục tiêu, năng lực tổ chức với các cơ hội tiếp thị luôn biến động.</li>
-                    <li><strong>Tuyên ngôn sứ mệnh (Mission Statement):</strong> Phát biểu về mục đích của tổ chức. Phải hướng về thị trường thay vì hướng về sản phẩm.</li>
-                    <li><strong>Danh mục kinh doanh (Business Portfolio):</strong> Tập hợp các ngành kinh doanh và sản phẩm tạo nên công ty.</li>
-                    <li><strong>Đơn vị kinh doanh chiến lược (SBU - Strategic Business Unit):</strong> Một bộ phận có sứ mệnh riêng, có thể được hoạch định độc lập với các bộ phận khác.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">2. Quy trình Hoạch định Chiến lược 4 bước</h3>
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-lg text-center flex-1 w-full shadow-sm">
-                        <span class="block text-xs font-bold text-teal-600 uppercase mb-1">Bước 1 (Cấp công ty)</span>
-                        <span class="font-semibold text-teal-900">Định hình<br>Sứ mệnh</span>
-                    </div>
-                    <div class="hidden md:block text-slate-300"><i class="fas fa-arrow-right"></i></div>
-                    <div class="md:hidden text-slate-300"><i class="fas fa-arrow-down"></i></div>
-                    
-                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-lg text-center flex-1 w-full shadow-sm">
-                        <span class="block text-xs font-bold text-teal-600 uppercase mb-1">Bước 2 (Cấp công ty)</span>
-                        <span class="font-semibold text-teal-900">Thiết lập<br>Mục tiêu</span>
-                    </div>
-                    <div class="hidden md:block text-slate-300"><i class="fas fa-arrow-right"></i></div>
-                    <div class="md:hidden text-slate-300"><i class="fas fa-arrow-down"></i></div>
-
-                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-lg text-center flex-1 w-full shadow-sm">
-                        <span class="block text-xs font-bold text-teal-600 uppercase mb-1">Bước 3 (Cấp công ty)</span>
-                        <span class="font-semibold text-teal-900">Thiết kế<br>Danh mục (SBU)</span>
-                    </div>
-                    <div class="hidden md:block text-slate-300"><i class="fas fa-arrow-right"></i></div>
-                    <div class="md:hidden text-slate-300"><i class="fas fa-arrow-down"></i></div>
-
-                    <div class="bg-red-50 border border-red-200 p-4 rounded-lg text-center flex-1 w-full shadow-md border-b-4 border-red-500">
-                        <span class="block text-xs font-bold text-red-600 uppercase mb-1">Bước 4 (Cấp đơn vị)</span>
-                        <span class="font-semibold text-red-900">Hoạch định<br>Tiếp thị (4Ps)</span>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-12">3. Tuyên ngôn Sứ mệnh hướng về Thị trường</h3>
-                <div class="overflow-x-auto mb-10 rounded-lg shadow-sm border border-slate-200">
-                    <table class="w-full text-sm text-left border-collapse">
-                        <thead class="bg-slate-100 text-slate-700">
-                            <tr>
-                                <th class="p-4 border-b border-slate-200 w-1/4">Doanh nghiệp</th>
-                                <th class="p-4 border-b border-l border-slate-200 w-1/3">Hướng về Sản phẩm (Lối mòn)</th>
-                                <th class="p-4 border-b border-l border-slate-200">Hướng về Thị trường (Chuẩn mực)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-slate-600">
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-slate-800 border-b border-slate-100">Chipotle</td>
-                                <td class="p-4 border-l border-b border-slate-100 text-slate-500">Chúng tôi bán bánh burritos và đồ ăn Mexico.</td>
-                                <td class="p-4 border-l border-b border-slate-100 text-indigo-700 font-medium">Mang đến nguồn "Thức ăn có trách nhiệm đạo đức" (Food With Integrity).</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-slate-800 border-b border-slate-100">Starbucks</td>
-                                <td class="p-4 border-l border-b border-slate-100 text-slate-500">Chúng tôi bán cà phê và đồ ăn nhẹ.</td>
-                                <td class="p-4 border-l border-b border-slate-100 text-indigo-700 font-medium">Bán "Trải nghiệm Starbucks", làm phong phú cuộc sống của mọi người.</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-slate-800 border-b border-slate-100">Revlon</td>
-                                <td class="p-4 border-l border-b border-slate-100 text-slate-500">Chúng tôi sản xuất mỹ phẩm.</td>
-                                <td class="p-4 border-l border-b border-slate-100 text-indigo-700 font-medium">Bán phong cách sống, sự tự thể hiện, hy vọng và những giấc mơ.</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-slate-800">Home Depot</td>
-                                <td class="p-4 border-l border-slate-100 text-slate-500">Chúng tôi bán công cụ sửa chữa nhà.</td>
-                                <td class="p-4 border-l border-slate-100 text-indigo-700 font-medium">Trao quyền để người tiêu dùng tự kiến tạo ngôi nhà mơ ước.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 mt-16 flex items-center">
-                    <i class="fas fa-chart-pie mr-3"></i> PHẦN II: MA TRẬN PHÂN TÍCH DANH MỤC ĐẦU TƯ
-                </h2>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">1. Ma trận BCG (Boston Consulting Group Matrix)</h3>
-                <p class="text-slate-600 mb-6 text-body">Phương pháp đánh giá các SBU của một công ty dựa trên hai khía cạnh chiến lược. <strong>Lưu ý:</strong> Trục X (Thị phần) đi ngược từ CAO sang THẤP theo chuẩn Kotler.</p>
-                
-                <div class="relative max-w-3xl mx-auto mb-16 mt-12 pl-8 sm:pl-16 pt-12">
-                    <!-- Trục Y (Tốc độ tăng trưởng) -->
-                    <div class="absolute left-0 sm:left-4 top-1/2 transform -translate-y-1/2 -rotate-90 text-sm font-bold text-slate-500 tracking-widest hidden sm:block uppercase whitespace-nowrap">Tốc độ Tăng trưởng (Y)</div>
-                    <div class="absolute left-0 sm:left-4 top-12 text-xs font-bold text-slate-400 bg-white px-1">CAO</div>
-                    <div class="absolute left-0 sm:left-4 bottom-2 text-xs font-bold text-slate-400 bg-white px-1">THẤP</div>
-                    
-                    <!-- Trục X (Thị phần tương đối) -->
-                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 text-sm font-bold text-slate-500 tracking-widest hidden sm:block uppercase whitespace-nowrap ml-4">Thị phần Tương đối (X)</div>
-                    <div class="absolute top-6 left-[10%] sm:left-[5%] text-xs font-bold text-slate-400 bg-white px-1">CAO</div>
-                    <div class="absolute top-6 right-2 sm:right-2 text-xs font-bold text-slate-400 bg-white px-1">THẤP</div>
-                    <div class="absolute top-8 left-[10%] sm:left-[5%] right-2 sm:right-2 text-[10px] text-slate-400 border-b border-dashed border-slate-300"></div>
-
-                    <!-- Lưới Ma Trận 2x2 -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 grid-rows-4 sm:grid-rows-2 gap-4 border-l-2 border-b-2 border-slate-400 pl-4 pb-4 relative z-10">
-                        
-                        <!-- Stars -->
-                        <div class="matrix-quadrant bg-red-50 border-2 border-red-200 rounded-xl p-6 relative overflow-hidden group">
-                            <span class="absolute top-3 left-3 text-[10px] font-bold text-red-500 uppercase tracking-wide bg-white px-2 py-1 rounded-full shadow-sm">Tăng trưởng: Cao | Thị phần: Cao</span>
-                            <i class="fas fa-star text-5xl text-red-300 absolute right-4 bottom-4 opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></i>
-                            <h4 class="text-xl font-bold text-red-800 mb-2 mt-8">Ngôi sao (Stars)</h4>
-                            <p class="text-sm text-slate-600 line-clamp-3 hover:line-clamp-none transition-all">Cần vốn đầu tư cực lớn để duy trì tốc độ phát triển. Sẽ chuyển hóa thành Bò sữa khi thị trường bão hòa.</p>
-                            <div class="mt-4 pt-4 border-t border-red-200">
-                                <span class="inline-block bg-red-600 text-white text-xs px-3 py-1.5 rounded font-bold shadow-sm cursor-pointer hover:bg-red-700">Chiến lược: XÂY DỰNG (BUILD)</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Question Marks -->
-                        <div class="matrix-quadrant bg-orange-50 border-2 border-orange-200 rounded-xl p-6 relative overflow-hidden group">
-                            <span class="absolute top-3 right-3 text-[10px] font-bold text-orange-500 uppercase tracking-wide bg-white px-2 py-1 rounded-full shadow-sm">Tăng trưởng: Cao | Thị phần: Thấp</span>
-                            <i class="fas fa-question-circle text-5xl text-orange-300 absolute right-4 bottom-4 opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></i>
-                            <h4 class="text-xl font-bold text-orange-800 mb-2 mt-8">Dấu hỏi (Question Marks)</h4>
-                            <p class="text-sm text-slate-600 line-clamp-3 hover:line-clamp-none transition-all">Ngốn nhiều tiền mặt. Ban lãnh đạo phải cân nhắc kỹ nên đầu tư mạnh tay hay loại bỏ để tránh lỗ.</p>
-                            <div class="mt-4 pt-4 border-t border-orange-200 space-x-2">
-                                <span class="inline-block bg-orange-500 text-white text-xs px-2 py-1.5 rounded font-bold shadow-sm">BUILD</span>
-                                <span class="inline-block bg-slate-500 text-white text-xs px-2 py-1.5 rounded font-bold shadow-sm">DIVEST</span>
-                            </div>
-                        </div>
-
-                        <!-- Cash Cows -->
-                        <div class="matrix-quadrant bg-teal-50 border-2 border-teal-200 rounded-xl p-6 relative overflow-hidden group">
-                            <span class="absolute bottom-3 left-3 text-[10px] font-bold text-teal-600 uppercase tracking-wide bg-white px-2 py-1 rounded-full shadow-sm">Tăng trưởng: Thấp | Thị phần: Cao</span>
-                            <i class="fas fa-sack-dollar text-5xl text-teal-300 absolute right-4 top-4 opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></i>
-                            <h4 class="text-xl font-bold text-teal-800 mb-2 mt-2">Bò sữa (Cash Cows)</h4>
-                            <p class="text-sm text-slate-600 line-clamp-3 hover:line-clamp-none transition-all">SBU trưởng thành, cần ít vốn nhưng sinh ra dòng tiền khổng lồ để chi trả hóa đơn và nuôi dự án khác.</p>
-                            <div class="mt-4 pt-4 border-t border-teal-200 space-x-2">
-                                <span class="inline-block bg-teal-600 text-white text-xs px-2 py-1.5 rounded font-bold shadow-sm">HOLD</span>
-                                <span class="inline-block bg-teal-500 text-white text-xs px-2 py-1.5 rounded font-bold shadow-sm">HARVEST</span>
-                            </div>
-                        </div>
-
-                        <!-- Dogs -->
-                        <div class="matrix-quadrant bg-slate-100 border-2 border-slate-300 rounded-xl p-6 relative overflow-hidden group">
-                            <span class="absolute bottom-3 right-3 text-[10px] font-bold text-slate-500 uppercase tracking-wide bg-white px-2 py-1 rounded-full shadow-sm">Tăng trưởng: Thấp | Thị phần: Thấp</span>
-                            <i class="fas fa-bone text-5xl text-slate-300 absolute left-4 top-4 opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></i>
-                            <h4 class="text-xl font-bold text-slate-700 mb-2 mt-2">Chó mực (Dogs)</h4>
-                            <p class="text-sm text-slate-600 line-clamp-3 hover:line-clamp-none transition-all">Tự nuôi sống bản thân nhưng không tạo ra dòng tiền lớn. Không hứa hẹn tương lai, thường bị loại bỏ.</p>
-                            <div class="mt-4 pt-4 border-t border-slate-300">
-                                <span class="inline-block bg-slate-700 text-white text-xs px-3 py-1.5 rounded font-bold shadow-sm">Chiến lược: THOÁI VỐN (DIVEST)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-16">2. Ma trận Ansoff (Lưới Mở rộng Sản phẩm/Thị trường)</h3>
-                <p class="text-slate-600 mb-6 text-body">Công cụ cốt lõi để xác định cơ hội tăng trưởng doanh thu.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
-                    <!-- Penetration -->
-                    <div class="bg-amber-50 border border-amber-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
-                        <div class="absolute -top-3 -right-3 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded-full border border-amber-200 shadow-sm">SP Hiện tại + TT Hiện tại</div>
-                        <h4 class="font-bold text-amber-900 text-lg mb-3"><i class="fas fa-bullseye text-amber-500 mr-2"></i>1. Thâm nhập thị trường</h4>
-                        <p class="text-sm text-slate-700 leading-relaxed">Tăng trưởng bằng cách bán nhiều sản phẩm hiện tại hơn cho khách hàng ở thị trường hiện tại (Vd: Tăng quảng cáo, điều chỉnh giá, ký hợp đồng KOC).</p>
-                    </div>
-                    <!-- Product Dev -->
-                    <div class="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
-                        <div class="absolute -top-3 -right-3 bg-orange-100 text-orange-800 text-[10px] font-bold px-2 py-1 rounded-full border border-orange-200 shadow-sm">SP Mới + TT Hiện tại</div>
-                        <h4 class="font-bold text-orange-900 text-lg mb-3"><i class="fas fa-box-open text-orange-500 mr-2"></i>2. Phát triển sản phẩm</h4>
-                        <p class="text-sm text-slate-700 leading-relaxed">Tăng trưởng bằng cách cung cấp các sản phẩm Mới hoặc sản phẩm cải tiến cho các thị trường Hiện tại (Vd: Ra mắt dòng giày chạy bộ mới cho khách hàng cũ).</p>
-                    </div>
-                    <!-- Market Dev -->
-                    <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
-                        <div class="absolute -top-3 -right-3 bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded-full border border-blue-200 shadow-sm">SP Hiện tại + TT Mới</div>
-                        <h4 class="font-bold text-blue-900 text-lg mb-3"><i class="fas fa-globe text-blue-500 mr-2"></i>3. Phát triển thị trường</h4>
-                        <p class="text-sm text-slate-700 leading-relaxed">Tăng trưởng bằng cách tìm kiếm và phát triển các phân khúc thị trường hoặc khu vực địa lý Mới cho các sản phẩm Hiện tại.</p>
-                    </div>
-                    <!-- Diversification -->
-                    <div class="bg-white border-2 border-dashed border-red-300 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
-                        <div class="absolute -top-3 -right-3 bg-red-100 text-red-800 text-[10px] font-bold px-2 py-1 rounded-full border border-red-300 shadow-sm">SP Mới + TT Mới</div>
-                        <h4 class="font-bold text-red-800 text-lg mb-3"><i class="fas fa-random text-red-500 mr-2"></i>4. Đa dạng hóa (Rủi ro cao)</h4>
-                        <p class="text-sm text-slate-700 leading-relaxed">Tăng trưởng bằng cách khởi nghiệp hoặc mua lại các doanh nghiệp nằm ngoài phạm vi sản phẩm và thị trường hiện tại.</p>
-                    </div>
-                </div>
-
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 mt-16 flex items-center">
-                    <i class="fas fa-network-wired mr-3"></i> PHẦN III & IV: HỢP TÁC & CHIẾN LƯỢC TIẾP THỊ (4Ps)
-                </h2>
-                
-                <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 mb-8">
-                    <h3 class="text-lg font-bold text-indigo-900 mb-3">Chiến lược STP (Customer Value-Driven Strategy)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-indigo-800">
-                        <div class="bg-white p-3 rounded shadow-sm"><strong>1. Phân khúc (Segmentation):</strong> Chia nhỏ thị trường không đồng nhất.</div>
-                        <div class="bg-white p-3 rounded shadow-sm"><strong>2. Mục tiêu (Targeting):</strong> Đánh giá và chọn phân khúc hấp dẫn.</div>
-                        <div class="bg-white p-3 rounded shadow-sm"><strong>3. Khác biệt hóa (Differentiation):</strong> Tạo sự khác biệt vượt trội so với đối thủ.</div>
-                        <div class="bg-white p-3 rounded shadow-sm"><strong>4. Định vị (Positioning):</strong> Chiếm giữ vị trí rõ ràng trong tâm trí khách hàng.</div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-8 rounded-xl border border-slate-200 relative">
-                    <h4 class="text-center font-bold text-slate-800 mb-8 uppercase tracking-widest text-lg">Hỗn hợp Tiếp thị Tích hợp (4Ps)</h4>
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-8 relative z-10">
-                        <!-- Tâm điểm -->
-                        <div class="bg-indigo-600 text-white p-4 rounded-full border-8 border-indigo-100 shadow-xl text-center z-20 md:w-1/3 flex flex-col justify-center items-center h-48 w-48 hover:scale-105 transition-transform">
-                            <i class="fas fa-heart text-4xl mb-2 text-pink-300"></i>
-                            <h4 class="font-bold text-base leading-tight">Khách hàng<br>Mục tiêu</h4>
-                        </div>
-                        <!-- Vệ tinh -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:w-2/3">
-                            <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-indigo-400 hover:-translate-y-1 transition-transform">
-                                <h5 class="font-bold text-indigo-900 mb-2 flex items-center"><i class="fas fa-box text-indigo-400 mr-2"></i> Sản phẩm (Product)</h5>
-                                <p class="text-xs text-slate-600 leading-relaxed">Sự kết hợp hàng hóa & dịch vụ cung cấp cho thị trường (Chất lượng, Thiết kế, Tính năng, Bao bì).</p>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-emerald-400 hover:-translate-y-1 transition-transform">
-                                <h5 class="font-bold text-emerald-900 mb-2 flex items-center"><i class="fas fa-tag text-emerald-400 mr-2"></i> Giá cả (Price)</h5>
-                                <p class="text-xs text-slate-600 leading-relaxed">Số tiền phải trả để sở hữu sản phẩm (Giá niêm yết, Chiết khấu, Trả góp, Điều khoản tín dụng).</p>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-amber-400 hover:-translate-y-1 transition-transform">
-                                <h5 class="font-bold text-amber-900 mb-2 flex items-center"><i class="fas fa-truck text-amber-400 mr-2"></i> Phân phối (Place)</h5>
-                                <p class="text-xs text-slate-600 leading-relaxed">Hoạt động đưa sản phẩm đến tay khách hàng thuận tiện nhất (Kênh, Độ phủ, Kho bãi, Logistics).</p>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-rose-400 hover:-translate-y-1 transition-transform">
-                                <h5 class="font-bold text-rose-900 mb-2 flex items-center"><i class="fas fa-bullhorn text-rose-400 mr-2"></i> Chiêu thị (Promotion)</h5>
-                                <p class="text-xs text-slate-600 leading-relaxed">Truyền tải thông tin và thuyết phục khách hàng (Quảng cáo, PR, Khuyến mãi, Bán hàng cá nhân).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 mt-16 flex items-center">
-                    <i class="fas fa-tasks mr-3"></i> PHẦN V: QUẢN TRỊ NỖ LỰC TIẾP THỊ & ROI
-                </h2>
-                
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">1. Phân tích SWOT & Vòng lặp Quản trị</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-6 text-sm">
-                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg text-center shadow-sm"><strong class="text-emerald-800 block mb-1 text-lg">S</strong><strong class="text-emerald-700 block mb-1">Điểm mạnh</strong><span class="text-[10px] uppercase font-bold text-slate-500 bg-white px-2 py-1 rounded">Nội bộ / Tích cực</span></div>
-                    <div class="bg-red-50 border border-red-200 p-4 rounded-lg text-center shadow-sm"><strong class="text-red-800 block mb-1 text-lg">W</strong><strong class="text-red-700 block mb-1">Điểm yếu</strong><span class="text-[10px] uppercase font-bold text-slate-500 bg-white px-2 py-1 rounded">Nội bộ / Tiêu cực</span></div>
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg text-center shadow-sm"><strong class="text-blue-800 block mb-1 text-lg">O</strong><strong class="text-blue-700 block mb-1">Cơ hội</strong><span class="text-[10px] uppercase font-bold text-slate-500 bg-white px-2 py-1 rounded">Bên ngoài / Tích cực</span></div>
-                    <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg text-center shadow-sm"><strong class="text-orange-800 block mb-1 text-lg">T</strong><strong class="text-orange-700 block mb-1">Thách thức</strong><span class="text-[10px] uppercase font-bold text-slate-500 bg-white px-2 py-1 rounded">Bên ngoài / Tiêu cực</span></div>
-                </div>
-                <div class="bg-slate-100 text-center p-3 rounded-lg text-sm text-slate-700 mb-10 border border-slate-200 font-mono tracking-wide">
-                    [Phân tích] &rarr; [Hoạch định] &rarr; [Thực thi] &rarr; [Kiểm soát]
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4">2. Đo lường Hiệu quả Đầu tư Tiếp thị (Marketing ROI)</h3>
-                <p class="text-slate-600 text-body mb-4">Để tính toán hiệu quả tài chính của một chiến dịch tiếp thị một cách độc lập (loại bỏ chi phí vận hành chéo), sử dụng công thức Đóng góp Tiếp thị Thuần (NMC):</p>
-                <div class="overflow-x-auto text-center py-6 bg-white rounded-xl shadow-inner border border-slate-200 mb-8">
-                    $$ \text{NMC} = (\text{Doanh thu Thuần} \times \text{Biên Lợi nhuận gộp \%}) - \text{Chi phí Tiếp thị} $$
-                    <div class="my-4 border-b border-slate-100 w-1/2 mx-auto"></div>
-                    $$ \text{Marketing ROI} = \frac{\text{NMC}}{\text{Chi phí Tiếp thị}} \times 100\% $$
-                </div>
-
-            </section>
-
-            <!-- Spotlight Case: Chagee for Chapter 2 -->
-            <section class="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl shadow-lg border border-red-100 p-8 sm:p-10 mb-10 relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 opacity-5 pointer-events-none">
-                    <i class="fas fa-leaf text-[200px] text-red-900"></i>
-                </div>
-                
-                <div class="relative z-10">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-600 text-white p-3 rounded-lg shadow-md mr-4">
-                            <i class="fas fa-mug-hot text-2xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-red-900 leading-tight">HỘP TIÊU ĐIỂM THỰC CHIẾN:<br>CHAGEE IN-ACTION (CHƯƠNG 2)</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-red-800 mb-4 border-b border-red-200 pb-2">1. Ứng dụng Ma trận BCG tại Chagee Việt Nam</h4>
-                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 list-none text-sm text-slate-700 mb-8">
-                        <li class="bg-white/80 backdrop-blur p-4 rounded-lg shadow-sm border-l-4 border-red-500">
-                            <strong class="text-red-800">SBU Ngôi sao (Stars):</strong> Dòng Trà Sữa Sữa Tươi Nguyên Bản (vd: Thanh Càn Tuyết Duật). Doanh số bùng nổ.<br><span class="text-xs font-bold text-slate-500 mt-2 inline-block">Chiến lược: Đổ vốn tiếp thị (BUILD/HOLD).</span>
-                        </li>
-                        <li class="bg-white/80 backdrop-blur p-4 rounded-lg shadow-sm border-l-4 border-teal-500">
-                            <strong class="text-teal-800">SBU Bò sữa (Cash Cows):</strong> Dòng Trà Nguyên Bản Ép Lạnh. Khách trung thành gọi mỗi ngày không cần khuyến mãi.<br><span class="text-xs font-bold text-slate-500 mt-2 inline-block">Chiến lược: Vắt sữa thông minh (HOLD).</span>
-                        </li>
-                        <li class="bg-white/80 backdrop-blur p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
-                            <strong class="text-orange-800">SBU Dấu hỏi (Question Marks):</strong> Quà lưu niệm & Bộ sưu tập nghệ thuật. Cần thử nghiệm đầu tư.<br><span class="text-xs font-bold text-slate-500 mt-2 inline-block">Chiến lược: Thử nghiệm (BUILD/DIVEST).</span>
-                        </li>
-                        <li class="bg-white/80 backdrop-blur p-4 rounded-lg shadow-sm border-l-4 border-slate-500">
-                            <strong class="text-slate-800">SBU Chó mực (Dogs):</strong> Dòng Trà Trái Cây thế hệ cũ. Chi phí bảo quản cao, bán rất chậm.<br><span class="text-xs font-bold text-slate-500 mt-2 inline-block">Chiến lược: Cắt giảm danh mục (DIVEST).</span>
-                        </li>
-                    </ul>
-                    
-                    <h4 class="font-bold text-red-800 mb-4 border-b border-red-200 pb-2">2. Bài toán Marketing ROI Thực tế</h4>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-red-100 text-sm text-slate-700">
-                        <p class="mb-3">Giả sử Chagee đầu tư chiến dịch marketing dòng trà sữa mới trị giá <strong>2 tỷ VNĐ</strong>. Chiến dịch mang lại doanh thu thuần <strong>10 tỷ VNĐ</strong>, biên lợi nhuận gộp đạt <strong>60%</strong>.</p>
-                        <div class="bg-slate-50 p-4 rounded font-mono text-xs border border-slate-200 mb-3">
-                            <p><strong>NMC</strong> = 10 tỷ * 60% - 2 tỷ = <strong>4 tỷ VNĐ</strong>.</p>
-                            <p><strong>Marketing ROI</strong> = (4 tỷ / 2 tỷ) * 100% = <strong class="text-green-600 text-sm">200%</strong>.</p>
-                        </div>
-                        <p class="italic">Kết luận: Mỗi 1 VNĐ chi ra cho tiếp thị, công ty thu về 2 VNĐ lợi nhuận ròng.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Zone Chapter 2 -->
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 border border-indigo-100 relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-bl-lg uppercase tracking-widest">Interactive Zone</div>
-                
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-8 flex items-center">
-                    <i class="fas fa-gamepad mr-3"></i> PHẦN VII: THỬ THÁCH NHÀ QUẢN TRỊ (CHƯƠNG 2)
-                </h2>
-
-                <!-- Quizzes -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 1 (Ma trận BCG)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Một SBU có thị phần tương đối rất thấp, nhưng nằm trong thị trường có tốc độ tăng trưởng vô cùng nhanh và hấp dẫn sẽ thuộc nhóm nào?</p>
-                        <div class="space-y-2 text-xs" id="quiz2-options-1">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_1" value="A" class="mr-2 text-indigo-600"> A. Ngôi sao (Stars)</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_1" value="B" class="mr-2 text-indigo-600"> B. Bò sữa (Cash Cows)</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_1" value="C" class="mr-2 text-indigo-600"> C. Chó mực (Dogs)</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_1" value="D" class="mr-2 text-indigo-600"> D. Dấu hỏi (Question Marks)</label>
-                        </div>
-                        <button onclick="checkQuiz2_1()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs">Kiểm tra</button>
-                        <div id="quiz-result-2-1" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 2 (Ma trận Ansoff)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Hãng Under Armour ra mắt dòng giày chạy bộ SpeedForm để bán cho khách hàng hiện tại đang mặc trang phục của hãng. Đây là chiến lược gì?</p>
-                        <div class="space-y-2 text-xs" id="quiz2-options-2">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_2" value="A" class="mr-2 text-indigo-600"> A. Thâm nhập thị trường</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_2" value="B" class="mr-2 text-indigo-600"> B. Phát triển sản phẩm</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_2" value="C" class="mr-2 text-indigo-600"> C. Phát triển thị trường</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q2_2" value="D" class="mr-2 text-indigo-600"> D. Đa dạng hóa</label>
-                        </div>
-                        <button onclick="checkQuiz2_2()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs">Kiểm tra</button>
-                        <div id="quiz-result-2-2" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-                </div>
-
-                <!-- Executive Challenge -->
-                <div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-4 bg-slate-100 inline-block px-3 py-1 rounded text-sm"><i class="fas fa-briefcase text-amber-500 mr-2"></i>Thử thách Giám đốc Tăng trưởng</h3>
-                    <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
-                        <p class="font-medium text-amber-900 mb-3">Yêu cầu hành động:</p>
-                        <p class="text-sm text-slate-700 mb-4">Dựa trên ma trận BCG và Ansoff, hãy lập kế hoạch phân bổ ngân sách cho 3 dòng sản phẩm của Chagee: (1) Trà sữa signature, (2) Quà tặng giữ nhiệt nghệ thuật, (3) Trà xanh nhài đang bị cạnh tranh gay gắt.</p>
-                        <textarea class="w-full p-3 border border-amber-300 rounded focus:ring-2 focus:ring-amber-500 outline-none min-h-[100px] text-sm text-slate-700" placeholder="Viết lập luận bảo vệ ngân sách của bạn (Build, Hold, Harvest, Divest) trước Hội đồng quản trị..."></textarea>
-                    </div>
-                </div>
-
-            </section>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- CHAPTER 3 CONTENT -->
-        <!-- ========================================== -->
-        <div id="chapter-3" class="tab-content hidden">
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 mb-10 border border-slate-100">
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 flex items-center">
-                    <i class="fas fa-book mr-3"></i> PHẦN I: TỪ ĐIỂN THUẬT NGỮ CHUẨN HỌC THUẬT
-                </h2>
-
-                <p class="text-slate-600 mb-6 text-body">Các định nghĩa nguyên bản từ giáo trình Kotler & Armstrong 17e:</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700 mb-10">
-                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm">
-                        <strong class="text-indigo-900 block mb-1">1. Môi trường Marketing</strong>
-                        Tập hợp các tác nhân và lực lượng nằm ngoài bộ phận Marketing ảnh hưởng đến khả năng duy trì quan hệ với khách hàng mục tiêu.
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-teal-500 shadow-sm">
-                        <strong class="text-teal-900 block mb-1">2. Môi trường Vi mô (Micro)</strong>
-                        Các tác nhân gần gũi với công ty: bản thân công ty, nhà cung ứng, trung gian, khách hàng, đối thủ và công chúng.
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500 shadow-sm">
-                        <strong class="text-amber-900 block mb-1">3. Môi trường Vĩ mô (Macro)</strong>
-                        Các lực lượng xã hội rộng lớn hơn: nhân khẩu, kinh tế, tự nhiên, công nghệ, chính trị và văn hóa.
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-rose-500 shadow-sm">
-                        <strong class="text-rose-900 block mb-1">4. Nhân khẩu học</strong>
-                        Nghiên cứu về dân số (quy mô, mật độ, tuổi tác, giới tính, chủng tộc, nghề nghiệp).
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-blue-500 shadow-sm">
-                        <strong class="text-blue-900 block mb-1">5. Môi trường Công nghệ</strong>
-                        Lực lượng mạnh mẽ nhất định hình số phận, tạo ra công nghệ mới, cơ hội mới, và khai tử công nghệ cũ.
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-green-500 shadow-sm">
-                        <strong class="text-green-900 block mb-1">6. Sự bền vững môi trường</strong>
-                        Phát triển chiến lược bảo tồn sinh thái và tạo giá trị bền vững cho cổ đông.
-                    </div>
-                </div>
-
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 mt-16 flex items-center">
-                    <i class="fas fa-project-diagram mr-3"></i> PHẦN II: KHUNG LÝ THUYẾT & SƠ ĐỒ TRỰC QUAN
-                </h2>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">1. Mô hình Môi trường Marketing Song hành</h3>
-                <div class="bg-slate-50 p-4 sm:p-8 rounded-xl border border-slate-200 shadow-sm relative flex justify-center items-center overflow-hidden mb-12 min-h-[550px]">
-                    
-                    <!-- MACRO RING (Outer) -->
-                    <div class="absolute w-80 h-80 sm:w-[420px] sm:h-[420px] rounded-full border-2 border-dashed border-slate-300 pointer-events-none"></div>
-                    <div class="absolute w-80 h-80 sm:w-[420px] sm:h-[420px] animate-[spin_60s_linear_infinite] z-10 pointer-events-none">
-                        <!-- 1 -->
-                        <div class="absolute top-[0%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_60s_linear_infinite_reverse] bg-white px-3 py-1.5 rounded-full shadow border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 whitespace-nowrap hover:bg-slate-100 cursor-help" title="Nhân khẩu, tuổi tác, thế hệ">Nhân khẩu học</div>
-                        </div>
-                        <!-- 2 -->
-                        <div class="absolute top-[25%] left-[93.3%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_60s_linear_infinite_reverse] bg-white px-3 py-1.5 rounded-full shadow border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 whitespace-nowrap hover:bg-slate-100 cursor-help" title="Thu nhập, sức mua, lạm phát">Kinh tế</div>
-                        </div>
-                        <!-- 3 -->
-                        <div class="absolute top-[75%] left-[93.3%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_60s_linear_infinite_reverse] bg-white px-3 py-1.5 rounded-full shadow border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 whitespace-nowrap hover:bg-slate-100 cursor-help" title="Tài nguyên, môi trường sinh thái">Tự nhiên</div>
-                        </div>
-                        <!-- 4 -->
-                        <div class="absolute top-[100%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_60s_linear_infinite_reverse] bg-white px-3 py-1.5 rounded-full shadow border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 whitespace-nowrap hover:bg-slate-100 cursor-help" title="Kỹ thuật, tự động hóa, AI">Công nghệ</div>
-                        </div>
-                        <!-- 5 -->
-                        <div class="absolute top-[75%] left-[6.7%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_60s_linear_infinite_reverse] bg-white px-3 py-1.5 rounded-full shadow border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 whitespace-nowrap hover:bg-slate-100 cursor-help" title="Luật pháp, chính sách nhà nước">Chính trị</div>
-                        </div>
-                        <!-- 6 -->
-                        <div class="absolute top-[25%] left-[6.7%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_60s_linear_infinite_reverse] bg-white px-3 py-1.5 rounded-full shadow border border-slate-300 text-xs sm:text-sm font-bold text-slate-700 whitespace-nowrap hover:bg-slate-100 cursor-help" title="Niềm tin, lối sống, giá trị">Văn hóa</div>
-                        </div>
-                    </div>
-
-                    <!-- MICRO RING (Middle) -->
-                    <div class="absolute w-52 h-52 sm:w-[260px] sm:h-[260px] rounded-full border-8 border-indigo-100 shadow-inner pointer-events-none"></div>
-                    <div class="absolute w-52 h-52 sm:w-[260px] sm:h-[260px] animate-[spin_40s_linear_infinite_reverse] z-20 pointer-events-none">
-                        <!-- 1 -->
-                        <div class="absolute top-[0%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_40s_linear_infinite] bg-indigo-50 px-3 py-1.5 rounded-full shadow border border-indigo-300 text-xs sm:text-sm font-bold text-indigo-800 whitespace-nowrap hover:bg-indigo-100 cursor-help">Nhà cung ứng</div>
-                        </div>
-                        <!-- 2 -->
-                        <div class="absolute top-[34.5%] left-[97.5%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_40s_linear_infinite] bg-indigo-50 px-3 py-1.5 rounded-full shadow border border-indigo-300 text-xs sm:text-sm font-bold text-indigo-800 whitespace-nowrap hover:bg-indigo-100 cursor-help">Trung gian</div>
-                        </div>
-                        <!-- 3 -->
-                        <div class="absolute top-[90.5%] left-[79.4%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_40s_linear_infinite] bg-indigo-50 px-3 py-1.5 rounded-full shadow border border-indigo-300 text-xs sm:text-sm font-bold text-indigo-800 whitespace-nowrap hover:bg-indigo-100 cursor-help">Khách hàng</div>
-                        </div>
-                        <!-- 4 -->
-                        <div class="absolute top-[90.5%] left-[20.6%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_40s_linear_infinite] bg-indigo-50 px-3 py-1.5 rounded-full shadow border border-indigo-300 text-xs sm:text-sm font-bold text-indigo-800 whitespace-nowrap hover:bg-indigo-100 cursor-help">Đối thủ</div>
-                        </div>
-                        <!-- 5 -->
-                        <div class="absolute top-[34.5%] left-[2.5%] -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-                            <div class="animate-[spin_40s_linear_infinite] bg-indigo-50 px-3 py-1.5 rounded-full shadow border border-indigo-300 text-xs sm:text-sm font-bold text-indigo-800 whitespace-nowrap hover:bg-indigo-100 cursor-help">Công chúng</div>
-                        </div>
-                    </div>
-
-                    <!-- CORE (Company) -->
-                    <div class="absolute w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-indigo-600 shadow-xl flex items-center justify-center z-30 hover:scale-110 transition-transform cursor-pointer group">
-                        <span class="text-white font-bold text-sm sm:text-lg tracking-wide text-center">CÔNG TY</span>
-                        <div class="absolute w-max bg-slate-800 text-white text-xs p-3 rounded shadow-xl -top-12 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Hạt nhân điều hướng cốt lõi</div>
-                    </div>
-
-                    <!-- Decorative Labels -->
-                    <span class="absolute top-4 left-4 bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm pointer-events-none">Vĩ mô (Macro)</span>
-                    <span class="absolute top-20 left-20 bg-indigo-50 border border-indigo-100 text-indigo-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm pointer-events-none z-10 hidden sm:block">Vi mô (Micro)</span>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">2. Sáu Tác nhân Môi trường Vi mô (Micro)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl hover:shadow-md transition-shadow">
-                        <h4 class="font-bold text-indigo-900 mb-2">1. Công ty</h4>
-                        <p class="text-sm text-slate-700">Phối hợp chặt chẽ Ban giám đốc, R&D, Vận hành, Tài chính... tạo thành một khối thống nhất.</p>
-                    </div>
-                    <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl hover:shadow-md transition-shadow">
-                        <h4 class="font-bold text-indigo-900 mb-2">2. Nhà cung ứng</h4>
-                        <p class="text-sm text-slate-700">Cung cấp nguồn lực để sản xuất. Sự cố nguồn cung ảnh hưởng trực tiếp đến uy tín và doanh số.</p>
-                    </div>
-                    <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl hover:shadow-md transition-shadow">
-                        <h4 class="font-bold text-indigo-900 mb-2">3. Trung gian Tiếp thị</h4>
-                        <p class="text-sm text-slate-700">Nhà bán lẻ, đối tác phân phối, agency quảng cáo giúp đưa sản phẩm đến tay khách hàng.</p>
-                    </div>
-                    <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl hover:shadow-md transition-shadow">
-                        <h4 class="font-bold text-indigo-900 mb-2">4. Đối thủ cạnh tranh</h4>
-                        <p class="text-sm text-slate-700">Phải cung cấp giá trị vượt trội và định vị khác biệt trong tâm trí khách hàng.</p>
-                    </div>
-                    <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl hover:shadow-md transition-shadow">
-                        <h4 class="font-bold text-indigo-900 mb-2">5. Công chúng</h4>
-                        <p class="text-sm text-slate-700">Nhóm truyền thông, chính phủ, cộng đồng mạng có ảnh hưởng đến mục tiêu tổ chức.</p>
-                    </div>
-                    <div class="bg-indigo-600 text-white border border-indigo-700 p-5 rounded-xl hover:shadow-md transition-shadow shadow-sm transform scale-105 z-10">
-                        <h4 class="font-bold mb-2">6. Khách hàng</h4>
-                        <p class="text-sm opacity-90">Chủ thể quan trọng nhất. Mục tiêu của toàn bộ chuỗi giá trị là tạo dựng mối quan hệ có lợi với họ.</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-12">3. Năm Thị trường Khách hàng Mục tiêu</h3>
-                <div class="flex overflow-x-auto gap-4 pb-4 md:grid md:grid-cols-5 scroll-smooth snap-x">
-                    <div class="snap-start shrink-0 w-48 md:w-auto bg-slate-50 border border-slate-200 p-4 rounded text-center"><i class="fas fa-user-tag text-2xl text-slate-400 mb-2"></i><strong class="block text-sm">1. Người tiêu dùng (B2C)</strong></div>
-                    <div class="snap-start shrink-0 w-48 md:w-auto bg-slate-50 border border-slate-200 p-4 rounded text-center"><i class="fas fa-building text-2xl text-slate-400 mb-2"></i><strong class="block text-sm">2. Doanh nghiệp (B2B)</strong></div>
-                    <div class="snap-start shrink-0 w-48 md:w-auto bg-slate-50 border border-slate-200 p-4 rounded text-center"><i class="fas fa-store text-2xl text-slate-400 mb-2"></i><strong class="block text-sm">3. Bán lại (Reseller)</strong></div>
-                    <div class="snap-start shrink-0 w-48 md:w-auto bg-slate-50 border border-slate-200 p-4 rounded text-center"><i class="fas fa-landmark text-2xl text-slate-400 mb-2"></i><strong class="block text-sm">4. Chính phủ / Phi lợi nhuận</strong></div>
-                    <div class="snap-start shrink-0 w-48 md:w-auto bg-slate-50 border border-slate-200 p-4 rounded text-center"><i class="fas fa-globe text-2xl text-slate-400 mb-2"></i><strong class="block text-sm">5. Quốc tế (Global)</strong></div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-16">4. Sáu Lực lượng Môi trường Vĩ mô (Macro)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 grid-flow-row-dense">
-                    <div class="bg-sky-50 border border-sky-200 p-5 rounded-lg md:col-span-2 shadow-sm">
-                        <strong class="text-sky-900 block mb-2 text-lg"><i class="fas fa-microchip mr-2"></i>Môi trường Công nghệ</strong>
-                        <p class="text-sm text-slate-700">Lực lượng thay đổi nhanh và mạnh nhất. Công nghệ mới (AI, IoT, Geofencing) mở ra cơ hội nhưng đào thải kẻ chậm chân. <em>Chagee áp dụng Geofencing và máy pha tự động.</em></p>
-                    </div>
-                    <div class="bg-rose-50 border border-rose-200 p-5 rounded-lg shadow-sm">
-                        <strong class="text-rose-900 block mb-2"><i class="fas fa-users mr-2"></i>Nhân khẩu học</strong>
-                        <p class="text-sm text-slate-700">Xu hướng tuổi tác, Gen Z, Gen Alpha, dịch chuyển địa lý. Thế hệ mới cần "câu chuyện" chứ không chỉ sản phẩm.</p>
-                    </div>
-                    <div class="bg-amber-50 border border-amber-200 p-5 rounded-lg shadow-sm">
-                        <strong class="text-amber-900 block mb-2"><i class="fas fa-chart-line mr-2"></i>Kinh tế</strong>
-                        <p class="text-sm text-slate-700">Sức mua, lạm phát. Sự chuyển dịch sang "tiêu dùng thực dụng". <em>(Hiệu ứng son môi).</em></p>
-                    </div>
-                    <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-lg shadow-sm">
-                        <strong class="text-emerald-900 block mb-2"><i class="fas fa-leaf mr-2"></i>Tự nhiên</strong>
-                        <p class="text-sm text-slate-700">Khan hiếm nguyên liệu, bảo vệ sinh thái. <em>Chagee bỏ ly nhựa, dùng ly giấy 2 lớp và ống hút tre.</em></p>
-                    </div>
-                    <div class="bg-purple-50 border border-purple-200 p-5 rounded-lg md:col-span-2 shadow-sm">
-                        <strong class="text-purple-900 block mb-2"><i class="fas fa-yin-yang mr-2"></i>Văn hóa & Chính trị</strong>
-                        <p class="text-sm text-slate-700"><strong>Văn hóa:</strong> Trào lưu Guochao (Quốc Triều) - tự hào văn hóa Á Đông.<br><strong>Chính trị:</strong> Luật pháp dán nhãn dinh dưỡng khắt khe (VD: Nutri-Grade tại Singapore).</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Spotlight Case: Chagee for Chapter 3 -->
-            <section class="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl shadow-lg border border-red-100 p-8 sm:p-10 mb-10 relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 opacity-5 pointer-events-none">
-                    <i class="fas fa-leaf text-[200px] text-red-900"></i>
-                </div>
-                
-                <div class="relative z-10">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-600 text-white p-3 rounded-lg shadow-md mr-4">
-                            <i class="fas fa-search-dollar text-2xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-red-900 leading-tight">HỘP TIÊU ĐIỂM THỰC CHIẾN:<br>CHAGEE IN-ACTION (CHƯƠNG 3)</h2>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white/80 backdrop-blur rounded-lg p-5 border-l-4 border-red-500 shadow-sm">
-                            <h4 class="font-bold text-red-800 mb-2">Thích ứng Môi trường Vi mô:</h4>
-                            <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1">
-                                <li><strong>Công ty & Vận hành:</strong> Kết hợp R&D và thiết bị tự động để giảm thời gian pha trà dưới 10 giây.</li>
-                                <li><strong>Nhà cung ứng:</strong> Liên kết đồi trà Vân Nam hữu cơ và tập đoàn sữa nội địa để đảm bảo nguyên liệu sạch, giá rẻ.</li>
-                                <li><strong>Đối thủ cạnh tranh:</strong> Tránh đối đầu trực tiếp Heytea (siêu cao cấp) và Mixue (bình dân). Chagee chọn <em>Định vị khoảng trống</em> (Niche) ở mức "Cận cao cấp" (Premium-Mass).</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-white/80 backdrop-blur rounded-lg p-5 border-l-4 border-amber-500 shadow-sm">
-                            <h4 class="font-bold text-amber-800 mb-2">Lướt sóng Môi trường Vĩ mô:</h4>
-                            <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1">
-                                <li><strong>Nhân khẩu & Văn hóa:</strong> Bắt trend Gen Z và văn hóa Guochao (Quốc Triều). Ly trà sữa trở thành món phụ kiện check-in đậm chất Á Đông.</li>
-                                <li><strong>Công nghệ:</strong> Mini-app dùng Geofencing tự động báo mã giảm giá khi khách đến gần quán 100m.</li>
-                                <li><strong>Chính trị - Xã hội:</strong> Đối phó luật chống tiểu đường bằng tính năng "Tính calo tự động" trên App.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Zone Chapter 3 -->
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 border border-indigo-100 relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-bl-lg uppercase tracking-widest">Interactive Zone</div>
-                
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-8 flex items-center">
-                    <i class="fas fa-gamepad mr-3"></i> PHẦN V: THỬ THÁCH NHÀ QUẢN TRỊ (CHƯƠNG 3)
-                </h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 1 (Môi trường Vĩ mô)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Singapore áp dụng hệ thống phân loại dinh dưỡng Nutri-Grade nghiêm ngặt, buộc dán nhãn mức độ đường lên ly trà. Đây là lực lượng nào?</p>
-                        <div class="space-y-2 text-xs" id="quiz3-options-1">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_1" value="A" class="mr-2 text-indigo-600"> Kinh tế</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_1" value="B" class="mr-2 text-indigo-600"> Nhân khẩu học</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_1" value="C" class="mr-2 text-indigo-600"> Chính trị - Xã hội</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_1" value="D" class="mr-2 text-indigo-600"> Văn hóa</label>
-                        </div>
-                        <button onclick="checkQuiz3_1()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs">Kiểm tra</button>
-                        <div id="quiz-result-3-1" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 2 (Môi trường Vi mô)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Việc Chagee đầu tư tiền cùng người nông dân đồi trà Vân Nam để kiểm soát chất lượng đầu vào là tác động trực tiếp vào đối tượng nào?</p>
-                        <div class="space-y-2 text-xs" id="quiz3-options-2">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_2" value="A" class="mr-2 text-indigo-600"> Trung gian tiếp thị</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_2" value="B" class="mr-2 text-indigo-600"> Nhà cung ứng</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_2" value="C" class="mr-2 text-indigo-600"> Đối thủ</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q3_2" value="D" class="mr-2 text-indigo-600"> Công chúng</label>
-                        </div>
-                        <button onclick="checkQuiz3_2()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs">Kiểm tra</button>
-                        <div id="quiz-result-3-2" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-4 bg-slate-100 inline-block px-3 py-1 rounded text-sm"><i class="fas fa-briefcase text-amber-500 mr-2"></i>Thử thách Giám đốc Thương hiệu</h3>
-                    <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
-                        <p class="font-medium text-amber-900 mb-3">Vượt bão nhãn dinh dưỡng Nutri-Grade tại Singapore:</p>
-                        <p class="text-sm text-slate-700 mb-4">Trà sữa sữa tươi béo của Chagee bị xếp nhãn C (khuyến cáo hạn chế uống). Đối thủ lập tức bôi nhọ, doanh số giảm 15%.</p>
-                        <textarea class="w-full p-3 border border-amber-300 rounded focus:ring-2 focus:ring-amber-500 outline-none min-h-[100px] text-sm text-slate-700" placeholder="Viết kế hoạch phản ứng chủ động 3 bước của bạn..."></textarea>
-                    </div>
-                </div>
-
-            </section>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- CHAPTER 4 CONTENT -->
-        <!-- ========================================== -->
-        <div id="chapter-4" class="tab-content hidden">
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 mb-10 border border-slate-100">
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 flex items-center">
-                    <i class="fas fa-database mr-3"></i> PHẦN I: TỪ ĐIỂN THUẬT NGỮ CHUẨN KOTLER
-                </h2>
-                <div class="space-y-3 text-sm text-slate-700 mb-8">
-                    <p><strong>1. Thấu hiểu Khách hàng (Customer Insights):</strong> Những hiểu biết mới mẻ, sâu sắc dựa trên thông tin thị trường, là nền tảng tạo ra giá trị.</p>
-                    <p><strong>2. Hệ thống Thông tin Marketing (MIS):</strong> Con người và quy trình chuyên biệt nhằm đánh giá nhu cầu thông tin, phát triển và giúp người ra quyết định sử dụng thông tin đó.</p>
-                    <p><strong>3. Cơ sở Dữ liệu Nội bộ (Internal Databases):</strong> Bộ sưu tập thông tin kỹ thuật số thu thập từ các nguồn bên trong mạng lưới của công ty.</p>
-                    <p><strong>4. Tình báo Cạnh tranh (Competitive Intelligence):</strong> Sự giám sát, thu thập và phân tích hệ thống các thông tin công khai về đối thủ và thị trường.</p>
-                    <p><strong>5. Nghiên cứu Marketing (Marketing Research):</strong> Thiết kế, thu thập, phân tích và báo cáo dữ liệu liên quan đến một tình huống tiếp thị cụ thể.</p>
-                    <p><strong>6. Phân tích Tiếp thị (Marketing Analytics):</strong> Các công cụ phân tích đào sâu vào dữ liệu lớn (Big Data) để trích xuất thấu hiểu khách hàng.</p>
-                </div>
-
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-6 mt-16 flex items-center">
-                    <i class="fas fa-sitemap mr-3"></i> PHẦN II: KHUNG LÝ THUYẾT & SƠ ĐỒ TRỰC QUAN
-                </h2>
-                
-                <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8">1. Hệ thống Thông tin Tiếp thị (MIS Flow)</h3>
-                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 mb-12 flex flex-col md:flex-row gap-6 items-stretch">
-                    <!-- Column 1 -->
-                    <div class="flex-1 bg-white p-4 rounded-lg shadow-sm border border-indigo-200 flex flex-col items-center justify-center text-center relative md:flow-arrow-right">
-                        <i class="fas fa-user-tie text-4xl text-indigo-500 mb-3"></i>
-                        <h4 class="font-bold text-indigo-900 mb-2">Người dùng Thông tin<br>(Information Users)</h4>
-                        <p class="text-xs text-slate-600">Giám đốc Marketing, Đối tác nội bộ & bên ngoài. Xác định nhu cầu thông tin.</p>
-                    </div>
-                    <!-- Column 2 -->
-                    <div class="flex-[1.5] border-2 border-dashed border-teal-300 p-4 rounded-lg bg-teal-50/30 flex flex-col gap-3 relative md:flow-arrow-right">
-                        <div class="text-center font-bold text-teal-800 text-sm mb-1 uppercase tracking-wider">Hạt nhân Hệ thống (MIS)</div>
-                        <div class="bg-white p-3 rounded shadow-sm border border-teal-200 hover:-translate-y-1 transition-transform">
-                            <strong class="text-teal-700 text-sm block">1. Cơ sở Dữ liệu Nội bộ</strong>
-                        </div>
-                        <div class="bg-white p-3 rounded shadow-sm border border-teal-200 hover:-translate-y-1 transition-transform">
-                            <strong class="text-teal-700 text-sm block">2. Tình báo Tiếp thị</strong>
-                        </div>
-                        <div class="bg-white p-3 rounded shadow-sm border border-teal-200 hover:-translate-y-1 transition-transform">
-                            <strong class="text-teal-700 text-sm block">3. Nghiên cứu Marketing</strong>
-                        </div>
-                    </div>
-                    <!-- Column 3 -->
-                    <div class="flex-1 bg-slate-100 p-4 rounded-lg border border-slate-300 flex flex-col gap-2 relative">
-                        <div class="text-center font-bold text-slate-700 text-sm mb-2">Môi trường Tiếp thị</div>
-                        <span class="bg-white px-3 py-1.5 rounded-full text-xs font-bold text-slate-600 shadow-sm text-center">Thị trường Mục tiêu</span>
-                        <span class="bg-white px-3 py-1.5 rounded-full text-xs font-bold text-slate-600 shadow-sm text-center">Kênh Phân phối</span>
-                        <span class="bg-white px-3 py-1.5 rounded-full text-xs font-bold text-slate-600 shadow-sm text-center">Đối thủ Cạnh tranh</span>
-                        <span class="bg-white px-3 py-1.5 rounded-full text-xs font-bold text-slate-600 shadow-sm text-center">Lực lượng Vĩ mô</span>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-12">2. Quy trình Nghiên cứu Tiếp thị 4 bước</h3>
-                <div class="relative pl-6 md:pl-0 mb-16">
-                    <!-- Progress Line (Mobile vertical, Desktop horizontal) -->
-                    <div class="absolute left-[34px] top-0 bottom-0 w-0.5 bg-slate-300 md:h-0.5 md:w-full md:top-1/2 md:-translate-y-1/2 md:left-0 z-0 border-l-2 md:border-l-0 md:border-t-2 border-dashed"></div>
-                    
-                    <div class="flex flex-col md:flex-row justify-between gap-6 md:gap-4 relative z-10">
-                        <div class="bg-white p-4 rounded-xl shadow border-2 border-blue-500 w-full md:w-1/4 text-center cursor-pointer hover:shadow-lg transition-all group" onclick="toggleCh4Step(1)">
-                            <div class="w-10 h-10 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center mx-auto mb-3 absolute -left-5 top-1/2 -translate-y-1/2 md:static md:-translate-y-0 group-hover:scale-110 transition-transform">01</div>
-                            <h4 class="font-bold text-blue-900 text-sm mb-1 ml-4 md:ml-0">Xác định Vấn đề & Mục tiêu</h4>
-                            <p class="text-xs text-slate-500 ml-4 md:ml-0">Khám phá, Mô tả, hoặc Nhân quả</p>
-                        </div>
-                        
-                        <div class="bg-white p-4 rounded-xl shadow border border-slate-200 w-full md:w-1/4 text-center cursor-pointer hover:border-blue-400 transition-all group" onclick="toggleCh4Step(2)">
-                            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center mx-auto mb-3 absolute -left-5 top-1/2 -translate-y-1/2 md:static md:-translate-y-0 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">02</div>
-                            <h4 class="font-bold text-slate-700 text-sm mb-1 ml-4 md:ml-0 group-hover:text-blue-800">Lập Kế hoạch Nghiên cứu</h4>
-                            <p class="text-xs text-slate-500 ml-4 md:ml-0">Thu thập dữ liệu sơ cấp & thứ cấp</p>
-                        </div>
-                        
-                        <div class="bg-white p-4 rounded-xl shadow border border-slate-200 w-full md:w-1/4 text-center cursor-pointer hover:border-blue-400 transition-all group" onclick="toggleCh4Step(3)">
-                            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center mx-auto mb-3 absolute -left-5 top-1/2 -translate-y-1/2 md:static md:-translate-y-0 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">03</div>
-                            <h4 class="font-bold text-slate-700 text-sm mb-1 ml-4 md:ml-0 group-hover:text-blue-800">Thu thập & Phân tích Dữ liệu</h4>
-                            <p class="text-xs text-slate-500 ml-4 md:ml-0">Triển khai thực địa, xử lý số liệu</p>
-                        </div>
-
-                        <div class="bg-white p-4 rounded-xl shadow border border-slate-200 w-full md:w-1/4 text-center cursor-pointer hover:border-blue-400 transition-all group" onclick="toggleCh4Step(4)">
-                            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-600 font-bold flex items-center justify-center mx-auto mb-3 absolute -left-5 top-1/2 -translate-y-1/2 md:static md:-translate-y-0 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">04</div>
-                            <h4 class="font-bold text-slate-700 text-sm mb-1 ml-4 md:ml-0 group-hover:text-blue-800">Báo cáo Phát hiện</h4>
-                            <p class="text-xs text-slate-500 ml-4 md:ml-0">Giải thích và trình bày kết quả</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Expanded Details for Step 1 -->
-                    <div id="ch4-step-detail-1" class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg shadow-sm hidden">
-                        <strong class="text-blue-800 block mb-2">3 Mục tiêu Nghiên cứu Cốt lõi:</strong>
-                        <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1">
-                            <li><strong>Khám phá (Exploratory):</strong> Thu thập thông tin sơ bộ để xác định rõ vấn đề và giả thuyết.</li>
-                            <li><strong>Mô tả (Descriptive):</strong> Mô tả tiềm năng thị trường, nhân khẩu học và thái độ người tiêu dùng.</li>
-                            <li><strong>Nhân quả (Causal):</strong> Kiểm thử giả thuyết về mối quan hệ nguyên nhân - kết quả.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-slate-800 mb-6 mt-16">3. Ma trận Thu thập Dữ liệu Sơ cấp (Primary Data)</h3>
-                
-                <div class="bg-slate-50 rounded-xl border border-slate-200 p-2 sm:p-4 mb-8">
-                    <!-- Tabs Navigation -->
-                    <div class="flex overflow-x-auto whitespace-nowrap border-b border-slate-300 mb-6 scrollbar-thin">
-                        <button class="tab-btn-ch4 active px-4 py-3 text-sm font-semibold text-slate-600 border-b-2 border-transparent" onclick="openCh4Tab(event, 'tab-approaches')">1. Phương thức Tiếp cận</button>
-                        <button class="tab-btn-ch4 px-4 py-3 text-sm font-semibold text-slate-600 border-b-2 border-transparent" onclick="openCh4Tab(event, 'tab-contact')">2. Phương thức Tiếp xúc</button>
-                        <button class="tab-btn-ch4 px-4 py-3 text-sm font-semibold text-slate-600 border-b-2 border-transparent" onclick="openCh4Tab(event, 'tab-sampling')">3. Kế hoạch Chọn mẫu</button>
-                        <button class="tab-btn-ch4 px-4 py-3 text-sm font-semibold text-slate-600 border-b-2 border-transparent" onclick="openCh4Tab(event, 'tab-instruments')">4. Công cụ Nghiên cứu</button>
-                    </div>
-
-                    <!-- Tab Contents -->
-                    <div id="tab-approaches" class="tab-pane-ch4 active">
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                                <h4 class="font-bold text-indigo-800 mb-2">Quan sát (Observation)</h4>
-                                <p class="text-xs text-slate-600 mb-3">Thu thập dữ liệu bằng cách quan sát người, hành động thực tế (Bao gồm Ethnographic).</p>
-                                <div class="bg-emerald-50 text-emerald-800 text-[10px] p-2 rounded mb-1"><strong>+</strong> Nắm bắt hành vi tự nhiên khách quan.</div>
-                                <div class="bg-rose-50 text-rose-800 text-[10px] p-2 rounded"><strong>-</strong> Không hiểu được động cơ bên trong tâm trí.</div>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                                <h4 class="font-bold text-indigo-800 mb-2">Khảo sát (Survey)</h4>
-                                <p class="text-xs text-slate-600 mb-3">Hỏi mọi người về kiến thức, thái độ, sở thích và hành vi mua hàng.</p>
-                                <div class="bg-emerald-50 text-emerald-800 text-[10px] p-2 rounded mb-1"><strong>+</strong> Linh hoạt, dễ đo lường diện rộng.</div>
-                                <div class="bg-rose-50 text-rose-800 text-[10px] p-2 rounded"><strong>-</strong> Người dùng có thể trả lời không thật lòng.</div>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                                <h4 class="font-bold text-indigo-800 mb-2">Thực nghiệm (Experiment)</h4>
-                                <p class="text-xs text-slate-600 mb-3">Chọn nhóm đối tượng, đưa ra xử lý khác nhau, kiểm soát yếu tố liên quan.</p>
-                                <div class="bg-emerald-50 text-emerald-800 text-[10px] p-2 rounded mb-1"><strong>+</strong> Xác định rõ nguyên nhân - kết quả.</div>
-                                <div class="bg-rose-50 text-rose-800 text-[10px] p-2 rounded"><strong>-</strong> Khó kiểm soát mọi biến số ngoài thực địa.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tab-contact" class="tab-pane-ch4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div class="h-48 flip-card group">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front bg-white border border-slate-200 shadow-sm"><i class="fas fa-envelope text-3xl text-slate-400 mb-3"></i><h4 class="font-bold text-slate-700">Thư tín (Mail)</h4><span class="text-[10px] text-slate-400 mt-2">Hover để lật</span></div>
-                                    <div class="flip-card-back bg-slate-700 text-white p-4 text-left"><ul class="text-xs space-y-2"><li><strong class="text-emerald-400">+</strong> Chi phí rẻ, riêng tư cao.</li><li><strong class="text-rose-400">-</strong> Tốc độ rất chậm. Tỷ lệ phản hồi cực kỳ thấp.</li></ul></div>
-                                </div>
-                            </div>
-                            <div class="h-48 flip-card group">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front bg-white border border-slate-200 shadow-sm"><i class="fas fa-phone text-3xl text-slate-400 mb-3"></i><h4 class="font-bold text-slate-700">Điện thoại (Telephone)</h4><span class="text-[10px] text-slate-400 mt-2">Hover để lật</span></div>
-                                    <div class="flip-card-back bg-slate-700 text-white p-4 text-left"><ul class="text-xs space-y-2"><li><strong class="text-emerald-400">+</strong> Tốc độ thu thập nhanh, linh hoạt.</li><li><strong class="text-rose-400">-</strong> Dễ có định kiến từ người phỏng vấn. Bị từ chối nhiều.</li></ul></div>
-                                </div>
-                            </div>
-                            <div class="h-48 flip-card group">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front bg-white border border-slate-200 shadow-sm"><i class="fas fa-users text-3xl text-slate-400 mb-3"></i><h4 class="font-bold text-slate-700">Cá nhân (Personal)</h4><span class="text-[10px] text-slate-400 mt-2">Hover để lật</span></div>
-                                    <div class="flip-card-back bg-slate-700 text-white p-4 text-left"><ul class="text-xs space-y-2"><li><strong class="text-emerald-400">+</strong> Tương tác sâu, quan sát được biểu cảm cơ thể.</li><li><strong class="text-rose-400">-</strong> Chi phí rất cao, mẫu nhỏ lẻ.</li></ul></div>
-                                </div>
-                            </div>
-                            <div class="h-48 flip-card group">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front bg-indigo-50 border border-indigo-200 shadow-sm"><i class="fas fa-wifi text-3xl text-indigo-500 mb-3"></i><h4 class="font-bold text-indigo-800">Trực tuyến (Online)</h4><span class="text-[10px] text-indigo-400 mt-2">Hover để lật</span></div>
-                                    <div class="flip-card-back bg-indigo-700 text-white p-4 text-left"><ul class="text-xs space-y-2"><li><strong class="text-emerald-300">+</strong> Cực nhanh, chi phí siêu rẻ, thu mẫu diện rộng.</li><li><strong class="text-rose-300">-</strong> Thiếu kiểm soát danh tính thật sự của người trả lời.</li></ul></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tab-sampling" class="tab-pane-ch4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-white p-5 rounded-lg border border-slate-200">
-                                <h4 class="font-bold text-indigo-800 border-b border-slate-100 pb-2 mb-3">Mẫu Xác suất (Probability Sample)</h4>
-                                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-2">
-                                    <li>Mọi cá nhân đều có cơ hội được chọn đã biết trước.</li>
-                                    <li>Đại diện cao cho tổng thể thị trường.</li>
-                                    <li>Đo lường được sai số (margin of error).</li>
-                                    <li><em>Nhược điểm: Chi phí cao, tốn nhiều thời gian.</em></li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg border border-slate-200">
-                                <h4 class="font-bold text-slate-700 border-b border-slate-100 pb-2 mb-3">Mẫu Phi Xác suất (Nonprobability Sample)</h4>
-                                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-2">
-                                    <li>Chọn mẫu theo sự thuận tiện hoặc phán đoán của nhà nghiên cứu.</li>
-                                    <li>Tiết kiệm thời gian, dễ thực hiện.</li>
-                                    <li><em>Nhược điểm: Không thể dùng để khái quát hóa cho toàn bộ thị trường một cách chính xác.</em></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tab-instruments" class="tab-pane-ch4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-white p-5 rounded-lg border border-slate-200">
-                                <div class="flex items-center mb-3"><i class="fas fa-clipboard-list text-2xl text-indigo-500 mr-3"></i><h4 class="font-bold text-slate-800">Bảng câu hỏi (Questionnaire)</h4></div>
-                                <p class="text-sm text-slate-600 mb-2">Công cụ phổ biến nhất. Vô cùng linh hoạt với câu hỏi đóng (có sẵn lựa chọn) và câu hỏi mở (người dùng tự điền).</p>
-                                <div class="bg-rose-50 text-rose-800 text-[10px] p-2 rounded"><strong>Cảnh báo:</strong> Cần tránh sai lệch do cách dùng từ ngữ gợi ý (leading questions).</div>
-                            </div>
-                            <div class="bg-white p-5 rounded-lg border border-slate-200">
-                                <div class="flex items-center mb-3"><i class="fas fa-brain text-2xl text-teal-500 mr-3"></i><h4 class="font-bold text-slate-800">Thiết bị Cơ học/Sinh học (Mechanical)</h4></div>
-                                <p class="text-sm text-slate-600 mb-2">Đo lường hành vi vật lý hoặc phản ứng sinh học: máy quét mắt (Eye-tracking), thiết bị đo nhịp tim, điện não đồ (Neuromarketing).</p>
-                                <div class="bg-rose-50 text-rose-800 text-[10px] p-2 rounded"><strong>Cảnh báo:</strong> Đem lại dữ liệu sâu nhưng chi phí thiết lập cực kỳ đắt đỏ.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Spotlight Case: Chagee for Chapter 4 -->
-            <section class="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl shadow-lg border border-red-100 p-8 sm:p-10 mb-10 relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 opacity-5 pointer-events-none">
-                    <i class="fas fa-database text-[200px] text-red-900"></i>
-                </div>
-                
-                <div class="relative z-10">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-600 text-white p-3 rounded-lg shadow-md mr-4">
-                            <i class="fas fa-cogs text-2xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-red-900 leading-tight">HỘP TIÊU ĐIỂM THỰC CHIẾN:<br>HỆ THỐNG THẤU HIỂU KHÁCH HÀNG (CHAGEE MIS)</h2>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white/90 backdrop-blur rounded-lg p-5 shadow-sm border border-red-100">
-                            <h4 class="font-bold text-red-800 mb-2">1. Cơ sở Dữ liệu Nội bộ (Internal Databases)</h4>
-                            <p class="text-sm text-slate-700">Thu thập toàn bộ dữ liệu điểm chạm từ POS và Mini-app: lịch sử mua, mức đường (50% hay 100%), vị trí cửa hàng. Dữ liệu này tự động kết nối với kho tổng để dự báo nhu cầu nguyên liệu theo thời gian thực.</p>
-                        </div>
-                        
-                        <div class="bg-white/90 backdrop-blur rounded-lg p-5 shadow-sm border border-red-100">
-                            <h4 class="font-bold text-red-800 mb-2">2. Tình báo Tiếp thị (Competitive Intelligence)</h4>
-                            <p class="text-sm text-slate-700">Sử dụng <strong>Social Listening</strong> quét bình luận trên mạng về đối thủ. Dùng <strong>Khách hàng bí ẩn (Mystery Shoppers)</strong> đến tiệm Heytea bấm giờ đo tốc độ phục vụ và so sánh thiết kế ly giấy.</p>
-                        </div>
-                        
-                        <div class="bg-white/90 backdrop-blur rounded-lg p-5 shadow-sm border border-red-100">
-                            <h4 class="font-bold text-red-800 mb-2">3. Ứng dụng Phân tích Tiếp thị (Marketing Analytics & CRM)</h4>
-                            <p class="text-sm text-slate-700">Tạo điểm nhìn 360 độ về khách hàng. Ứng dụng Geofencing: tự động gửi voucher *"Trà nóng ngày mưa"* cá nhân hóa khi khách quen bước vào bán kính 100m, tạo sự thích thú vượt mong đợi (Customer Delight).</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Zone Chapter 4 -->
-            <section class="bg-white rounded-xl shadow-md p-8 sm:p-10 border border-indigo-100 relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-bl-lg uppercase tracking-widest">Interactive Zone</div>
-                
-                <h2 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-100 pb-3 mb-8 flex items-center">
-                    <i class="fas fa-gamepad mr-3"></i> PHẦN V: THỬ THÁCH NHÀ QUẢN TRỊ (CHƯƠNG 4)
-                </h2>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 1 (Mục tiêu NC)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Đổi thiết kế ly sơn mài tại 4 cửa hàng, giữ ly gốm tại 4 cửa hàng khác để xem doanh số có tăng không. Đây là nghiên cứu gì?</p>
-                        <div class="space-y-2 text-xs" id="quiz4-options-1">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_1" value="A" class="mr-2 text-indigo-600"> A. Nghiên cứu Khám phá</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_1" value="B" class="mr-2 text-indigo-600"> B. Nghiên cứu Mô tả</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_1" value="C" class="mr-2 text-indigo-600"> C. Nghiên cứu Nhân quả</label>
-                        </div>
-                        <button onclick="checkQuiz4_1()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs w-full">Kiểm tra</button>
-                        <div id="quiz-result-4-1" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 2 (Nguồn dữ liệu)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Thu thập ý kiến khách từ lịch sử mua hàng và tần suất quét mã QR thành viên trên App Chagee. Đây là nguồn dữ liệu nào?</p>
-                        <div class="space-y-2 text-xs" id="quiz4-options-2">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_2" value="A" class="mr-2 text-indigo-600"> A. Tình báo cạnh tranh</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_2" value="B" class="mr-2 text-indigo-600"> B. CSDL Nội bộ</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_2" value="C" class="mr-2 text-indigo-600"> C. NC bên thứ ba</label>
-                        </div>
-                        <button onclick="checkQuiz4_2()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs w-full">Kiểm tra</button>
-                        <div id="quiz-result-4-2" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm"><i class="fas fa-question-circle text-indigo-500 mr-2"></i>Câu 3 (Loại dữ liệu)</h3>
-                        <p class="text-slate-700 mb-4 text-xs leading-relaxed">Chagee mua báo cáo phân tích thị phần trà sữa VN từ Nielsen. Báo cáo này được gọi là gì?</p>
-                        <div class="space-y-2 text-xs" id="quiz4-options-3">
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_3" value="A" class="mr-2 text-indigo-600"> A. Dữ liệu Sơ cấp</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_3" value="B" class="mr-2 text-indigo-600"> B. CSDL Nội bộ</label>
-                            <label class="flex items-center p-2 rounded border border-slate-200 hover:bg-white cursor-pointer"><input type="radio" name="q4_3" value="C" class="mr-2 text-indigo-600"> C. Dữ liệu Thứ cấp</label>
-                        </div>
-                        <button onclick="checkQuiz4_3()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 px-4 rounded text-xs w-full">Kiểm tra</button>
-                        <div id="quiz-result-4-3" class="mt-3 hidden p-3 rounded text-xs"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-4 bg-slate-100 inline-block px-3 py-1 rounded text-sm"><i class="fas fa-briefcase text-amber-500 mr-2"></i>Thử thách Giám đốc Thương hiệu</h3>
-                    <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
-                        <p class="font-medium text-amber-900 mb-3">Khủng hoảng Quyền riêng tư (Privacy Crisis):</p>
-                        <p class="text-sm text-slate-700 mb-4">Chagee thu thập lịch sử vị trí địa lý của khách hàng ngầm để gửi voucher, bị giới công nghệ phát hiện bóc phốt, tẩy chay App hàng loạt.</p>
-                        <textarea class="w-full p-3 border border-amber-300 rounded focus:ring-2 focus:ring-amber-500 outline-none min-h-[100px] text-sm text-slate-700" placeholder="Viết nháp thông cáo báo chí giải quyết khủng hoảng đạo đức thu thập dữ liệu..."></textarea>
-                    </div>
-                </div>
-            </section>
+        <!-- KHU VỰC HIỂN THỊ NỘI DUNG ĐỘNG -->
+        <div id="content-area" class="w-full transition-opacity duration-300">
+            <div class="text-center p-10 text-slate-500">
+                <i class="fas fa-spinner fa-spin fa-2x mb-3 text-indigo-500"></i><br>Đang tải bài học...
+            </div>
         </div>
 
     </main>
 
+    <!-- Toàn bộ JavaScript dùng chung -->
     <script>
-        // -- Chapter 1 Accordion Logic --
-        let currentActiveStep = null;
+        // 1. Tạo 20 nút điều hướng
+        const navContainer = document.getElementById('nav-container');
+        for (let i = 1; i <= 20; i++) {
+            const btn = document.createElement('button');
+            btn.id = `tab-ch-${i}`;
+            btn.className = `chapter-tab py-4 px-6 font-medium text-slate-500 border-b-4 border-transparent hover:text-indigo-600 hover:bg-slate-50 transition-all text-sm sm:text-base outline-none shrink-0`;
+            btn.innerHTML = `Chương ${i}`;
+            btn.onclick = () => loadChapter(i);
+            navContainer.appendChild(btn);
+        }
+
+        // 2. Hàm Tải Trang Động (Linh hồn của hệ thống)
+        async function loadChapter(chNum) {
+            const contentArea = document.getElementById('content-area');
+            
+            // Xử lý Giao diện Nút
+            document.querySelectorAll('.chapter-tab').forEach(btn => {
+                btn.classList.remove('text-indigo-700', 'font-bold', 'border-indigo-600', 'bg-indigo-50');
+                btn.classList.add('text-slate-500', 'font-medium', 'border-transparent');
+            });
+            const activeBtn = document.getElementById(`tab-ch-${chNum}`);
+            if(activeBtn) activeBtn.classList.add('text-indigo-700', 'font-bold', 'border-indigo-600', 'bg-indigo-50', 'text-slate-500', 'font-medium', 'border-transparent');
+
+            // Gọi API Fetch file HTML tương ứng
+            try {
+                contentArea.style.opacity = 0; // Hiệu ứng mờ dần
+                
+                const response = await fetch(`chapters/ch${chNum}.html`);
+                if (!response.ok) throw new Error("Bài học này đang được biên soạn. Quý sinh viên vui lòng quay lại sau!");
+                
+                const htmlContent = await response.text();
+                contentArea.innerHTML = htmlContent;
+                contentArea.style.opacity = 1; // Hiệu ứng hiện ra
+
+                // Chạy lại MathJax để render công thức
+                if(window.MathJax) { MathJax.typesetPromise(); }
+
+            } catch (error) {
+                contentArea.style.opacity = 1;
+                contentArea.innerHTML = `
+                    <div class="bg-white rounded-xl shadow-md p-10 text-center border border-slate-100">
+                        <i class="fas fa-tools text-4xl text-slate-300 mb-4"></i>
+                        <h3 class="text-xl font-bold text-slate-700">${error.message}</h3>
+                    </div>`;
+            }
+        }
+
+        // Tải chương 1 mặc định khi mới vào web
+        window.onload = () => loadChapter(1);
+
+
+        // ==============================================================
+        // TẤT CẢ CÁC HÀM TIỆN ÍCH (QUIZ, ACCORDION...) ĐỂ Ở ĐÂY
+        // ==============================================================
         function toggleProcess(stepNumber) {
-            const contentId = `process-desc-${stepNumber}`;
-            const btnId = `step-btn-${stepNumber}`;
             const allContents = document.querySelectorAll('.process-content');
             const allBtns = document.querySelectorAll('[id^="step-btn-"]');
-            const targetContent = document.getElementById(contentId);
-            const targetBtn = document.getElementById(btnId);
-
+            const targetContent = document.getElementById(`process-desc-${stepNumber}`);
+            const targetBtn = document.getElementById(`step-btn-${stepNumber}`);
             if(!targetContent) return;
 
             allContents.forEach(el => el.classList.remove('active'));
             allBtns.forEach(btn => {
                 btn.classList.remove('ring-4', 'ring-offset-2');
-                if (btn.id === 'step-btn-5') {
-                    btn.classList.add('ring-amber-300');
-                } else {
-                    btn.classList.add('ring-teal-300');
-                }
+                if (btn.id === 'step-btn-5') btn.classList.add('ring-amber-300');
+                else btn.classList.add('ring-teal-300');
             });
-
-            if (currentActiveStep !== stepNumber) {
-                targetContent.classList.add('active');
-                targetBtn.classList.add('ring-4', 'ring-offset-2');
-                currentActiveStep = stepNumber;
-            } else {
-                currentActiveStep = null;
-            }
+            targetContent.classList.add('active');
+            targetBtn.classList.add('ring-4', 'ring-offset-2');
         }
 
-        // -- Chapter 4 Accordion Logic --
         function toggleCh4Step(step) {
-            const detailId = `ch4-step-detail-1`; // Simplified for demo: only step 1 has details
-            const detailBlock = document.getElementById(detailId);
-            
-            // In a real app, you'd show specific content per step. 
-            // Here we just toggle the visibility of the one details block if Step 1 is clicked.
+            const detailBlock = document.getElementById('ch4-step-detail-1');
+            if(!detailBlock) return;
             if(step === 1) {
                 if(detailBlock.classList.contains('hidden')) {
                     detailBlock.classList.remove('hidden');
@@ -1291,163 +156,30 @@
             }
         }
 
-        // -- Chapter 4 Tabs Logic --
         function openCh4Tab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-pane-ch4");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
+            for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
             tablinks = document.getElementsByClassName("tab-btn-ch4");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
+            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => { toggleProcess(1); }, 500);
-        });
-
-        // -- Tab Switcher Logic (Main Nav) --
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.remove('block');
-                el.classList.add('hidden');
-            });
-            document.querySelectorAll('nav button').forEach(btn => {
-                btn.classList.remove('text-indigo-700', 'font-bold', 'border-indigo-600', 'bg-indigo-50');
-                btn.classList.add('text-slate-500', 'font-medium', 'border-transparent');
-            });
+        function handleQuiz(qName, correctVal, successMsg, failMsg, resultBoxId) {
+            const selected = document.querySelector(`input[name="${qName}"]:checked`);
+            const resultBox = document.getElementById(resultBoxId);
+            if(!resultBox) return;
             
-            document.getElementById(tabId).classList.remove('hidden');
-            document.getElementById(tabId).classList.add('block');
+            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
             
-            const activeBtn = document.getElementById('tab-btn-' + tabId);
-            activeBtn.classList.remove('text-slate-500', 'font-medium', 'border-transparent');
-            activeBtn.classList.add('text-indigo-700', 'font-bold', 'border-indigo-600', 'bg-indigo-50');
+            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
             
-            if(window.MathJax) { MathJax.typesetPromise(); }
-        }
-
-        // -- Quiz Check Logic Ch1 & Ch2 & Ch3 --
-        function checkQuiz1() {
-            const selected = document.querySelector('input[name="q1"]:checked');
-            const resultBox = document.getElementById('quiz-result-1');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'C') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-2"></i>Chính xác!</strong> Quan điểm Sản phẩm dẫn đến rủi ro "Cận thị Tiếp thị" (Marketing Myopia).`;
+            if (selected.value === correctVal) {
+                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> ${successMsg}`;
                 resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
             } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-2"></i>Chưa đúng.</strong> Thử lại nhé.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-
-        function checkQuiz2_1() {
-            const selected = document.querySelector('input[name="q2_1"]:checked');
-            const resultBox = document.getElementById('quiz-result-2-1');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'D') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Là Dấu hỏi.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Nhớ lại lý thuyết BCG.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-
-        function checkQuiz2_2() {
-            const selected = document.querySelector('input[name="q2_2"]:checked');
-            const resultBox = document.getElementById('quiz-result-2-2');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'B') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Phát triển Sản phẩm.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Thử lại nhé.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-    
-        function checkQuiz3_1() {
-            const selected = document.querySelector('input[name="q3_1"]:checked');
-            const resultBox = document.getElementById('quiz-result-3-1');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'C') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Luật pháp nhà nước.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Thử lại.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-
-        function checkQuiz3_2() {
-            const selected = document.querySelector('input[name="q3_2"]:checked');
-            const resultBox = document.getElementById('quiz-result-3-2');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'B') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Nông trại là Nhà cung ứng.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Thử lại.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-
-        // -- Quiz Check Logic Ch4 --
-        function checkQuiz4_1() {
-            const selected = document.querySelector('input[name="q4_1"]:checked');
-            const resultBox = document.getElementById('quiz-result-4-1');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'C') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Nghiên cứu Nhân quả (Causal) dùng thực nghiệm.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Thử lại.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-
-        function checkQuiz4_2() {
-            const selected = document.querySelector('input[name="q4_2"]:checked');
-            const resultBox = document.getElementById('quiz-result-4-2');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'B') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Lấy từ App công ty là CSDL Nội bộ.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Thử lại.`;
-                resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
-            }
-            resultBox.classList.add('block');
-        }
-
-        function checkQuiz4_3() {
-            const selected = document.querySelector('input[name="q4_3"]:checked');
-            const resultBox = document.getElementById('quiz-result-4-3');
-            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-200', 'bg-red-100', 'text-red-800', 'border-red-200');
-            if (!selected) { alert("Vui lòng chọn đáp án!"); return; }
-            if (selected.value === 'C') {
-                resultBox.innerHTML = `<strong><i class="fas fa-check-circle mr-1"></i>Đúng!</strong> Mua báo cáo có sẵn là Dữ liệu Thứ cấp.`;
-                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
-            } else {
-                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> Thử lại.`;
+                resultBox.innerHTML = `<strong><i class="fas fa-times-circle mr-1"></i>Sai.</strong> ${failMsg}`;
                 resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
             }
             resultBox.classList.add('block');
