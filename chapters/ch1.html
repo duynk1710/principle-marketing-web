@@ -1,1 +1,353 @@
+<section class="mb-12 animate-[fadeIn_0.5s_ease-in]">
+    <div class="mb-8 border-b-2 border-indigo-600 pb-4">
+        <h1 class="text-3xl font-extrabold text-slate-800 uppercase tracking-tight">Nguyên lý Tiếp thị: Bài giảng chuyên sâu - Chương 1</h1>
+        <p class="text-slate-500 text-lg mt-2 font-medium">Tiếp thị: Tạo dựng Giá trị và Sự tương tác với Khách hàng</p>
+    </div>
 
+    <!-- PHẦN I: HỆ THỐNG HÓA LÝ THUYẾT GỐC -->
+    <section class="section-card bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 mb-8">
+        <h2 class="text-2xl font-bold text-indigo-800 mb-6 flex items-center">
+            <span class="bg-indigo-50 text-indigo-600 p-2.5 rounded-xl mr-3">
+                <i class="fas fa-book-open"></i>
+            </span>
+            PHẦN I: HỆ THỐNG HÓA LÝ THUYẾT GỐC KINH ĐIỂN
+        </h2>
+
+        <!-- 1. Định nghĩa -->
+        <div class="mb-10">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4 border-l-4 border-indigo-500 pl-4">1. Định nghĩa Học thuật Chuẩn về Tiếp thị</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-indigo-700 mb-3"><i class="fas fa-building mr-2"></i>Góc độ Doanh nghiệp</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Tiếp thị là quy trình tương tác với khách hàng, xây dựng mối quan hệ khách hàng mạnh mẽ, tạo ra giá trị cho khách hàng nhằm mục đích thu lại giá trị từ họ.</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-indigo-700 mb-3"><i class="fas fa-globe mr-2"></i>Góc độ Xã hội</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Tiếp thị là một quy trình xã hội và quản trị mà qua đó các cá nhân và tổ chức đạt được những gì họ cần (needs) và muốn (wants) thông qua việc kiến tạo và trao đổi giá trị.</p>
+                </div>
+            </div>
+            <div class="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-white rounded-xl border-l-4 border-indigo-400 italic text-slate-700 shadow-sm">
+                <i class="fas fa-quote-left text-indigo-300 mr-2 text-xl"></i>
+                Mục tiêu của tiếp thị là làm cho việc bán hàng trở nên không cần thiết. Nếu doanh nghiệp thấu hiểu khách hàng sâu sắc, sản phẩm tự nó sẽ khớp nối hoàn hảo với nhu cầu và tự bán chính nó.
+                <span class="block mt-2 font-bold text-indigo-800 text-sm">— Peter Drucker</span>
+            </div>
+        </div>
+
+        <!-- 2. Quy trình 5 bước -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold text-slate-800 mb-6 border-l-4 border-indigo-500 pl-4">2. Mô hình Quy trình Tiếp thị 5 bước (Figure 1.1)</h3>
+            <p class="text-slate-600 mb-6 text-sm">Bốn bước đầu tiên tập trung vào việc kiến tạo và chuyển giao giá trị cho khách hàng. Bước cuối cùng tập trung vào việc thu hồi giá trị tài chính từ họ. Hãy nhấn vào từng bước để xem chi tiết.</p>
+            
+            <div class="flex flex-wrap md:flex-nowrap gap-2 justify-between mb-4">
+                <button id="step-btn-1" onclick="toggleProcess(1)" class="flex-1 py-3 px-2 bg-teal-50 text-teal-800 rounded-lg font-bold text-sm hover:bg-teal-100 transition-all border border-teal-200 shadow-sm ring-4 ring-offset-2 ring-teal-300">B1: Hiểu thị trường</button>
+                <div class="hidden md:flex items-center text-teal-300"><i class="fas fa-chevron-right"></i></div>
+                <button id="step-btn-2" onclick="toggleProcess(2)" class="flex-1 py-3 px-2 bg-teal-50 text-teal-800 rounded-lg font-bold text-sm hover:bg-teal-100 transition-all border border-teal-200 shadow-sm">B2: Thiết kế STP</button>
+                <div class="hidden md:flex items-center text-teal-300"><i class="fas fa-chevron-right"></i></div>
+                <button id="step-btn-3" onclick="toggleProcess(3)" class="flex-1 py-3 px-2 bg-teal-50 text-teal-800 rounded-lg font-bold text-sm hover:bg-teal-100 transition-all border border-teal-200 shadow-sm">B3: Phát triển 4Ps</button>
+                <div class="hidden md:flex items-center text-teal-300"><i class="fas fa-chevron-right"></i></div>
+                <button id="step-btn-4" onclick="toggleProcess(4)" class="flex-1 py-3 px-2 bg-teal-50 text-teal-800 rounded-lg font-bold text-sm hover:bg-teal-100 transition-all border border-teal-200 shadow-sm">B4: CRM & Delight</button>
+                <div class="hidden md:flex items-center text-amber-400"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right -ml-1"></i></div>
+                <button id="step-btn-5" onclick="toggleProcess(5)" class="flex-1 py-3 px-2 bg-amber-50 text-amber-800 rounded-lg font-bold text-sm hover:bg-amber-100 transition-all border border-amber-300 shadow-sm relative overflow-hidden">
+                    B5: Thu hồi giá trị
+                </button>
+            </div>
+
+            <!-- Nội dung chi tiết các bước (Process Content) -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-inner overflow-hidden min-h-[120px]">
+                <div id="process-desc-1" class="process-content active px-6 text-sm text-slate-700">
+                    <h4 class="font-bold text-teal-700 text-lg mb-2"><i class="fas fa-search-dollar mr-2"></i>Bước 1: Thấu hiểu thị trường và nhu cầu khách hàng</h4>
+                    <p>Nhà tiếp thị cần nghiên cứu rạch ròi 5 khái niệm nền tảng: Nhu cầu (Needs), Mong muốn (Wants), Sức mua (Demands), Sản phẩm thị trường (Market Offerings) và Giá trị cảm nhận của khách hàng. Đặc biệt phải tránh cái bẫy "Cận thị tiếp thị" (Marketing Myopia).</p>
+                </div>
+                <div id="process-desc-2" class="process-content px-6 text-sm text-slate-700">
+                    <h4 class="font-bold text-teal-700 text-lg mb-2"><i class="fas fa-bullseye mr-2"></i>Bước 2: Thiết kế chiến lược tiếp thị hướng khách hàng</h4>
+                    <p>Trả lời hai câu hỏi cốt lõi: <strong>Phục vụ ai?</strong> (Phân khúc và Lựa chọn thị trường mục tiêu - STP) và <strong>Phục vụ họ bằng cách nào?</strong> (Tuyên ngôn giá trị - Value Proposition) để khác biệt hóa và định vị thương hiệu.</p>
+                </div>
+                <div id="process-desc-3" class="process-content px-6 text-sm text-slate-700">
+                    <h4 class="font-bold text-teal-700 text-lg mb-2"><i class="fas fa-cubes mr-2"></i>Bước 3: Xây dựng chương trình tiếp thị tích hợp</h4>
+                    <p>Triển khai chiến lược vào thực tiễn thông qua hỗn hợp tiếp thị 4Ps: Sản phẩm (Product), Giá cả (Price), Phân phối (Place), và Xúc tiến (Promotion) nhằm chuyển giao trọn vẹn giá trị đã hứa hẹn.</p>
+                </div>
+                <div id="process-desc-4" class="process-content px-6 text-sm text-slate-700">
+                    <h4 class="font-bold text-teal-700 text-lg mb-2"><i class="fas fa-heart mr-2"></i>Bước 4: Xây dựng quan hệ sinh lời và tạo sự thích thú</h4>
+                    <p>Quản trị quan hệ khách hàng (CRM) là quá trình xây dựng, duy trì các mối quan hệ bằng cách chuyển giao giá trị cảm nhận vượt trội. Biến khách hàng hài lòng thành khách hàng cuồng nhiệt (delighted customers).</p>
+                </div>
+                <div id="process-desc-5" class="process-content px-6 text-sm text-slate-700">
+                    <h4 class="font-bold text-amber-700 text-lg mb-2"><i class="fas fa-hand-holding-usd mr-2"></i>Bước 5: Thu hồi giá trị từ khách hàng</h4>
+                    <p>Thu hoạch kết quả từ 4 bước trên dưới dạng: Doanh số, Lợi nhuận, và quan trọng nhất là <strong>Giá trị vòng đời khách hàng (CLV)</strong> cùng với <strong>Tài sản khách hàng (Customer Equity)</strong> dài hạn.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Cận thị tiếp thị -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold text-slate-800 mb-6 border-l-4 border-indigo-500 pl-4">3. Bẫy Cận thị Tiếp thị (Marketing Myopia)</h3>
+            <div class="takeaway-card bg-rose-50 p-6 rounded-xl border border-rose-200 group flex flex-col md:flex-row items-center gap-6">
+                <div class="w-20 h-20 bg-rose-100 text-rose-600 rounded-full flex justify-center items-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                    <i class="fas fa-eye-slash text-3xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-rose-700 text-lg mb-2">Sai lầm chết người của nhà sản xuất</h4>
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                        Cận thị tiếp thị là sai lầm khi doanh nghiệp quá chú trọng vào các <strong>sản phẩm vật lý cụ thể</strong> mà họ cung cấp hơn là những <strong>lợi ích và trải nghiệm</strong> mà các sản phẩm đó mang lại.<br>
+                        <em>Ví dụ kinh điển của Theodore Levitt:</em> Nhà sản xuất bẫy chuột tin rằng thế giới cần một "chiếc bẫy chuột tốt hơn". Nhưng thực chất khách hàng cần một "giải pháp tiêu diệt lũ chuột". Nếu đối thủ ra mắt bình xịt hóa học, nhà sản xuất bẫy chuột sẽ phá sản.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Sơ đồ hệ thống tiếp thị -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold text-slate-800 mb-6 border-l-4 border-indigo-500 pl-4">4. Sơ đồ Hệ thống Tiếp thị Hiện đại (Figure 1.2)</h3>
+            <div class="p-8 section-card bg-slate-50 border border-slate-200 rounded-2xl relative overflow-hidden">
+                <!-- Vĩ mô -->
+                <div class="border-2 border-dashed border-slate-400 p-4 mb-8 text-center rounded-xl bg-white/50 text-slate-500 font-bold tracking-wider text-xs md:text-sm shadow-sm">
+                    CÁC LỰC LƯỢNG MÔI TRƯỜNG VĨ MÔ (Nhân khẩu, Kinh tế, Tự nhiên, Công nghệ, Chính trị...)
+                </div>
+                
+                <!-- Dòng chảy cốt lõi -->
+                <div class="flex flex-col md:flex-row justify-between items-stretch gap-4 relative z-10">
+                    <div class="flex-1 p-5 bg-white border border-slate-200 rounded-xl shadow-sm text-center group hover:border-indigo-400 hover:shadow-md transition-all flex flex-col justify-center">
+                        <div class="text-slate-400 text-2xl mb-2 group-hover:scale-110 transition-transform group-hover:text-indigo-500"><i class="fas fa-truck-loading"></i></div>
+                        <div class="font-bold text-slate-700 text-sm">NHÀ CUNG CẤP</div>
+                    </div>
+                    
+                    <div class="hidden md:flex flex-col justify-center text-slate-300">
+                        <i class="fas fa-arrow-right text-xl"></i>
+                    </div>
+                    <div class="md:hidden flex justify-center text-slate-300 py-1"><i class="fas fa-arrow-down text-xl"></i></div>
+                    
+                    <div class="flex-[1.5] p-5 bg-indigo-600 border border-indigo-700 rounded-xl shadow-md text-center group hover:bg-indigo-700 transition-all flex flex-col justify-center relative overflow-hidden">
+                        <div class="text-indigo-200 text-2xl mb-2 group-hover:scale-110 transition-transform group-hover:text-white"><i class="fas fa-building"></i></div>
+                        <div class="font-bold text-white text-sm">CÔNG TY CHÍNH</div>
+                        <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-white text-xs font-medium px-4">Cạnh tranh cùng Đối thủ để giành giật khách hàng</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hidden md:flex flex-col justify-center text-slate-300">
+                        <i class="fas fa-arrow-right text-xl"></i>
+                    </div>
+                    <div class="md:hidden flex justify-center text-slate-300 py-1"><i class="fas fa-arrow-down text-xl"></i></div>
+                    
+                    <div class="flex-1 p-5 bg-white border border-slate-200 rounded-xl shadow-sm text-center group hover:border-indigo-400 hover:shadow-md transition-all flex flex-col justify-center">
+                        <div class="text-slate-400 text-2xl mb-2 group-hover:scale-110 transition-transform group-hover:text-indigo-500"><i class="fas fa-store"></i></div>
+                        <div class="font-bold text-slate-700 text-sm">TRUNG GIAN</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center my-6">
+                    <i class="fas fa-arrow-down text-2xl text-slate-300"></i>
+                </div>
+
+                <div class="flex justify-center relative z-10">
+                    <div class="w-full md:w-1/2 p-5 bg-amber-100 border-2 border-amber-400 rounded-xl shadow-md text-center font-bold text-amber-900 text-lg group transform hover:-translate-y-1 transition-transform">
+                        <i class="fas fa-users mr-2 text-amber-600"></i>NGƯỜI TIÊU DÙNG CUỐI CÙNG
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Ma trận CRM -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold text-slate-800 mb-6 border-l-4 border-indigo-500 pl-4">5. Ma trận Phân loại Nhóm Quan hệ Khách hàng (Figure 1.5)</h3>
+            <p class="text-slate-600 mb-6 text-sm">Không phải mọi khách hàng đều đáng để đầu tư duy trì quan hệ dài hạn. Nhấp/Click vào từng ô ma trận để xem chiến lược quản trị tương ứng.</p>
+            
+            <div class="flex max-w-4xl mx-auto font-sans md:h-[400px] h-[500px]">
+                <!-- Trục Tung (Y) -->
+                <div class="w-10 md:w-14 flex items-center justify-center bg-slate-700 text-white text-[10px] md:text-xs font-bold tracking-widest rounded-l-xl shadow-inner" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+                    LỢI NHUẬN TIỀM NĂNG (Y)
+                </div>
+                
+                <!-- Lưới 2x2 -->
+                <div class="flex-1 grid grid-cols-2 grid-rows-2 gap-1 bg-slate-200 p-1 rounded-tr-xl">
+                    
+                    <!-- Quadrant 1: Butterflies -->
+                    <div class="matrix-quadrant flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-blue-50 border border-blue-200 flex flex-col items-center justify-center p-4 group">
+                                <i class="fas fa-kiwi-bird text-4xl text-blue-300 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-bold text-blue-800 text-lg">Butterflies</h4>
+                                <span class="text-xs text-blue-600 font-medium bg-blue-100 px-2 py-1 rounded mt-2">Bướm hoa</span>
+                            </div>
+                            <div class="flip-card-back bg-blue-700 text-white p-6 flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg border-b border-blue-400 pb-2 mb-2">BƯỚM HOA</h4>
+                                <p class="text-xs leading-relaxed">Độ trung thành ngắn hạn - Sinh lời cao.<br>Họ thích săn deal và khuyến mãi lớn. <br><strong>Chiến lược:</strong> Khai thác tối đa doanh thu ngắn hạn rồi để họ đi, không nên đầu tư xây dựng quan hệ.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quadrant 2: True Friends -->
+                    <div class="matrix-quadrant flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-emerald-50 border border-emerald-200 flex flex-col items-center justify-center p-4 group">
+                                <i class="fas fa-handshake text-4xl text-emerald-300 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-bold text-emerald-800 text-lg">True Friends</h4>
+                                <span class="text-xs text-emerald-600 font-medium bg-emerald-100 px-2 py-1 rounded mt-2">Bạn đích thực</span>
+                            </div>
+                            <div class="flip-card-back bg-emerald-700 text-white p-6 flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg border-b border-emerald-400 pb-2 mb-2">BẠN ĐÍCH THỰC</h4>
+                                <p class="text-xs leading-relaxed">Độ trung thành dài hạn - Sinh lời cao.<br>Sự kết nối tuyệt đối giữa thương hiệu và nhu cầu.<br><strong>Chiến lược:</strong> Đầu tư liên tục để làm họ thích thú (delight), biến họ thành những người truyền giáo thương hiệu (evangelists).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quadrant 3: Strangers -->
+                    <div class="matrix-quadrant flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-slate-100 border border-slate-300 flex flex-col items-center justify-center p-4 group">
+                                <i class="fas fa-user-secret text-4xl text-slate-300 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-bold text-slate-600 text-lg">Strangers</h4>
+                                <span class="text-xs text-slate-500 font-medium bg-slate-200 px-2 py-1 rounded mt-2">Người lạ</span>
+                            </div>
+                            <div class="flip-card-back bg-slate-700 text-white p-6 flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg border-b border-slate-500 pb-2 mb-2">NGƯỜI LẠ</h4>
+                                <p class="text-xs leading-relaxed">Độ trung thành ngắn hạn - Sinh lời thấp.<br>Nhu cầu không hề khớp với sản phẩm công ty.<br><strong>Chiến lược:</strong> Không đầu tư gì cả, thu được đồng nào hay đồng đó trong giao dịch đơn lẻ.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quadrant 4: Barnacles -->
+                    <div class="matrix-quadrant flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-orange-50 border border-orange-200 flex flex-col items-center justify-center p-4 group">
+                                <i class="fas fa-anchor text-4xl text-orange-300 mb-3 group-hover:scale-110 transition-transform"></i>
+                                <h4 class="font-bold text-orange-800 text-lg">Barnacles</h4>
+                                <span class="text-xs text-orange-600 font-medium bg-orange-100 px-2 py-1 rounded mt-2">Hàu bám đá</span>
+                            </div>
+                            <div class="flip-card-back bg-orange-700 text-white p-6 flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg border-b border-orange-400 pb-2 mb-2">HÀU BÁM ĐÁ</h4>
+                                <p class="text-xs leading-relaxed">Độ trung thành dài hạn - Sinh lời thấp.<br>Tới thường xuyên nhưng chi tiêu cực kỳ nhỏ giọt.<br><strong>Chiến lược:</strong> Áp dụng Up-selling/Cross-selling. Nếu họ vẫn không mang lại lợi nhuận, hãy "sa thải" họ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trục Hoành (X) -->
+            <div class="flex mt-1 pl-10 md:pl-14 max-w-4xl mx-auto">
+                <div class="flex-1 flex justify-between items-center bg-slate-700 text-white text-[10px] md:text-xs font-bold tracking-widest px-6 py-3 rounded-br-xl rounded-bl-sm shadow-inner">
+                    <span>NGẮN HẠN</span>
+                    <span class="hidden sm:inline">ĐỘ TRUNG THÀNH DỰ KIẾN (X)</span>
+                    <span>DÀI HẠN</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN II: SPOTLIGHT CASE STUDY -->
+    <section class="chagee-box bg-rose-50 border-2 border-rose-600 rounded-2xl p-6 md:p-8 mb-8 relative shadow-lg overflow-hidden group">
+        <div class="absolute top-0 right-0 bg-rose-600 text-white px-5 py-1.5 rounded-bl-xl font-bold text-xs uppercase tracking-wider">Spotlight Case Study</div>
+        
+        <h2 class="text-2xl font-black text-rose-900 mb-6 flex items-center">
+            <i class="fas fa-mug-hot text-3xl mr-4 text-rose-600 animate-float"></i>
+            CHAGEE IN-ACTION: TỪ LÝ THUYẾT ĐẾN THỰC CHIẾN
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-rose-100 relative">
+                <div class="absolute -top-3 -left-3 bg-rose-100 text-rose-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
+                <h3 class="font-bold text-rose-800 text-lg mb-3">Tuyên ngôn Giá trị (Value Proposition)</h3>
+                <p class="text-sm text-slate-700 leading-relaxed mb-3">
+                    Chagee phân tích <strong>Nhu cầu (Needs)</strong> giải khát của người trẻ. Tuy nhiên, <strong>Mong muốn (Wants)</strong> của họ đã tiến hóa: không còn là bột trà béo ngậy hóa học, mà là lá trà hữu cơ và sữa tươi nguyên chất 100%.
+                </p>
+                <div class="p-3 bg-rose-50 rounded text-sm text-rose-800 border-l-2 border-rose-400">
+                    <i class="fas fa-check-circle mr-1"></i> Bằng cách bán không gian "Trà đạo Đông Phương" và lối sống lành mạnh, Chagee đã né thành công bẫy <strong>Cận thị Tiếp thị</strong>.
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-rose-100 relative">
+                <div class="absolute -top-3 -left-3 bg-rose-100 text-rose-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
+                <h3 class="font-bold text-rose-800 text-lg mb-3">Chiến lược xử lý "Hàu bám đá" (Barnacles)</h3>
+                <p class="text-sm text-slate-700 leading-relaxed mb-4">
+                    Nhóm khách hàng mang laptop ngồi làm việc cả ngày tại quán, sử dụng máy lạnh và wifi liên tục nhưng chỉ gọi đúng 1 ly trà cơ bản size S (35,000đ).
+                </p>
+                <div class="bg-slate-800 text-white p-4 rounded-lg text-sm shadow-inner">
+                    <strong>Giải pháp CRM chuyên nghiệp:</strong>
+                    <ul class="list-none mt-2 space-y-2">
+                        <li><i class="fas fa-angle-right text-rose-400 mr-2"></i><strong>Up-selling tự động:</strong> App bật popup gợi ý mua combo Trà + Macaron khi quét QR gọi món.</li>
+                        <li><i class="fas fa-angle-right text-rose-400 mr-2"></i><strong>Tối ưu chi phí phục vụ:</strong> Giới hạn mã wifi 1.5 giờ in trên bill. Hết hạn bắt buộc phải phát sinh đơn mới.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN III: INTERACTIVE ZONE -->
+    <section class="section-card bg-indigo-50 p-6 md:p-8 rounded-2xl shadow-sm border border-indigo-200">
+        <h2 class="text-2xl font-bold text-indigo-900 mb-8 flex items-center">
+            <span class="bg-indigo-600 text-white p-2.5 rounded-xl mr-3 shadow-md">
+                <i class="fas fa-gamepad"></i>
+            </span>
+            INTERACTIVE ZONE: TRẮC NGHIỆM & THỬ THÁCH
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Quizzes (7 columns) -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="flex items-center text-indigo-800 font-bold text-lg mb-4 border-b border-indigo-200 pb-2">
+                    <i class="fas fa-question-circle mr-2"></i> I. Trắc nghiệm Tình huống
+                </div>
+                
+                <!-- Quiz 1 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-300 transition-colors">
+                    <p class="text-sm font-bold text-slate-800 mb-4 leading-relaxed">Câu 1: Một quản trị viên tuyên bố: <em>"Sản phẩm của chúng tôi có công nghệ tối tân nhất. Không cần tốn chi phí quảng cáo, khách hàng sẽ tự tìm mua"</em>. Người này đang mắc phải rủi ro gì?</p>
+                    <div class="flex flex-col text-sm text-slate-700 bg-slate-50 rounded-lg border border-slate-200 overflow-hidden divide-y divide-slate-200">
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_1" value="A" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> A. Quan điểm Sản xuất - Rủi ro giảm biên lợi nhuận.</label>
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_1" value="B" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> B. Quan điểm Bán hàng - Rủi ro mất niềm tin khách hàng.</label>
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_1" value="C" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> C. Quan điểm Sản phẩm - Rủi ro Cận thị Tiếp thị.</label>
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_1" value="D" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> D. Quan điểm Tiếp thị - Rủi ro bỏ sót khách trung thành.</label>
+                    </div>
+                    <button onclick="handleQuiz('q1_1', 'C', 'Lòng tin mù quáng vào tính năng kỹ thuật mà phớt lờ nhu cầu thực tế là biểu hiện của Quan điểm Sản phẩm, dẫn tới Cận thị Tiếp thị.', 'Rất tiếc. Hãy ôn lại định nghĩa Quan điểm Sản phẩm và bẫy Cận thị.', 'quiz-result-1-1')" class="mt-4 bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg text-sm hover:bg-indigo-700 transition-colors shadow-sm active:transform active:scale-95">Kiểm tra đáp án</button>
+                    <div id="quiz-result-1-1" class="mt-3 hidden p-3 rounded-lg text-sm"></div>
+                </div>
+
+                <!-- Quiz 2 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-300 transition-colors">
+                    <p class="text-sm font-bold text-slate-800 mb-4 leading-relaxed">Câu 2: Dựa vào Ma trận Quan hệ (Figure 1.5), nhóm khách hàng Gen Z tuần nào cũng order trên App, háo hức sưu tầm túi canvas và share nhiệt tình lên Tiktok thuộc nhóm nào?</p>
+                    <div class="flex flex-col text-sm text-slate-700 bg-slate-50 rounded-lg border border-slate-200 overflow-hidden divide-y divide-slate-200">
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_2" value="A" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> A. Butterflies (Bướm hoa)</label>
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_2" value="B" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> B. True Friends (Bạn đích thực)</label>
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_2" value="C" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> C. Strangers (Người lạ)</label>
+                        <label class="flex items-center p-3 hover:bg-indigo-50 cursor-pointer transition-colors"><input type="radio" name="q1_2" value="D" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> D. Barnacles (Hàu bám đá)</label>
+                    </div>
+                    <button onclick="handleQuiz('q1_2', 'B', 'Chuẩn xác! Họ có độ trung thành dài hạn và sẵn sàng chi tiền (lợi nhuận cao), đồng thời làm đại sứ truyền miệng cho brand.', 'Chưa đúng. Nhóm này vừa mua nhiều lần, vừa mang lại doanh thu tốt nhé.', 'quiz-result-1-2')" class="mt-4 bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg text-sm hover:bg-indigo-700 transition-colors shadow-sm active:transform active:scale-95">Kiểm tra đáp án</button>
+                    <div id="quiz-result-1-2" class="mt-3 hidden p-3 rounded-lg text-sm"></div>
+                </div>
+            </div>
+
+            <!-- Executive Challenge (5 columns) -->
+            <div class="lg:col-span-5">
+                <div class="flex items-center text-indigo-800 font-bold text-lg mb-4 border-b border-indigo-200 pb-2">
+                    <i class="fas fa-briefcase mr-2"></i> II. Thử thách Quản trị
+                </div>
+                
+                <div class="bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700 h-full flex flex-col relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 opacity-10">
+                        <i class="fas fa-chess-knight text-9xl text-white"></i>
+                    </div>
+                    
+                    <div class="flex items-center mb-4 relative z-10">
+                        <span class="bg-emerald-500 text-white text-[10px] uppercase font-black px-2 py-1 rounded shadow-sm mr-3 tracking-widest">Roleplay</span>
+                        <span class="text-sm font-bold text-slate-100">Brand/Growth Director Chagee VN</span>
+                    </div>
+                    
+                    <p class="text-sm text-slate-300 mb-5 relative z-10 leading-relaxed">
+                        Data từ App thành viên báo động đỏ: Nhóm <strong>Barnacles (Hàu bám đá)</strong> chiếm 25% lượng MAU (Khách hoạt động hàng tháng) nhưng chỉ đóng góp 3.5% tổng doanh thu. Họ gây tắc nghẽn mặt bằng vào giờ cao điểm.
+                    </p>
+                    
+                    <div class="bg-slate-900 p-4 rounded-lg border-l-4 border-amber-500 mb-5 relative z-10 shadow-inner">
+                        <h4 class="text-sm font-bold text-amber-400 mb-3 uppercase tracking-wider">Yêu cầu phân tích:</h4>
+                        <ol class="list-decimal pl-4 text-sm text-slate-300 space-y-3">
+                            <li>Áp dụng lý thuyết Giá trị tài sản khách hàng (Customer Equity) để giải thích tại sao <em>cost to serve</em> của nhóm này đang ăn mòn lợi nhuận dài hạn.</li>
+                            <li>Đề xuất 3 action-plan (chiến thuật) cụ thể để tái cấu trúc hành vi nhóm này mà không gây khủng hoảng truyền thông.</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="mt-auto relative z-10">
+                        <label class="block text-xs font-bold text-slate-400 mb-2 uppercase">Bản nháp chiến lược của bạn:</label>
+                        <textarea class="w-full text-sm p-4 bg-slate-100 text-slate-800 border-0 rounded-lg focus:ring-4 focus:ring-indigo-500 transition-all shadow-inner" rows="4" placeholder="Nhập gạch đầu dòng chiến lược vào đây..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
