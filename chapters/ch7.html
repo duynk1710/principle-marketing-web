@@ -148,13 +148,14 @@
             <h3 class="text-xl font-semibold text-slate-800 mb-6 border-l-4 border-indigo-500 pl-4">3. Ma trận Tuyên ngôn Giá trị Thắng thế (Winning Value Propositions)</h3>
             <p class="text-sm text-slate-600 mb-6">Nhấp vào từng thẻ định vị để xem chi tiết chiến lược và ví dụ thực tế.</p>
             
-            <!-- Desktop Layout: 3x3 Grid -->
+           <!-- Desktop Layout: 3x3 Grid -->
             <div class="hidden md:flex max-w-4xl mx-auto font-sans h-[500px]">
-                <!-- Y-Axis (Benefits) -->
+                <!-- Y-Axis (Benefits) - ĐÃ SỬA LỖI TỌA ĐỘ CSS -->
                 <div class="w-14 flex items-center justify-center bg-slate-700 text-white text-xs font-bold tracking-widest rounded-l-xl shadow-inner relative" style="writing-mode: vertical-rl; transform: rotate(180deg);">
                     LỢI ÍCH NHẬN ĐƯỢC (BENEFITS)
-                    <span class="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-300 font-normal" style="writing-mode: horizontal-tb; transform: rotate(180deg);">MORE</span>
-                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-300 font-normal" style="writing-mode: horizontal-tb; transform: rotate(180deg);">LESS</span>
+                    <!-- Do khung parent bị xoay 180 độ, 'bottom' sẽ hiển thị ở trên cùng, 'top' sẽ hiển thị ở dưới cùng -->
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-300 font-normal" style="writing-mode: horizontal-tb; transform: rotate(180deg);">MORE</span>
+                    <span class="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-300 font-normal" style="writing-mode: horizontal-tb; transform: rotate(180deg);">LESS</span>
                 </div>
                 
                 <!-- 3x3 Grid Matrix -->
@@ -237,7 +238,7 @@
                     <span class="absolute top-1/2 -translate-y-1/2 right-4 text-[10px] text-slate-300 font-normal">LESS</span>
                 </div>
             </div>
-
+            
             <!-- Mobile Layout: List Cards -->
             <div class="md:hidden grid grid-cols-1 gap-4">
                 <div class="takeaway-card bg-red-50 border border-red-200 p-4 rounded-xl">
