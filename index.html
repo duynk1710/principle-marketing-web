@@ -52,7 +52,20 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-6 sm:px-12 -mt-6 relative z-10">
-        
+        <!-- THANH TÌM KIẾM THÔNG MINH (SMART SEARCH) -->
+        <div class="relative w-full max-w-2xl mx-auto mb-6 z-50">
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                    <i class="fas fa-search text-indigo-400 group-focus-within:text-indigo-600 transition-colors"></i>
+                </div>
+                <input type="text" id="search-input" class="bg-white border-2 border-slate-200 text-slate-800 text-sm md:text-base rounded-full focus:ring-0 focus:border-indigo-500 block w-full pl-12 p-3.5 shadow-sm transition-all outline-none" placeholder="Tra cứu thuật ngữ (VD: SWOT, B2B, Hộp đen ý thức, Insight...)">
+                
+                <!-- Gợi ý Dropdown -->
+                <div id="search-dropdown" class="hidden absolute top-full mt-2 w-full bg-white rounded-xl shadow-2xl border border-slate-100 max-h-80 overflow-y-auto overscroll-contain">
+                    <!-- Kết quả tìm kiếm sẽ được JS bơm vào đây -->
+                </div>
+            </div>
+        </div>
         <!-- Thanh Điều Hướng (Hỗ trợ cuộn ngang cho 20 chương) -->
         <nav class="flex border-b border-slate-200 mb-8 bg-white rounded-t-xl shadow-sm overflow-x-auto whitespace-nowrap scrollbar-thin scroll-smooth" id="nav-container">
             <!-- Tự động sinh nút thông qua JS -->
@@ -183,6 +196,106 @@
                 resultBox.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-200');
             }
             resultBox.classList.add('block');
+
+            // ==============================================================
+        // HỆ THỐNG TÌM KIẾM THÔNG MINH (SMART SEARCH ENGINE)
+        // ==============================================================
+        
+        // 1. Từ điển Từ khóa (Sẽ được cập nhật thêm khi viết các chương mới)
+        const chapterIndex = [
+            { 
+                id: 1, 
+                title: "Chương 1: Khái quát về Tiếp thị", 
+                keywords: "định nghĩa tiếp thị marketing process 5 bước nhu cầu mong muốn sức mua need want demand cận thị tiếp thị marketing myopia crm clv giá trị khách hàng customer lifetime value butterflies bướm hoa true friends bạn đích thực strangers barnacles hàu bám đá" 
+            },
+            { 
+                id: 2, 
+                title: "Chương 2: Hoạch định Chiến lược", 
+                keywords: "hoạch định chiến lược sứ mệnh mission statement sbu danh mục kinh doanh ma trận bcg bò sữa cash cows ngôi sao stars dấu hỏi question marks chó mực dogs ma trận ansoff thâm nhập thị trường phát triển thị trường phát triển sản phẩm đa dạng hóa swot marketing roi nmc" 
+            },
+            { 
+                id: 3, 
+                title: "Chương 3: Môi trường Marketing", 
+                keywords: "môi trường vi mô vĩ mô microenvironment macroenvironment nhân khẩu học demography kinh tế tự nhiên công nghệ geofencing chính trị văn hóa guochao nhà cung ứng đối thủ trung gian công chúng publics hiệu ứng son môi" 
+            },
+            { 
+                id: 4, 
+                title: "Chương 4: Quản trị Thông tin (MIS)", 
+                keywords: "mis quản trị thông tin thấu hiểu khách hàng customer insights dữ liệu lớn big data cơ sở dữ liệu nội bộ tình báo cạnh tranh nghiên cứu marketing research sơ cấp thứ cấp quan sát khảo sát thực nghiệm chọn mẫu sampling bảng câu hỏi" 
+            },
+            { 
+                id: 5, 
+                title: "Chương 5: Hành vi Người tiêu dùng", 
+                keywords: "hành vi b2c consumer hộp đen ý thức black box văn hóa xã hội cá nhân tâm lý tháp maslow nhận thức phức tạp giảm bất hòa tìm đa dạng theo thói quen 5 bước ra quyết định chấp nhận sản phẩm mới innovators early adopters laggards" 
+            },
+            { 
+                id: 6, 
+                title: "Chương 6: Thị trường Doanh nghiệp B2B", 
+                keywords: "hành vi b2c doanh nghiệp cầu dẫn xuất derived demand trung tâm mua sắm buying center users deciders gatekeepers mua lại thẳng mua lại có điều chỉnh mua mới e-procurement phi lợi nhuận chính phủ đấu thầu 8 bước mua hàng vmi" 
+            }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchDropdown = document.getElementById('search-dropdown');
+
+        // 2. Lắng nghe sự kiện gõ phím
+        searchInput.addEventListener('input', function() {
+            // Chuyển đổi từ khóa về chữ thường và xóa dấu cách thừa
+            const query = this.value.toLowerCase().trim();
+            searchDropdown.innerHTML = ''; // Xóa kết quả cũ
+            
+            if (query === '') {
+                searchDropdown.classList.add('hidden');
+                return;
+            }
+
+            // Lọc các chương có chứa từ khóa trong Tiêu đề HOẶC Từ khóa (Keywords)
+            const results = chapterIndex.filter(ch => 
+                ch.title.toLowerCase().includes(query) || 
+                ch.keywords.toLowerCase().includes(query)
+            );
+
+            // 3. Hiển thị kết quả
+            if (results.length > 0) {
+                results.forEach(res => {
+                    const div = document.createElement('div');
+                    div.className = 'p-4 border-b border-slate-50 hover:bg-indigo-50 cursor-pointer flex flex-col group transition-colors';
+                    div.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-700 group-hover:text-indigo-700 transition-colors">${res.title}</span>
+                            <i class="fas fa-arrow-right text-slate-300 group-hover:text-indigo-500 text-xs"></i>
+                        </div>
+                        <span class="text-xs text-slate-500 mt-1 line-clamp-1">Phù hợp với từ khóa tìm kiếm của bạn...</span>
+                    `;
+                    // Nhấp vào gợi ý -> Load chương đó -> Ẩn thanh search
+                    div.onclick = () => {
+                        loadChapter(res.id);
+                        searchDropdown.classList.add('hidden');
+                        searchInput.value = ''; // Reset thanh search
+                        
+                        // Cuộn mượt mà xuống phần nội dung
+                        document.getElementById('content-area').scrollIntoView({ behavior: 'smooth' });
+                    };
+                    searchDropdown.appendChild(div);
+                });
+            } else {
+                // Nếu không tìm thấy
+                searchDropdown.innerHTML = `
+                    <div class="p-6 text-center">
+                        <i class="fas fa-search-minus text-3xl text-slate-300 mb-2"></i>
+                        <p class="text-sm text-slate-500 font-medium">Không tìm thấy chương chứa thuật ngữ này.</p>
+                    </div>
+                `;
+            }
+            searchDropdown.classList.remove('hidden');
+        });
+
+        // 4. Ẩn dropdown khi click ra ngoài vùng search
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+                searchDropdown.classList.add('hidden');
+            }
+        });
         }
     </script>
 </body>
